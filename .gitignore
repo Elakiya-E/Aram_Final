@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.env*
+!.env.example
+*.tsbuildinfo
+npm-debug.log*
+.trae
+*.bak
+*.original.png
+public/partners/backup_original/
+
