@@ -18,7 +18,7 @@ import { siteContent } from "@/content/site";
 import siteLogo from "./logo3-Picsart-AiImageEnhancer-removebg-preview.png";
 import { PartnersSection } from "@/components/PartnersSection";
 import { CapabilitiesSection } from "@/components/CapabilitiesSection";
-import { BusinessFlowHero } from "@/components/BusinessFlowHero";
+import { AramUniverseHero } from "@/components/AramUniverseHero";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -91,7 +91,7 @@ export default function Home() {
   return (
     <>
       <main id="top">
-        <BusinessFlowHero />
+        <AramUniverseHero />
 
         <CapabilitiesSection id="services" />
 
