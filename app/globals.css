@@ -3636,20 +3636,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .intelligence-canvas-container {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 1;
-}
-
-.intelligence-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: auto;
+  display: none;
 }
 
 .wwd-hero-inner {
@@ -3658,12 +3645,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   max-width: 920px;
   margin: 0 auto;
   text-align: center;
-  pointer-events: none;
-}
-
-.wwd-hero-inner a,
-.wwd-hero-inner button {
-  pointer-events: auto;
 }
 
 .wwd-eyebrow {

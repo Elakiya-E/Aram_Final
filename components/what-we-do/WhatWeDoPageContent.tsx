@@ -19,8 +19,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useCallback, useRef, useEffect } from "react";
-import type { LucideIcon } from "lucide-react";
-import { HeroIntelligenceCanvas } from "./HeroIntelligenceCanvas";
 import { CapabilityMetaphorVisual } from "./CapabilityMetaphorVisual";
 import { ProcessPathway } from "./ProcessPathway";
 import {
@@ -71,10 +69,6 @@ export function WhatWeDoPageContent() {
     setActiveIndex((prev) => (prev - 1 + CAPABILITIES.length) % CAPABILITIES.length);
   }, []);
 
-  const handleHeroHubClick = useCallback((index: number) => {
-    setActiveIndex(index);
-    explorerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
 
   // Synchronize active capability when navigating from MegaMenu links (e.g. /what-we-do#ai-automation)
   useEffect(() => {
@@ -97,12 +91,6 @@ export function WhatWeDoPageContent() {
     <div className="what-we-do-page">
       {/* SECTION 01: SIGNATURE HERO EXPERIENCE — ARAM INTELLIGENCE IN MOTION */}
       <section className="wwd-hero-section section-wrap" id="top">
-        {/* Animated intelligence network canvas */}
-        <HeroIntelligenceCanvas
-          activeHub={activeIndex}
-          onHubClick={handleHeroHubClick}
-        />
-
         <div className="wwd-hero-inner">
           <Reveal>
             <div className="eyebrow wwd-eyebrow">
