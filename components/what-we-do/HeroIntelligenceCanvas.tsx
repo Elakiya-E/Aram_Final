@@ -9,7 +9,6 @@ interface Node {
   vx: number;
   vy: number;
   radius: number;
-  baseRadius: number;
   isHub: boolean;
   hubIndex?: number;
   hubLabel?: string;
@@ -27,7 +26,7 @@ interface Signal {
 const HUB_LABELS = [
   "AI Solutions",
   "Automation",
-  "Software",
+  "Digital Products",
   "Data & Analytics",
   "Zoho Systems",
   "Cloud & Managed",
@@ -64,67 +63,84 @@ export function HeroIntelligenceCanvas({
     if (!ctx) return;
 
     let animId: number;
-    let width = (canvas.width = canvas.offsetWidth * window.devicePixelRatio);
-    let height = (canvas.height = canvas.offsetHeight * window.devicePixelRatio);
+
+    function getDimensions() {
+      const parent = canvas?.parentElement;
+      const w = parent?.clientWidth || window.innerWidth || 1200;
+      const h = parent?.clientHeight || 650;
+      return { w, h };
+    }
+
+    let { w: cssWidth, h: cssHeight } = getDimensions();
+    const dpr = window.devicePixelRatio || 1;
+    let width = (canvas.width = cssWidth * dpr);
+    let height = (canvas.height = cssHeight * dpr);
+
+    const nodes: Node[] = [];
+    const signals: Signal[] = [];
+
+    function initNodes() {
+      nodes.length = 0;
+      const hubAngles = [-100, -35, 30, 85, 145, 210];
+      const centerX = width * 0.5;
+      const centerY = height * 0.46;
+      const rx = Math.min(width * 0.42, 480 * dpr);
+      const ry = Math.min(height * 0.38, 220 * dpr);
+
+      // 6 Primary Hubs positioned in an elliptical ring framing the content
+      for (let i = 0; i < 6; i++) {
+        const rad = (hubAngles[i] * Math.PI) / 180;
+        const x = centerX + Math.cos(rad) * rx;
+        const y = centerY + Math.sin(rad) * ry;
+        nodes.push({
+          x,
+          y,
+          vx: (Math.random() - 0.5) * 0.25 * dpr,
+          vy: (Math.random() - 0.5) * 0.25 * dpr,
+          radius: 9 * dpr,
+          isHub: true,
+          hubIndex: i,
+          hubLabel: HUB_LABELS[i],
+          pulsePhase: i * 1.05,
+        });
+      }
+
+      // 26 Interstitial Synaptic Nodes
+      const totalNodes = 32;
+      for (let i = 6; i < totalNodes; i++) {
+        nodes.push({
+          x: (0.05 + Math.random() * 0.9) * width,
+          y: (0.05 + Math.random() * 0.9) * height,
+          vx: (Math.random() - 0.5) * 0.45 * dpr,
+          vy: (Math.random() - 0.5) * 0.45 * dpr,
+          radius: (3 + Math.random() * 2.5) * dpr,
+          isHub: false,
+          pulsePhase: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+
+    initNodes();
 
     function handleResize() {
       if (!canvas) return;
-      width = canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-      height = canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      const dims = getDimensions();
+      cssWidth = dims.w;
+      cssHeight = dims.h;
+      width = canvas.width = cssWidth * dpr;
+      height = canvas.height = cssHeight * dpr;
+      initNodes();
     }
 
     window.addEventListener("resize", handleResize);
 
-    // Initialize network nodes
-    const nodeCount = 32;
-    const nodes: Node[] = [];
-    const signals: Signal[] = [];
-
-    // Position the 6 Hub nodes in a balanced organic constellation
-    const hubAngles = [-90, -30, 30, 90, 150, 210];
-    const hubDistance = Math.min(width, height) * 0.32;
-    const centerX = width * 0.55;
-    const centerY = height * 0.48;
-
-    for (let i = 0; i < 6; i++) {
-      const rad = (hubAngles[i] * Math.PI) / 180;
-      const x = centerX + Math.cos(rad) * hubDistance;
-      const y = centerY + Math.sin(rad) * hubDistance;
-      nodes.push({
-        x,
-        y,
-        vx: (Math.random() - 0.5) * 0.15,
-        vy: (Math.random() - 0.5) * 0.15,
-        radius: 7 * window.devicePixelRatio,
-        baseRadius: 7 * window.devicePixelRatio,
-        isHub: true,
-        hubIndex: i,
-        hubLabel: HUB_LABELS[i],
-        pulsePhase: i * 1.1,
-      });
-    }
-
-    // Fill with synaptic connector nodes
-    for (let i = 6; i < nodeCount; i++) {
-      nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        radius: (2 + Math.random() * 2) * window.devicePixelRatio,
-        baseRadius: (2 + Math.random() * 2) * window.devicePixelRatio,
-        isHub: false,
-        pulsePhase: Math.random() * Math.PI * 2,
-      });
-    }
-
-    // Function to spawn traveling signals
+    // Spawn traveling signal packets
     function spawnSignal() {
-      if (signals.length > 8) return;
+      if (signals.length > 10 || nodes.length < 2) return;
       const from = Math.floor(Math.random() * nodes.length);
-      // Find a close neighbor
       let bestTo = -1;
-      let bestDist = 180 * window.devicePixelRatio;
+      let bestDist = 220 * dpr;
+
       for (let j = 0; j < nodes.length; j++) {
         if (j === from) continue;
         const dx = nodes[j].x - nodes[from].x;
@@ -135,16 +151,18 @@ export function HeroIntelligenceCanvas({
           bestTo = j;
         }
       }
+
       if (bestTo !== -1) {
         const isFromHub = nodes[from].isHub && nodes[from].hubIndex !== undefined;
         const color = isFromHub
           ? HUB_COLORS[nodes[from].hubIndex!]
           : "#8b5cf6";
+
         signals.push({
           fromNode: from,
           toNode: bestTo,
           progress: 0,
-          speed: 0.008 + Math.random() * 0.008,
+          speed: 0.012 + Math.random() * 0.012,
           color,
         });
       }
@@ -156,15 +174,15 @@ export function HeroIntelligenceCanvas({
       if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
 
-      // Spawn periodic signal pulses
-      if (!reducedMotion && timestamp - lastSpawn > 600) {
+      // Spawn periodic pulses
+      if (!reducedMotion && timestamp - lastSpawn > 450) {
         spawnSignal();
         lastSpawn = timestamp;
       }
 
-      // Update and draw connections
-      const maxConnectDist = 140 * window.devicePixelRatio;
+      const maxConnectDist = 180 * dpr;
 
+      // Draw Network Lines
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[j].x - nodes[i].x;
@@ -172,7 +190,7 @@ export function HeroIntelligenceCanvas({
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxConnectDist) {
-            const alpha = (1 - dist / maxConnectDist) * 0.32;
+            const ratio = 1 - dist / maxConnectDist;
             const isConnectedToActiveHub =
               activeHub !== undefined &&
               ((nodes[i].isHub && nodes[i].hubIndex === activeHub) ||
@@ -183,18 +201,19 @@ export function HeroIntelligenceCanvas({
             ctx.lineTo(nodes[j].x, nodes[j].y);
 
             if (isConnectedToActiveHub) {
-              ctx.strokeStyle = `rgba(139, 92, 246, ${Math.min(1, alpha * 2.5)})`;
-              ctx.lineWidth = 1.6 * window.devicePixelRatio;
+              ctx.strokeStyle = `rgba(139, 92, 246, ${Math.min(0.85, ratio * 1.5)})`;
+              ctx.lineWidth = 2 * dpr;
             } else {
-              ctx.strokeStyle = `rgba(100, 90, 130, ${alpha * 0.6})`;
-              ctx.lineWidth = 0.8 * window.devicePixelRatio;
+              // Visible, elegant lavender-charcoal lines
+              ctx.strokeStyle = `rgba(139, 92, 246, ${ratio * 0.32})`;
+              ctx.lineWidth = 1 * dpr;
             }
             ctx.stroke();
           }
         }
       }
 
-      // Update and draw traveling signals
+      // Draw Traveling Signals (Signal Pulses)
       if (!reducedMotion) {
         for (let s = signals.length - 1; s >= 0; s--) {
           const sig = signals[s];
@@ -211,40 +230,40 @@ export function HeroIntelligenceCanvas({
           const cx = from.x + (to.x - from.x) * sig.progress;
           const cy = from.y + (to.y - from.y) * sig.progress;
 
-          // Draw packet glow
+          // Glowing light packet
           ctx.beginPath();
-          ctx.arc(cx, cy, 3.5 * window.devicePixelRatio, 0, Math.PI * 2);
+          ctx.arc(cx, cy, 4.5 * dpr, 0, Math.PI * 2);
           ctx.fillStyle = sig.color;
           ctx.shadowColor = sig.color;
-          ctx.shadowBlur = 10 * window.devicePixelRatio;
+          ctx.shadowBlur = 12 * dpr;
           ctx.fill();
-          ctx.shadowBlur = 0; // reset
+          ctx.shadowBlur = 0;
         }
       }
 
-      // Draw mouse interaction connections
+      // Draw Mouse Connections
       if (mouseRef.current.active) {
-        const mx = mouseRef.current.x * window.devicePixelRatio;
-        const my = mouseRef.current.y * window.devicePixelRatio;
-        const mouseRadius = 160 * window.devicePixelRatio;
+        const mx = mouseRef.current.x * dpr;
+        const my = mouseRef.current.y * dpr;
+        const mouseRadius = 180 * dpr;
 
         for (let i = 0; i < nodes.length; i++) {
           const dx = nodes[i].x - mx;
           const dy = nodes[i].y - my;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < mouseRadius) {
-            const alpha = (1 - dist / mouseRadius) * 0.45;
+            const alpha = (1 - dist / mouseRadius) * 0.55;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(mx, my);
-            ctx.strokeStyle = `rgba(167, 139, 250, ${alpha})`;
-            ctx.lineWidth = 1 * window.devicePixelRatio;
+            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+            ctx.lineWidth = 1.4 * dpr;
             ctx.stroke();
           }
         }
       }
 
-      // Update and draw nodes
+      // Draw Nodes
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
 
@@ -252,13 +271,12 @@ export function HeroIntelligenceCanvas({
           node.x += node.vx;
           node.y += node.vy;
 
-          // Soft bounce off boundaries
-          if (node.x < 20) node.vx = Math.abs(node.vx);
-          if (node.x > width - 20) node.vx = -Math.abs(node.vx);
-          if (node.y < 20) node.vy = Math.abs(node.vy);
-          if (node.y > height - 20) node.vy = -Math.abs(node.vy);
+          if (node.x < 25 * dpr) node.vx = Math.abs(node.vx);
+          if (node.x > width - 25 * dpr) node.vx = -Math.abs(node.vx);
+          if (node.y < 25 * dpr) node.vy = Math.abs(node.vy);
+          if (node.y > height - 25 * dpr) node.vy = -Math.abs(node.vy);
 
-          node.pulsePhase += 0.03;
+          node.pulsePhase += 0.035;
         }
 
         const isHub = node.isHub;
@@ -268,65 +286,58 @@ export function HeroIntelligenceCanvas({
         if (isHub) {
           const hubColor =
             node.hubIndex !== undefined ? HUB_COLORS[node.hubIndex] : "#8b5cf6";
-          const pulseScale = 1 + Math.sin(node.pulsePhase) * 0.15;
+          const pulseScale = 1 + Math.sin(node.pulsePhase) * 0.2;
 
           // Outer halo
           ctx.beginPath();
           ctx.arc(
             node.x,
             node.y,
-            (isCurrentActive ? 18 : 12) * window.devicePixelRatio * pulseScale,
+            (isCurrentActive ? 22 : 15) * dpr * pulseScale,
             0,
             Math.PI * 2
           );
           ctx.fillStyle = isCurrentActive
-            ? `${hubColor}33`
-            : "rgba(139, 92, 246, 0.12)";
+            ? `${hubColor}38`
+            : `${hubColor}18`;
           ctx.fill();
 
-          // Hub border ring
+          // Hub ring
           ctx.beginPath();
           ctx.arc(
             node.x,
             node.y,
-            (isCurrentActive ? 9 : 6.5) * window.devicePixelRatio,
+            (isCurrentActive ? 10 : 8) * dpr,
             0,
             Math.PI * 2
           );
           ctx.fillStyle = "#ffffff";
           ctx.strokeStyle = hubColor;
-          ctx.lineWidth = 2 * window.devicePixelRatio;
+          ctx.lineWidth = 2.5 * dpr;
+          ctx.shadowColor = hubColor;
+          ctx.shadowBlur = isCurrentActive ? 14 * dpr : 6 * dpr;
           ctx.fill();
           ctx.stroke();
+          ctx.shadowBlur = 0;
 
-          // Center dot
+          // Center solid pip
           ctx.beginPath();
-          ctx.arc(
-            node.x,
-            node.y,
-            3 * window.devicePixelRatio,
-            0,
-            Math.PI * 2
-          );
+          ctx.arc(node.x, node.y, 4 * dpr, 0, Math.PI * 2);
           ctx.fillStyle = hubColor;
           ctx.fill();
 
-          // Hub Label tag
+          // Text pill label
           if (node.hubLabel) {
-            ctx.font = `600 ${10.5 * window.devicePixelRatio}px Inter, sans-serif`;
-            ctx.fillStyle = isCurrentActive ? "#14121a" : "#615e68";
+            ctx.font = `650 ${11 * dpr}px Inter, sans-serif`;
             ctx.textAlign = "center";
-            ctx.fillText(
-              node.hubLabel,
-              node.x,
-              node.y + 19 * window.devicePixelRatio
-            );
+            ctx.fillStyle = isCurrentActive ? "#14121a" : "#4b4657";
+            ctx.fillText(node.hubLabel, node.x, node.y + 22 * dpr);
           }
         } else {
           // Regular connector node
           ctx.beginPath();
           ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(139, 92, 246, 0.65)";
+          ctx.fillStyle = "rgba(139, 92, 246, 0.75)";
           ctx.fill();
         }
       }
@@ -355,9 +366,9 @@ export function HeroIntelligenceCanvas({
     function onClick(e: MouseEvent) {
       if (!canvas || !onHubClick) return;
       const rect = canvas.getBoundingClientRect();
-      const clickX = (e.clientX - rect.left) * window.devicePixelRatio;
-      const clickY = (e.clientY - rect.top) * window.devicePixelRatio;
-      const hitRadius = 24 * window.devicePixelRatio;
+      const clickX = (e.clientX - rect.left) * dpr;
+      const clickY = (e.clientY - rect.top) * dpr;
+      const hitRadius = 30 * dpr;
 
       for (let i = 0; i < nodes.length; i++) {
         if (nodes[i].isHub && nodes[i].hubIndex !== undefined) {

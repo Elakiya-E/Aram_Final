@@ -88,9 +88,9 @@ export function ProcessPathway() {
             y1="30"
             x2="950"
             y2="30"
-            stroke="var(--line)"
-            strokeWidth="2"
-            strokeDasharray="4 4"
+            stroke="rgba(139, 92, 246, 0.25)"
+            strokeWidth="2.5"
+            strokeDasharray="6 4"
           />
 
           {/* Active progress flow line */}

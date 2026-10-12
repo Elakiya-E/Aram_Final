@@ -15,6 +15,9 @@ import {
   Activity,
   Globe,
   Radio,
+  Server,
+  Network,
+  Share2,
 } from "lucide-react";
 import Image from "next/image";
 import siteLogo from "@/app/logo3-Picsart-AiImageEnhancer-removebg-preview.png";
@@ -34,83 +37,93 @@ export function CapabilityMetaphorVisual({
       <div
         className="metaphor-ambient-glow"
         style={{
-          background: `radial-gradient(circle at 50% 50%, ${accent}20 0%, transparent 70%)`,
+          background: `radial-gradient(circle at 50% 50%, ${accent}25 0%, transparent 70%)`,
         }}
         aria-hidden="true"
       />
 
-      {/* Central Interactive Canvas Container */}
+      {/* Screen Frame Window */}
       <div className="metaphor-screen-frame">
+        {/* Terminal Header */}
         <div className="metaphor-screen-header">
           <div className="metaphor-status-dots">
             <span className="dot dot-red" />
             <span className="dot dot-yellow" />
             <span className="dot dot-green" />
           </div>
-          <div className="metaphor-mode-badge" style={{ color: accent, borderColor: `${accent}40` }}>
+          <div
+            className="metaphor-mode-badge"
+            style={{ color: accent, borderColor: `${accent}44` }}
+          >
             <span className="status-ping" style={{ backgroundColor: accent }} />
-            <span>MODE: {activeId.toUpperCase().replace("-", " · ")}</span>
+            <span>ARAM.ENGINE // {activeId.toUpperCase().replace("-", "_")}</span>
           </div>
-          <span className="metaphor-fps">60 FPS · REALTIME</span>
+          <span className="metaphor-fps">60 FPS · ACTIVE</span>
         </div>
 
-        {/* Dynamic Interactive Visual State */}
+        {/* Viewport Stage (Explicit 420px height to prevent collapsing) */}
         <div className="metaphor-canvas-viewport">
           <AnimatePresence mode="wait">
             {/* 01: AI SOLUTIONS */}
             {activeId === "ai-solutions" && (
               <motion.div
                 key="ai"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.45 }}
-                className="metaphor-graphic-wrap"
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35 }}
+                className="metaphor-scene"
               >
-                <div className="ai-synapse-network">
-                  <svg className="metaphor-svg-overlay" viewBox="0 0 400 300" fill="none">
-                    <line x1="200" y1="150" x2="100" y2="80" stroke="#8b5cf6" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.6" />
-                    <line x1="200" y1="150" x2="300" y2="80" stroke="#8b5cf6" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.6" />
-                    <line x1="200" y1="150" x2="80" y2="220" stroke="#8b5cf6" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.6" />
-                    <line x1="200" y1="150" x2="320" y2="220" stroke="#8b5cf6" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.6" />
-                    <line x1="100" y1="80" x2="300" y2="80" stroke="#8b5cf6" strokeWidth="1" opacity="0.3" />
-                    <line x1="80" y1="220" x2="320" y2="220" stroke="#8b5cf6" strokeWidth="1" opacity="0.3" />
+                <div className="ai-scene-container">
+                  <svg className="scene-svg-background" viewBox="0 0 500 340" fill="none">
+                    {/* Neural Synapse Pathways */}
+                    <line x1="250" y1="170" x2="110" y2="70" stroke="#8b5cf6" strokeWidth="2" strokeDasharray="5 3" opacity="0.75" />
+                    <line x1="250" y1="170" x2="390" y2="70" stroke="#8b5cf6" strokeWidth="2" strokeDasharray="5 3" opacity="0.75" />
+                    <line x1="250" y1="170" x2="90" y2="270" stroke="#8b5cf6" strokeWidth="2" strokeDasharray="5 3" opacity="0.75" />
+                    <line x1="250" y1="170" x2="410" y2="270" stroke="#8b5cf6" strokeWidth="2" strokeDasharray="5 3" opacity="0.75" />
+                    <line x1="110" y1="70" x2="390" y2="70" stroke="#8b5cf6" strokeWidth="1.2" opacity="0.3" />
+                    <line x1="90" y1="270" x2="410" y2="270" stroke="#8b5cf6" strokeWidth="1.2" opacity="0.3" />
 
-                    {/* Concentric neural ripples */}
-                    <circle cx="200" cy="150" r="45" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
-                    <circle cx="200" cy="150" r="75" stroke="#8b5cf6" strokeWidth="0.8" opacity="0.25" />
+                    {/* Concentric Thought Rings */}
+                    <circle cx="250" cy="170" r="50" stroke="#8b5cf6" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.45" />
+                    <circle cx="250" cy="170" r="85" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="6 6" opacity="0.3" />
+                    <circle cx="250" cy="170" r="120" stroke="#8b5cf6" strokeWidth="0.8" opacity="0.18" />
+
+                    {/* Moving pulse dots */}
+                    <circle cx="180" cy="120" r="4" fill="#8b5cf6" filter="drop-shadow(0 0 6px #8b5cf6)" />
+                    <circle cx="320" cy="120" r="4" fill="#8b5cf6" filter="drop-shadow(0 0 6px #8b5cf6)" />
                   </svg>
 
                   {/* Core Intelligence Hub */}
-                  <div className="neural-core-hub">
-                    <div className="neural-pulse-ring" />
-                    <Bot size={28} className="text-[#8b5cf6]" />
-                    <span className="hub-sublabel">COGNITIVE ENGINE</span>
+                  <div className="scene-core-hub">
+                    <div className="core-hub-pulse" />
+                    <Bot size={32} className="text-[#8b5cf6]" />
+                    <span className="core-hub-text">COGNITIVE ENGINE</span>
                   </div>
 
-                  {/* Radiating Satellite Nodes */}
-                  <div className="sat-node sat-top-left">
-                    <span className="sat-dot" />
+                  {/* Satellites */}
+                  <div className="scene-sat sat-tl">
+                    <span className="sat-indicator" style={{ backgroundColor: "#8b5cf6" }} />
                     <b>RAG Ingestion</b>
                     <small>Knowledge Retrieval</small>
                   </div>
 
-                  <div className="sat-node sat-top-right">
-                    <span className="sat-dot" />
+                  <div className="scene-sat sat-tr">
+                    <span className="sat-indicator" style={{ backgroundColor: "#8b5cf6" }} />
                     <b>Custom Copilots</b>
                     <small>Autonomous Assistance</small>
                   </div>
 
-                  <div className="sat-node sat-bottom-left">
-                    <span className="sat-dot" />
+                  <div className="scene-sat sat-bl">
+                    <span className="sat-indicator" style={{ backgroundColor: "#8b5cf6" }} />
                     <b>NLP Classifiers</b>
-                    <small>Intent Parsing</small>
+                    <small>Semantic Intelligence</small>
                   </div>
 
-                  <div className="sat-node sat-bottom-right">
-                    <span className="sat-dot" />
+                  <div className="scene-sat sat-br">
+                    <span className="sat-indicator" style={{ backgroundColor: "#8b5cf6" }} />
                     <b>Decision Logic</b>
-                    <small>Structured Outcomes</small>
+                    <small>Useful Outcomes</small>
                   </div>
                 </div>
               </motion.div>
@@ -120,56 +133,56 @@ export function CapabilityMetaphorVisual({
             {activeId === "ai-automation" && (
               <motion.div
                 key="automation"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.45 }}
-                className="metaphor-graphic-wrap"
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35 }}
+                className="metaphor-scene"
               >
-                <div className="automation-pipeline-view">
-                  <svg className="metaphor-svg-overlay" viewBox="0 0 420 300" fill="none">
-                    {/* Pipeline connection path */}
+                <div className="automation-scene-container">
+                  <svg className="scene-svg-background" viewBox="0 0 500 340" fill="none">
+                    {/* Pipeline conduits */}
                     <path
-                      d="M 50 150 C 130 150, 140 90, 210 90 C 280 90, 290 150, 370 150"
+                      d="M 60 170 C 150 170, 160 100, 250 100 C 340 100, 350 170, 440 170"
                       stroke="#6366f1"
-                      strokeWidth="2.5"
+                      strokeWidth="2.8"
                       strokeLinecap="round"
                     />
                     <path
-                      d="M 50 150 C 130 150, 140 210, 210 210 C 280 210, 290 150, 370 150"
+                      d="M 60 170 C 150 170, 160 240, 250 240 C 340 240, 350 170, 440 170"
                       stroke="#6366f1"
-                      strokeWidth="2.5"
+                      strokeWidth="2.8"
                       strokeLinecap="round"
                       strokeDasharray="6 4"
-                      opacity="0.8"
                     />
 
-                    {/* Moving pulse along path */}
-                    <circle cx="210" cy="90" r="5" fill="#6366f1" filter="drop-shadow(0 0 6px #6366f1)" />
+                    {/* Animated signal pulse along route */}
+                    <circle cx="250" cy="100" r="5" fill="#6366f1" filter="drop-shadow(0 0 8px #6366f1)" />
+                    <circle cx="250" cy="240" r="5" fill="#6366f1" filter="drop-shadow(0 0 8px #6366f1)" />
                   </svg>
 
-                  <div className="pipeline-step-node step-trigger">
+                  <div className="pipeline-node node-left">
                     <Zap size={18} className="text-[#6366f1]" />
-                    <span className="step-name">EVENT TRIGGER</span>
-                    <small>Incoming Webhook</small>
+                    <b>Event Ingestion</b>
+                    <small>Multi-App Webhooks</small>
                   </div>
 
-                  <div className="pipeline-step-node step-orchestrator">
-                    <Workflow size={22} className="text-[#6366f1]" />
-                    <span className="step-name">SMART DISPATCHER</span>
-                    <small>Routing &amp; Verification</small>
+                  <div className="pipeline-node node-mid">
+                    <Workflow size={24} className="text-[#6366f1]" />
+                    <b>Workflow Router</b>
+                    <small>Auto Rule Orchestration</small>
                   </div>
 
-                  <div className="pipeline-step-node step-action-a">
+                  <div className="pipeline-node node-rt">
                     <CheckCircle2 size={16} className="text-[#10b981]" />
-                    <span className="step-name">BRANCH ALPHA</span>
-                    <small>Data Transformation</small>
+                    <b>Target Sync</b>
+                    <small>CRM &amp; Data Pipeline</small>
                   </div>
 
-                  <div className="pipeline-step-node step-action-b">
+                  <div className="pipeline-node node-rb">
                     <CheckCircle2 size={16} className="text-[#6366f1]" />
-                    <span className="step-name">BRANCH BETA</span>
-                    <small>Sync &amp; Notification</small>
+                    <b>Automated Alerts</b>
+                    <small>Team Notifications</small>
                   </div>
                 </div>
               </motion.div>
@@ -179,49 +192,49 @@ export function CapabilityMetaphorVisual({
             {activeId === "software-products" && (
               <motion.div
                 key="software"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.45 }}
-                className="metaphor-graphic-wrap"
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35 }}
+                className="metaphor-scene"
               >
-                <div className="software-architecture-stack">
-                  <div className="arch-layer arch-layer-top">
-                    <div className="layer-badge">TIER 01: CLIENT &amp; INTERFACES</div>
-                    <div className="layer-chips">
+                <div className="software-scene-container">
+                  <div className="software-tier-card tier-top">
+                    <div className="tier-badge">TIER 01 · CLIENT &amp; DIGITAL INTERFACES</div>
+                    <div className="tier-pills">
                       <span>Next.js Web Platforms</span>
-                      <span>Native Mobile Apps</span>
-                      <span>Responsive Portals</span>
+                      <span>iOS &amp; Android Apps</span>
+                      <span>Enterprise Portals</span>
                     </div>
                   </div>
 
-                  <div className="arch-connector-v">
-                    <span className="arch-line" />
-                    <small>REST &amp; GRAPHQL PROTOCOLS</small>
-                    <span className="arch-line" />
+                  <div className="tier-connector">
+                    <span className="tier-wire" />
+                    <span className="tier-label">SECURE REST &amp; GRAPHQL ENDPOINTS</span>
+                    <span className="tier-wire" />
                   </div>
 
-                  <div className="arch-layer arch-layer-mid">
-                    <div className="layer-badge">TIER 02: BUSINESS LOGIC &amp; BACKEND</div>
-                    <div className="layer-chips">
-                      <span>Microservices</span>
-                      <span>Secure Auth &amp; IAM</span>
-                      <span>Worker Queues</span>
+                  <div className="software-tier-card tier-mid">
+                    <div className="tier-badge">TIER 02 · BUSINESS LOGIC &amp; MICROSERVICES</div>
+                    <div className="tier-pills">
+                      <span>Serverless Edge Workers</span>
+                      <span>Auth &amp; IAM Security</span>
+                      <span>Task Queues</span>
                     </div>
                   </div>
 
-                  <div className="arch-connector-v">
-                    <span className="arch-line" />
-                    <small>ACID PERSISTENCE &amp; CACHE</small>
-                    <span className="arch-line" />
+                  <div className="tier-connector">
+                    <span className="tier-wire" />
+                    <span className="tier-label">DATABASE PERSISTENCE &amp; CACHE LAYER</span>
+                    <span className="tier-wire" />
                   </div>
 
-                  <div className="arch-layer arch-layer-bottom">
-                    <div className="layer-badge">TIER 03: DISTRIBUTED DATA STORE</div>
-                    <div className="layer-chips">
-                      <span>PostgreSQL &amp; Redis</span>
-                      <span>Edge Object Storage</span>
-                      <span>Event Bus</span>
+                  <div className="software-tier-card tier-bot">
+                    <div className="tier-badge">TIER 03 · SCALABLE DATA INFRASTRUCTURE</div>
+                    <div className="tier-pills">
+                      <span>PostgreSQL Relational DB</span>
+                      <span>Redis In-Memory</span>
+                      <span>Event Bus Storage</span>
                     </div>
                   </div>
                 </div>
@@ -232,59 +245,58 @@ export function CapabilityMetaphorVisual({
             {activeId === "data-analytics" && (
               <motion.div
                 key="data"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.45 }}
-                className="metaphor-graphic-wrap"
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35 }}
+                className="metaphor-scene"
               >
-                <div className="data-telemetry-view">
-                  <div className="telemetry-top-stats">
-                    <div className="telemetry-stat">
+                <div className="data-scene-container">
+                  <div className="data-kpi-row">
+                    <div className="data-kpi-card">
                       <small>INGESTION RATE</small>
-                      <b>4.2k / sec</b>
+                      <b>5.8k / sec</b>
                     </div>
-                    <div className="telemetry-stat">
+                    <div className="data-kpi-card">
                       <small>PIPELINE LATENCY</small>
-                      <b className="text-[#10b981]">14ms</b>
+                      <b className="text-[#10b981]">11ms</b>
                     </div>
-                    <div className="telemetry-stat">
-                      <small>ACCURACY</small>
-                      <b>99.98%</b>
+                    <div className="data-kpi-card">
+                      <small>DATA ACCURACY</small>
+                      <b>99.99%</b>
                     </div>
                   </div>
 
-                  {/* Data Waveform / Sparklines */}
-                  <div className="telemetry-chart-area">
-                    <svg className="telemetry-svg" viewBox="0 0 380 120" fill="none">
+                  <div className="data-chart-viewport">
+                    <svg className="data-chart-svg" viewBox="0 0 460 140" fill="none">
                       <defs>
-                        <linearGradient id="dataGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#10b981" stopOpacity="0.35" />
+                        <linearGradient id="dataWaveGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
                           <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
                         </linearGradient>
                       </defs>
                       <path
-                        d="M 0 90 Q 40 40, 80 70 T 160 50 T 240 30 T 320 60 T 380 40 L 380 120 L 0 120 Z"
-                        fill="url(#dataGrad)"
+                        d="M 0 100 Q 50 30, 100 80 T 200 50 T 300 20 T 400 70 T 460 30 L 460 140 L 0 140 Z"
+                        fill="url(#dataWaveGrad)"
                       />
                       <path
-                        d="M 0 90 Q 40 40, 80 70 T 160 50 T 240 30 T 320 60 T 380 40"
+                        d="M 0 100 Q 50 30, 100 80 T 200 50 T 300 20 T 400 70 T 460 30"
                         stroke="#10b981"
-                        strokeWidth="2.5"
+                        strokeWidth="3"
                         fill="none"
                       />
-                      <circle cx="380" cy="40" r="4" fill="#10b981" />
+                      <circle cx="460" cy="30" r="5" fill="#10b981" filter="drop-shadow(0 0 8px #10b981)" />
                     </svg>
                   </div>
 
-                  <div className="telemetry-metrics-bar">
-                    <div className="metric-pill">
-                      <Activity size={13} className="text-[#10b981]" />
-                      <span>Executive KPI Dashboards</span>
+                  <div className="data-summary-pills">
+                    <div className="data-summary-pill">
+                      <Activity size={14} className="text-[#10b981]" />
+                      <span>Real-Time Leadership KPI Dashboards</span>
                     </div>
-                    <div className="metric-pill">
-                      <Database size={13} className="text-[#10b981]" />
-                      <span>Unified Data Warehouse</span>
+                    <div className="data-summary-pill">
+                      <Database size={14} className="text-[#10b981]" />
+                      <span>Unified Multi-Source Warehouse</span>
                     </div>
                   </div>
                 </div>
@@ -295,51 +307,51 @@ export function CapabilityMetaphorVisual({
             {activeId === "zoho-systems" && (
               <motion.div
                 key="zoho"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.45 }}
-                className="metaphor-graphic-wrap"
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35 }}
+                className="metaphor-scene"
               >
-                <div className="zoho-nexus-layout">
-                  <svg className="metaphor-svg-overlay" viewBox="0 0 380 280" fill="none">
-                    <circle cx="190" cy="140" r="85" stroke="#f59e0b" strokeWidth="1.2" strokeDasharray="5 4" opacity="0.35" />
-                    <line x1="190" y1="140" x2="190" y2="45" stroke="#f59e0b" strokeWidth="1.5" opacity="0.5" />
-                    <line x1="190" y1="140" x2="275" y2="90" stroke="#f59e0b" strokeWidth="1.5" opacity="0.5" />
-                    <line x1="190" y1="140" x2="275" y2="190" stroke="#f59e0b" strokeWidth="1.5" opacity="0.5" />
-                    <line x1="190" y1="140" x2="105" y2="90" stroke="#f59e0b" strokeWidth="1.5" opacity="0.5" />
-                    <line x1="190" y1="140" x2="105" y2="190" stroke="#f59e0b" strokeWidth="1.5" opacity="0.5" />
+                <div className="zoho-scene-container">
+                  <svg className="scene-svg-background" viewBox="0 0 500 340" fill="none">
+                    <circle cx="250" cy="170" r="105" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="6 4" opacity="0.45" />
+                    <line x1="250" y1="170" x2="250" y2="55" stroke="#f59e0b" strokeWidth="2" opacity="0.65" />
+                    <line x1="250" y1="170" x2="360" y2="105" stroke="#f59e0b" strokeWidth="2" opacity="0.65" />
+                    <line x1="250" y1="170" x2="360" y2="235" stroke="#f59e0b" strokeWidth="2" opacity="0.65" />
+                    <line x1="250" y1="170" x2="140" y2="105" stroke="#f59e0b" strokeWidth="2" opacity="0.65" />
+                    <line x1="250" y1="170" x2="140" y2="235" stroke="#f59e0b" strokeWidth="2" opacity="0.65" />
                   </svg>
 
-                  <div className="zoho-central-nexus">
-                    <Boxes size={26} className="text-[#f59e0b]" />
-                    <span>ZOHO CRM</span>
-                    <small>Unified Core</small>
+                  <div className="zoho-central-core">
+                    <Boxes size={28} className="text-[#f59e0b]" />
+                    <b>ZOHO CRM</b>
+                    <small>Central Core</small>
                   </div>
 
-                  <div className="zoho-satellite-pod pod-top">
+                  <div className="zoho-orb-satellite orb-top">
                     <b>Zoho Creator</b>
-                    <small>Custom Apps</small>
+                    <small>Custom Workflows</small>
                   </div>
 
-                  <div className="zoho-satellite-pod pod-tr">
+                  <div className="zoho-orb-satellite orb-tr">
                     <b>Zoho Books</b>
-                    <small>Finance Flow</small>
+                    <small>Finance Automation</small>
                   </div>
 
-                  <div className="zoho-satellite-pod pod-br">
+                  <div className="zoho-orb-satellite orb-br">
                     <b>Zoho Analytics</b>
-                    <small>BI Reports</small>
+                    <small>BI Dashboards</small>
                   </div>
 
-                  <div className="zoho-satellite-pod pod-tl">
+                  <div className="zoho-orb-satellite orb-tl">
                     <b>Zoho Desk</b>
-                    <small>Support Hub</small>
+                    <small>Omnichannel Support</small>
                   </div>
 
-                  <div className="zoho-satellite-pod pod-bl">
-                    <b>Third-Party ERP</b>
-                    <small>Bi-directional API</small>
+                  <div className="zoho-orb-satellite orb-bl">
+                    <b>Enterprise ERP</b>
+                    <small>Two-Way Integration</small>
                   </div>
                 </div>
               </motion.div>
@@ -349,54 +361,54 @@ export function CapabilityMetaphorVisual({
             {activeId === "cloud-services" && (
               <motion.div
                 key="cloud"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.45 }}
-                className="metaphor-graphic-wrap"
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35 }}
+                className="metaphor-scene"
               >
-                <div className="cloud-resilience-grid">
-                  <div className="cloud-status-banner">
-                    <div className="uptime-shield">
-                      <ShieldCheck size={20} className="text-[#ec4899]" />
+                <div className="cloud-scene-container">
+                  <div className="cloud-header-banner">
+                    <div className="shield-info">
+                      <ShieldCheck size={22} className="text-[#ec4899]" />
                       <div>
-                        <b>99.98% High Availability</b>
-                        <small>Active Multi-Zone Monitoring</small>
+                        <b>99.98% High-Availability Uptime</b>
+                        <small>Multi-Zone Active Redundancy</small>
                       </div>
                     </div>
-                    <span className="live-status-chip">HEALTHY</span>
+                    <span className="live-status-badge">SYSTEMS ONLINE</span>
                   </div>
 
-                  <div className="cloud-regions-grid">
-                    <div className="region-card">
-                      <Globe size={14} className="text-[#ec4899]" />
+                  <div className="cloud-grid-quad">
+                    <div className="quad-card">
+                      <Globe size={16} className="text-[#ec4899]" />
                       <div>
-                        <b>Primary Cluster</b>
-                        <small>Edge Load Balancer</small>
+                        <b>Global Edge</b>
+                        <small>Zero-Latency CDN</small>
                       </div>
                     </div>
 
-                    <div className="region-card">
-                      <Radio size={14} className="text-[#ec4899]" />
+                    <div className="quad-card">
+                      <Radio size={16} className="text-[#ec4899]" />
                       <div>
-                        <b>Failover Node</b>
-                        <small>Zero-Downtime Backup</small>
+                        <b>Failover Mesh</b>
+                        <small>Instant Redundancy</small>
                       </div>
                     </div>
 
-                    <div className="region-card">
-                      <Cpu size={14} className="text-[#ec4899]" />
+                    <div className="quad-card">
+                      <Cpu size={16} className="text-[#ec4899]" />
                       <div>
                         <b>Auto-Scaling</b>
-                        <small>Elastic Capacity</small>
+                        <small>Dynamic Elasticity</small>
                       </div>
                     </div>
 
-                    <div className="region-card">
-                      <CheckCircle2 size={14} className="text-[#10b981]" />
+                    <div className="quad-card">
+                      <CheckCircle2 size={16} className="text-[#10b981]" />
                       <div>
                         <b>24/7 Telemetry</b>
-                        <small>Automated Patching</small>
+                        <small>Automated Security</small>
                       </div>
                     </div>
                   </div>
@@ -406,19 +418,19 @@ export function CapabilityMetaphorVisual({
           </AnimatePresence>
         </div>
 
-        {/* Screen footer bar with system signature */}
+        {/* Window Footer Status Bar */}
         <div className="metaphor-screen-foot">
           <div className="system-signature">
             <Image
               src={siteLogo}
               alt="Aram Analytics"
-              width={56}
-              height={18}
+              width={54}
+              height={17}
               className="brand-logo"
             />
             <span>INTELLIGENCE IN MOTION</span>
           </div>
-          <span className="system-version">SYSTEM.STATUS: OPERATIONAL</span>
+          <span className="system-version">SYSTEM_STATE: SYNCHRONIZED</span>
         </div>
       </div>
     </div>
