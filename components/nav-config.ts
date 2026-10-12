@@ -65,7 +65,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "What we do",
-    href: "/#services",
+    href: "/what-we-do",
     megaMenu: MEGA_MENU_ITEMS,
   },
   {

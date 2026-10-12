@@ -23,7 +23,7 @@ export function Footer() {
           Better business.
         </p>
         <div className="footer-nav-links">
-          <Link href="/#services">What we do</Link>
+          <Link href="/what-we-do">What we do</Link>
           <Link href="/#work">Our work</Link>
           <Link href="/#zoho">Zoho</Link>
           <Link href="/about">About</Link>

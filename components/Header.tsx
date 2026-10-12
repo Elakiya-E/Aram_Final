@@ -258,6 +258,8 @@ export function Header() {
                 const isActive =
                   item.href === "/about"
                     ? pathname === "/about"
+                    : item.href === "/what-we-do"
+                    ? pathname === "/what-we-do"
                     : pathname === "/" &&
                       (activeHash === item.href ||
                         activeHash === item.href.replace("/", ""));
