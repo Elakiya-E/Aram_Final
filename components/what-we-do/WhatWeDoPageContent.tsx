@@ -10,19 +10,19 @@ import {
   ChevronLeft,
   ChevronRight,
   Cloud,
-  Code2,
-  Compass,
-  Cpu,
-  Database,
   Layers,
   Sparkles,
   Workflow,
-  Zap,
+  Database,
+  Radio,
+  MoveRight,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState, useCallback, useRef } from "react";
-import siteLogo from "@/app/logo3-Picsart-AiImageEnhancer-removebg-preview.png";
+import type { LucideIcon } from "lucide-react";
+import { HeroIntelligenceCanvas } from "./HeroIntelligenceCanvas";
+import { CapabilityMetaphorVisual } from "./CapabilityMetaphorVisual";
+import { ProcessPathway } from "./ProcessPathway";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -39,7 +39,7 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+      initial={reducedMotion ? false : { opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.6, delay, ease }}
@@ -48,8 +48,6 @@ function Reveal({
     </motion.div>
   );
 }
-
-import type { LucideIcon } from "lucide-react";
 
 export type Capability = {
   id: string;
@@ -84,10 +82,10 @@ export const CAPABILITIES: Capability[] = [
     id: "ai-automation",
     num: "02",
     title: "AI & Automation",
-    shortLabel: "Automation",
+    shortLabel: "AI & Automation",
     description:
       "Reduce repetitive work by connecting tools, automating workflows, and simplifying everyday operations.",
-    badge: "WORKFLOW ORCHESTRATION",
+    badge: "PROCESS ORCHESTRATION",
     accent: "#6366f1",
     icon: Workflow,
     deliverables: [
@@ -100,10 +98,10 @@ export const CAPABILITIES: Capability[] = [
     id: "software-products",
     num: "03",
     title: "Software & Digital Products",
-    shortLabel: "Digital Products",
+    shortLabel: "Software & Digital Products",
     description:
       "Create websites, web applications, mobile apps, portals, and digital platforms built around real business needs.",
-    badge: "FULL-STACK ENGINEERING",
+    badge: "FULL-STACK PLATFORMS",
     accent: "#3b82f6",
     icon: Layers,
     deliverables: [
@@ -132,7 +130,7 @@ export const CAPABILITIES: Capability[] = [
     id: "zoho-systems",
     num: "05",
     title: "Zoho & Business Systems",
-    shortLabel: "Zoho Systems",
+    shortLabel: "Zoho & Business Systems",
     description:
       "Connect business processes through CRM, business applications, workflow configuration, and system integration.",
     badge: "BUSINESS ECOSYSTEMS",
@@ -148,7 +146,7 @@ export const CAPABILITIES: Capability[] = [
     id: "cloud-services",
     num: "06",
     title: "Cloud & Managed Services",
-    shortLabel: "Cloud & Managed",
+    shortLabel: "Cloud & Managed Services",
     description:
       "Support reliable digital operations through deployment, infrastructure setup, maintenance, and ongoing improvements.",
     badge: "INFRASTRUCTURE & RELIABILITY",
@@ -162,53 +160,11 @@ export const CAPABILITIES: Capability[] = [
   },
 ];
 
-export const APPROACH_STEPS = [
-  {
-    num: "01",
-    title: "Understand",
-    description: "Discover your goals and challenges.",
-    detail: "Deep dive into real operations, existing pain points, and strategic milestones.",
-    icon: Compass,
-    accent: "#8b5cf6",
-  },
-  {
-    num: "02",
-    title: "Design",
-    description: "Plan the right solution and architecture.",
-    detail: "Formulate scalable technical blueprints, integration contracts, and UX flows.",
-    icon: Cpu,
-    accent: "#6366f1",
-  },
-  {
-    num: "03",
-    title: "Build",
-    description: "Develop, integrate, and test.",
-    detail: "Agile execution with transparent milestones, rigorous QA, and rapid feedback.",
-    icon: Code2,
-    accent: "#3b82f6",
-  },
-  {
-    num: "04",
-    title: "Improve",
-    description: "Refine the solution as your needs evolve.",
-    detail: "Ongoing performance telemetry, system updates, and iterative capability expansion.",
-    icon: Sparkles,
-    accent: "#10b981",
-  },
-];
-
-// Node angles around center (360 degrees / 6 nodes = 60 deg each)
-// Starting from top (-90 degrees)
-const NODE_ANGLES = [-90, -30, 30, 90, 150, 210];
-const RADIUS = 185;
-const CENTER_X = 260;
-const CENTER_Y = 260;
-
 export function WhatWeDoPageContent() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeCap = CAPABILITIES[activeIndex];
   const ActiveIcon = activeCap.icon;
-  const tablistRef = useRef<HTMLDivElement>(null);
+  const explorerRef = useRef<HTMLDivElement>(null);
 
   const selectNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % CAPABILITIES.length);
@@ -218,303 +174,214 @@ export function WhatWeDoPageContent() {
     setActiveIndex((prev) => (prev - 1 + CAPABILITIES.length) % CAPABILITIES.length);
   }, []);
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent, index: number) => {
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-        e.preventDefault();
-        const next = (index + 1) % CAPABILITIES.length;
-        setActiveIndex(next);
-      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-        e.preventDefault();
-        const prev = (index - 1 + CAPABILITIES.length) % CAPABILITIES.length;
-        setActiveIndex(prev);
-      } else if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        setActiveIndex(index);
-      }
-    },
-    []
-  );
+  const handleHeroHubClick = useCallback((index: number) => {
+    setActiveIndex(index);
+    explorerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   return (
     <div className="what-we-do-page">
-      {/* SECTION 01: HERO */}
+      {/* SECTION 01: SIGNATURE HERO EXPERIENCE — ARAM INTELLIGENCE IN MOTION */}
       <section className="wwd-hero-section section-wrap" id="top">
-        <div className="wwd-hero-glow" aria-hidden="true" />
+        {/* Animated intelligence network canvas */}
+        <HeroIntelligenceCanvas
+          activeHub={activeIndex}
+          onHubClick={handleHeroHubClick}
+        />
 
-        <div className="wwd-hero-layout">
-          <div className="wwd-hero-copy">
-            <Reveal>
-              <div className="eyebrow wwd-eyebrow">
-                <span className="eyebrow-line" /> WHAT WE DO · CAPABILITIES
-              </div>
-            </Reveal>
+        <div className="wwd-hero-inner">
+          <Reveal>
+            <div className="eyebrow wwd-eyebrow">
+              <span className="eyebrow-line" /> ARAM INTELLIGENCE IN MOTION · CAPABILITIES
+            </div>
+          </Reveal>
 
-            <Reveal delay={0.08}>
-              <h1 className="wwd-hero-title">
-                We turn complex challenges into{" "}
-                <span className="serif-accent italic-highlight">connected solutions.</span>
-              </h1>
-            </Reveal>
+          <Reveal delay={0.08}>
+            <h1 className="wwd-hero-title">
+              We turn complex challenges into{" "}
+              <span className="serif-accent italic-highlight">connected solutions.</span>
+            </h1>
+          </Reveal>
 
-            <Reveal delay={0.16}>
-              <p className="wwd-hero-desc">
-                We combine AI, automation, software engineering, data, and digital platforms to help
-                businesses work smarter, move faster, and grow with confidence.
-              </p>
-            </Reveal>
+          <Reveal delay={0.16}>
+            <p className="wwd-hero-desc">
+              We combine AI, automation, software engineering, data, and digital platforms to help
+              businesses work smarter, move faster, and grow with confidence.
+            </p>
+          </Reveal>
 
-            <Reveal delay={0.24}>
-              <div className="wwd-hero-actions">
-                <a className="button button-primary" href="#capabilities">
-                  Explore Our Capabilities <ArrowDown size={15} />
-                </a>
-                <Link className="button button-quiet" href="/#contact">
-                  Let&apos;s Talk <ArrowUpRight size={15} />
-                </Link>
-              </div>
-            </Reveal>
+          <Reveal delay={0.24}>
+            <div className="wwd-hero-actions">
+              <a className="button button-primary" href="#capabilities">
+                Explore Our Capabilities <ArrowDown size={15} />
+              </a>
+              <Link className="button button-quiet" href="/#contact">
+                Let&apos;s Talk <ArrowUpRight size={15} />
+              </Link>
+            </div>
+          </Reveal>
 
-            <Reveal delay={0.3}>
-              <div className="wwd-hero-tags">
-                <div className="wwd-hero-tag">
-                  <span className="wwd-tag-dot" />
-                  <span>6 Core Capabilities</span>
-                </div>
-                <div className="wwd-hero-tag">
-                  <span className="wwd-tag-dot" />
-                  <span>Interactive Ecosystem</span>
-                </div>
-                <div className="wwd-hero-tag">
-                  <span className="wwd-tag-dot" />
-                  <span>End-to-End Ownership</span>
-                </div>
-              </div>
-            </Reveal>
-          </div>
+          {/* Six subtle interactive capability markers in Hero */}
+          <Reveal delay={0.32}>
+            <div className="wwd-hero-markers">
+              {CAPABILITIES.map((cap, i) => {
+                const Icon = cap.icon;
+                const isSelected = activeIndex === i;
+                return (
+                  <button
+                    key={cap.id}
+                    type="button"
+                    onClick={() => setActiveIndex(i)}
+                    className={`hero-marker-pill ${isSelected ? "is-selected" : ""}`}
+                    style={{ "--marker-accent": cap.accent } as React.CSSProperties}
+                  >
+                    <span className="marker-dot" style={{ backgroundColor: cap.accent }} />
+                    <Icon size={13} />
+                    <span>{cap.shortLabel}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </Reveal>
 
-          <Reveal delay={0.18} className="wwd-hero-preview">
-            <div className="wwd-preview-card">
-              <div className="wwd-preview-header">
-                <div className="wwd-preview-badge">
-                  <Zap size={14} className="text-[#a78bfa]" />
-                  <span>CONNECTED PLATFORMS</span>
-                </div>
-                <span className="wwd-live-pulse" />
-              </div>
-
-              <div className="wwd-preview-grid">
-                <div className="wwd-preview-mini">
-                  <span className="mini-label">INTELLIGENCE</span>
-                  <b>AI &amp; Workflows</b>
-                </div>
-                <div className="wwd-preview-mini">
-                  <span className="mini-label">ENGINEERING</span>
-                  <b>Digital Products</b>
-                </div>
-                <div className="wwd-preview-mini">
-                  <span className="mini-label">VISIBILITY</span>
-                  <b>Data Analytics</b>
-                </div>
-                <div className="wwd-preview-mini">
-                  <span className="mini-label">OPERATIONS</span>
-                  <b>Zoho Ecosystem</b>
-                </div>
-              </div>
-
-              <div className="wwd-preview-foot">
-                <small>Integrated multidisciplinary execution</small>
-                <span className="wwd-preview-code">ARAM.CORE.v26</span>
-              </div>
+          {/* Refined scroll indicator */}
+          <Reveal delay={0.4}>
+            <div className="wwd-scroll-indicator">
+              <a href="#capabilities" className="scroll-indicator-link">
+                <span className="scroll-indicator-line">
+                  <span className="scroll-indicator-dot" />
+                </span>
+                <span className="scroll-indicator-text">
+                  Scroll to explore intelligence network
+                </span>
+                <ArrowDown size={13} className="text-[#8b5cf6]" />
+              </a>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* SECTION 02: INTERACTIVE CAPABILITY ECOSYSTEM */}
-      <section className="wwd-section section-wrap" id="capabilities">
+      {/* CONTINUOUS VISUAL CONDUIT BETWEEN SECTIONS */}
+      <div className="wwd-network-conduit" aria-hidden="true">
+        <span className="conduit-line" />
+        <span className="conduit-pulse" />
+      </div>
+
+      {/* SECTION 02: BESPOKE INTERACTIVE CAPABILITY EXPLORER */}
+      <section className="wwd-section section-wrap" id="capabilities" ref={explorerRef}>
         <Reveal className="wwd-heading-center">
           <div className="eyebrow">
             <span className="eyebrow-line" /> 01 / CORE CAPABILITIES
           </div>
           <h2>
-            An interactive <span className="serif-accent">technology ecosystem.</span>
+            An interconnected <span className="serif-accent">capability explorer.</span>
           </h2>
           <p>
-            Explore our six core practices and how they integrate seamlessly around your business.
-            Select any node to view capabilities and key deliverables.
+            Explore our six core practices and observe how they respond dynamically in our connected
+            technology framework. Hover or select any discipline to activate its visual metaphor.
           </p>
         </Reveal>
 
-        {/* Mobile Capability Selector (Visible on small screens) */}
-        <div className="wwd-mobile-selector lg:hidden">
+        {/* Mobile touch-friendly pill bar */}
+        <div className="wwd-mobile-tab-bar lg:hidden" role="tablist">
+          {CAPABILITIES.map((cap, i) => {
+            const Icon = cap.icon;
+            const isSelected = activeIndex === i;
+            return (
+              <button
+                key={cap.id}
+                role="tab"
+                aria-selected={isSelected}
+                onClick={() => setActiveIndex(i)}
+                className={`mobile-tab-pill ${isSelected ? "is-selected" : ""}`}
+                style={{ "--tab-accent": cap.accent } as React.CSSProperties}
+              >
+                <Icon size={14} style={{ color: isSelected ? cap.accent : "currentColor" }} />
+                <span>{cap.shortLabel}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Asymmetrical Capability Explorer Layout */}
+        <div className="capability-explorer-layout">
+          {/* Left Column: Curated Capability Selector List */}
           <div
-            className="wwd-mobile-pills-bar"
+            className="explorer-nav-list"
             role="tablist"
-            aria-label="Capabilities selector"
+            aria-label="Capabilities"
           >
             {CAPABILITIES.map((cap, i) => {
               const Icon = cap.icon;
               const isSelected = activeIndex === i;
+
               return (
                 <button
                   key={cap.id}
                   role="tab"
+                  id={`tab-${cap.id}`}
+                  aria-controls={`panel-${cap.id}`}
                   aria-selected={isSelected}
                   onClick={() => setActiveIndex(i)}
-                  className={`wwd-mobile-pill ${isSelected ? "is-active" : ""}`}
+                  onMouseEnter={() => setActiveIndex(i)}
+                  className={`explorer-nav-item ${isSelected ? "is-active" : ""}`}
+                  style={{ "--item-accent": cap.accent } as React.CSSProperties}
                 >
-                  <Icon size={14} style={{ color: isSelected ? cap.accent : "currentColor" }} />
-                  <span>{cap.shortLabel}</span>
+                  <div className="item-num-wrap">
+                    <span className="item-num">{cap.num}</span>
+                  </div>
+
+                  <div className="item-content-wrap">
+                    <div className="item-title-row">
+                      <span className="item-icon" style={{ color: cap.accent }}>
+                        <Icon size={16} />
+                      </span>
+                      <h4>{cap.title}</h4>
+                    </div>
+
+                    {/* Collapsible micro-summary on active */}
+                    <div className="item-summary-preview">
+                      <small>{cap.badge}</small>
+                    </div>
+                  </div>
+
+                  <span className="item-active-chevron">
+                    <MoveRight size={14} />
+                  </span>
                 </button>
               );
             })}
           </div>
-        </div>
 
-        {/* Desktop & Tablet Interactive Ecosystem Stage */}
-        <div className="wwd-ecosystem-stage">
-          {/* Orbital Visual Canvas */}
-          <div className="wwd-orbital-wrap" aria-hidden="false">
-            <svg
-              className="wwd-orbital-svg"
-              viewBox="0 0 520 520"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Concentric rings */}
-              <circle
-                cx={CENTER_X}
-                cy={CENTER_Y}
-                r="110"
-                className="wwd-svg-ring ring-inner"
-              />
-              <circle
-                cx={CENTER_X}
-                cy={CENTER_Y}
-                r={RADIUS}
-                className="wwd-svg-ring ring-main"
-              />
-              <circle
-                cx={CENTER_X}
-                cy={CENTER_Y}
-                r="235"
-                className="wwd-svg-ring ring-outer"
-              />
-
-              {/* Connecting spokes from center to each node */}
-              {NODE_ANGLES.map((angleDeg, i) => {
-                const rad = (angleDeg * Math.PI) / 180;
-                const x = CENTER_X + RADIUS * Math.cos(rad);
-                const y = CENTER_Y + RADIUS * Math.sin(rad);
-                const isSelected = activeIndex === i;
-
-                return (
-                  <line
-                    key={`line-${i}`}
-                    x1={CENTER_X}
-                    y1={CENTER_Y}
-                    x2={x}
-                    y2={y}
-                    className={`wwd-spoke-line ${isSelected ? "is-active" : ""}`}
-                    style={{
-                      stroke: isSelected ? CAPABILITIES[i].accent : undefined,
-                    }}
-                  />
-                );
-              })}
-            </svg>
-
-            {/* Central Node (Aram Brand Hub) */}
-            <div className="wwd-center-node" aria-hidden="true">
-              <div className="wwd-center-halo" />
-              <div className="wwd-center-core">
-                <Image
-                  src={siteLogo}
-                  alt="Aram Analytics"
-                  width={64}
-                  height={22}
-                  className="brand-logo"
-                  priority
-                />
-                <span className="wwd-center-label">CORE HUB</span>
-              </div>
-            </div>
-
-            {/* Orbiting Capability Nodes */}
-            <div
-              className="wwd-nodes-container"
-              role="tablist"
-              aria-label="Interactive Capability Nodes"
-              ref={tablistRef}
-            >
-              {CAPABILITIES.map((cap, i) => {
-                const angleDeg = NODE_ANGLES[i];
-                const rad = (angleDeg * Math.PI) / 180;
-                const x = CENTER_X + RADIUS * Math.cos(rad);
-                const y = CENTER_Y + RADIUS * Math.sin(rad);
-                const isSelected = activeIndex === i;
-                const Icon = cap.icon;
-
-                return (
-                  <button
-                    key={cap.id}
-                    role="tab"
-                    id={`cap-tab-${cap.id}`}
-                    aria-controls={`cap-panel-${cap.id}`}
-                    aria-selected={isSelected}
-                    tabIndex={isSelected ? 0 : -1}
-                    onClick={() => setActiveIndex(i)}
-                    onKeyDown={(e) => handleKeyDown(e, i)}
-                    className={`wwd-node-btn ${isSelected ? "is-selected" : ""}`}
-                    style={
-                      {
-                        left: `${(x / 520) * 100}%`,
-                        top: `${(y / 520) * 100}%`,
-                        "--node-accent": cap.accent,
-                      } as React.CSSProperties
-                    }
-                  >
-                    <span className="wwd-node-icon-wrap">
-                      <Icon size={18} />
-                    </span>
-                    <span className="wwd-node-label">{cap.shortLabel}</span>
-                    <span className="wwd-node-indicator" />
-                  </button>
-                );
-              })}
-            </div>
+          {/* Central Visual: Dynamic Capability Metaphor Visual */}
+          <div className="explorer-center-stage">
+            <CapabilityMetaphorVisual
+              activeId={activeCap.id}
+              accent={activeCap.accent}
+            />
           </div>
 
-          {/* Focal Detail Panel */}
+          {/* Right Column: Detailed Capability Description & Deliverables */}
           <div
-            className="wwd-focal-card"
-            id={`cap-panel-${activeCap.id}`}
+            className="explorer-detail-panel"
+            id={`panel-${activeCap.id}`}
             role="tabpanel"
-            aria-labelledby={`cap-tab-${activeCap.id}`}
+            aria-labelledby={`tab-${activeCap.id}`}
           >
-            <div
-              className="wwd-focal-glow"
-              style={{
-                background: `radial-gradient(circle at 80% 20%, ${activeCap.accent}22 0%, transparent 70%)`,
-              }}
-              aria-hidden="true"
-            />
-
-            <div className="wwd-focal-header">
-              <div className="wwd-focal-meta">
-                <span className="wwd-focal-num">{activeCap.num} / 06</span>
-                <span className="wwd-focal-badge" style={{ color: activeCap.accent }}>
+            <div className="detail-panel-header">
+              <div className="detail-badge-row">
+                <span className="detail-index-tag">{activeCap.num} OF 06</span>
+                <span className="detail-badge-pill" style={{ color: activeCap.accent }}>
                   {activeCap.badge}
                 </span>
               </div>
 
-              {/* Sequential navigation arrows */}
-              <div className="wwd-focal-arrows">
+              {/* Sequential controls */}
+              <div className="detail-arrows">
                 <button
                   type="button"
                   onClick={selectPrev}
-                  className="wwd-nav-arrow"
+                  className="detail-arrow-btn"
                   aria-label="Previous capability"
                 >
                   <ChevronLeft size={16} />
@@ -522,7 +389,7 @@ export function WhatWeDoPageContent() {
                 <button
                   type="button"
                   onClick={selectNext}
-                  className="wwd-nav-arrow"
+                  className="detail-arrow-btn"
                   aria-label="Next capability"
                 >
                   <ChevronRight size={16} />
@@ -530,9 +397,9 @@ export function WhatWeDoPageContent() {
               </div>
             </div>
 
-            <div className="wwd-focal-title-row">
+            <div className="detail-title-row">
               <span
-                className="wwd-focal-icon"
+                className="detail-icon-frame"
                 style={{
                   color: activeCap.accent,
                   backgroundColor: `${activeCap.accent}14`,
@@ -544,13 +411,15 @@ export function WhatWeDoPageContent() {
               <h3>{activeCap.title}</h3>
             </div>
 
-            <p className="wwd-focal-desc">{activeCap.description}</p>
+            {/* Approved exact description */}
+            <p className="detail-approved-description">{activeCap.description}</p>
 
-            <div className="wwd-focal-divider" />
+            <div className="detail-divider" />
 
-            <div className="wwd-deliverables-wrap">
-              <span className="wwd-deliverables-title">WHAT WE DELIVER</span>
-              <ul className="wwd-deliverables-list">
+            {/* Deliverables Checklist */}
+            <div className="detail-deliverables-section">
+              <span className="deliverables-title">WHAT WE DELIVER</span>
+              <ul className="deliverables-list">
                 {activeCap.deliverables.map((item) => (
                   <li key={item}>
                     <CheckCircle2 size={14} style={{ color: activeCap.accent }} />
@@ -560,25 +429,25 @@ export function WhatWeDoPageContent() {
               </ul>
             </div>
 
-            <div className="wwd-focal-actions">
+            <div className="detail-action-footer">
               <Link className="button button-primary" href="/#contact">
-                Discuss This Capability <ArrowUpRight size={14} />
+                Discuss This Capability <ArrowUpRight size={15} />
               </Link>
-              <a className="button button-quiet" href="#approach">
-                Our Approach ↓
+              <a className="button button-quiet" href="#process">
+                Our Process Pathway ↓
               </a>
             </div>
           </div>
         </div>
 
-        {/* Quick-Scan Capability Index */}
-        <div className="wwd-index-section">
-          <div className="wwd-index-head">
-            <span className="wwd-index-title">ALL SIX CAPABILITIES AT A GLANCE</span>
-            <small>Direct access across our end-to-end engineering practices</small>
+        {/* Quick-Scan Capability Matrix (All six accessible at a glance) */}
+        <div className="wwd-scan-matrix">
+          <div className="matrix-header">
+            <span className="matrix-title">COMPREHENSIVE CAPABILITIES INDEX</span>
+            <small>Direct access across our multi-disciplinary technology ecosystem</small>
           </div>
 
-          <div className="wwd-index-grid">
+          <div className="matrix-grid">
             {CAPABILITIES.map((cap, idx) => {
               const Icon = cap.icon;
               const isSelected = activeIndex === idx;
@@ -586,7 +455,7 @@ export function WhatWeDoPageContent() {
               return (
                 <div
                   key={cap.id}
-                  className={`wwd-index-card ${isSelected ? "is-active" : ""}`}
+                  className={`matrix-card ${isSelected ? "is-selected" : ""}`}
                   onClick={() => setActiveIndex(idx)}
                   role="button"
                   tabIndex={0}
@@ -596,9 +465,9 @@ export function WhatWeDoPageContent() {
                     }
                   }}
                 >
-                  <div className="index-card-top">
-                    <span className="index-num">{cap.num}</span>
-                    <span className="index-icon" style={{ color: cap.accent }}>
+                  <div className="matrix-card-top">
+                    <span className="matrix-num">{cap.num}</span>
+                    <span className="matrix-icon" style={{ color: cap.accent }}>
                       <Icon size={16} />
                     </span>
                   </div>
@@ -611,8 +480,14 @@ export function WhatWeDoPageContent() {
         </div>
       </section>
 
-      {/* SECTION 03: APPROACH SECTION */}
-      <section className="wwd-section section-wrap" id="approach">
+      {/* CONTINUOUS VISUAL CONDUIT FROM SERVICES TO PROCESS */}
+      <div className="wwd-network-conduit" aria-hidden="true">
+        <span className="conduit-line" />
+        <span className="conduit-pulse" />
+      </div>
+
+      {/* SECTION 03: CONTINUOUS PROCESS PATHWAY */}
+      <section className="wwd-section section-wrap" id="process">
         <Reveal className="wwd-heading-center">
           <div className="eyebrow">
             <span className="eyebrow-line" /> 02 / OUR APPROACH
@@ -621,45 +496,12 @@ export function WhatWeDoPageContent() {
             From problem to <span className="serif-accent">progress.</span>
           </h2>
           <p>
-            A clear, dependable progression from your initial challenge to sustainable business
-            results.
+            A continuous visual pathway from initial discovery to sustained operational
+            resilience. As each stage progresses, our team verifies and validates outcomes.
           </p>
         </Reveal>
 
-        <div className="wwd-approach-timeline">
-          <div className="wwd-timeline-flowline" aria-hidden="true" />
-
-          <div className="wwd-approach-grid">
-            {APPROACH_STEPS.map((step, i) => {
-              const StepIcon = step.icon;
-              return (
-                <Reveal delay={i * 0.08} key={step.title} className="wwd-step-card">
-                  <div className="step-card-header">
-                    <div className="step-badge-wrap">
-                      <span className="step-num">{step.num}</span>
-                    </div>
-                    <span
-                      className="step-icon-wrap"
-                      style={{
-                        color: step.accent,
-                        backgroundColor: `${step.accent}12`,
-                        borderColor: `${step.accent}26`,
-                      }}
-                    >
-                      <StepIcon size={17} />
-                    </span>
-                  </div>
-
-                  <h3 className="step-title">{step.title}</h3>
-                  <p className="step-main-desc">{step.description}</p>
-                  <div className="step-subdetail">
-                    <small>{step.detail}</small>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
+        <ProcessPathway />
       </section>
 
       {/* SECTION 04: CLOSING CTA */}
