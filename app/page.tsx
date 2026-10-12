@@ -19,6 +19,7 @@ import siteLogo from "./logo3-Picsart-AiImageEnhancer-removebg-preview.png";
 import { PartnersSection } from "@/components/PartnersSection";
 import { CapabilitiesSection } from "@/components/CapabilitiesSection";
 import { AramUniverseHero } from "@/components/AramUniverseHero";
+import { Footer } from "@/components/Footer";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -216,21 +217,7 @@ export default function Home() {
           <Reveal className="contact-form-wrap" delay={0.12}><ContactForm /></Reveal>
         </section>
       </main>
-      <footer className="site-footer section-wrap">
-        <div className="footer-main">
-          <a aria-label="Aram Analytics home" className="wordmark footer-wordmark" href="#top">
-            <Image
-              alt="Aram Analytics"
-              className="brand-logo"
-              height={28}
-              src={siteLogo}
-            />
-          </a>
-          <p>Thoughtful technology.<br />Better business.</p>
-          <a className="footer-top" href="#top">Back to top <ArrowUpRight size={14} /></a>
-        </div>
-        <div className="footer-bottom"><span>© {new Date().getFullYear()} Aram Analytics. All rights reserved.</span><span>Made for people doing good work <span className="footer-heart">✳</span></span><span className="footer-placeholder">Replace with your legal business details.</span></div>
-      </footer>
+      <Footer />
     </>
   );
 }

@@ -3,6 +3,7 @@
 import { ArrowUpRight, X, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NavLink } from "./NavLink";
@@ -120,7 +121,7 @@ function MagneticCTAButton() {
   return (
     <motion.a
       ref={btnRef}
-      href="#contact"
+      href="/#contact"
       onMouseMove={handleMove}
       onMouseLeave={reset}
       style={reducedMotion ? undefined : { x: pos.x, y: pos.y }}
@@ -163,6 +164,7 @@ function LogoMark() {
 
 export function Header() {
   const reducedMotion = useReducedMotion();
+  const pathname = usePathname();
   const { scrollY, scrollDir } = useScrollState();
   const [activeHash, setActiveHash] = useState<string>("#top");
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
@@ -246,14 +248,19 @@ export function Header() {
             className="mx-auto flex items-center justify-between rounded-2xl border border-white/10 dark:border-white/10 bg-white/70 dark:bg-[#0f0f11]/78 backdrop-blur-[16px]"
           >
             <div className="flex items-center gap-1">
-              <Link href="#top" aria-label="Aram Analytics home" className="shrink-0">
+              <Link href="/" aria-label="Aram Analytics home" className="shrink-0">
                 <LogoMark />
               </Link>
             </div>
 
             <div className="relative hidden items-center lg:flex" ref={whatWeDoRef}>
               {NAV_ITEMS.map((item) => {
-                const isActive = activeHash === item.href;
+                const isActive =
+                  item.href === "/about"
+                    ? pathname === "/about"
+                    : pathname === "/" &&
+                      (activeHash === item.href ||
+                        activeHash === item.href.replace("/", ""));
                 const isMegaTrigger = !!item.megaMenu;
                 const isZoho = item.variant === "zoho";
                 return (

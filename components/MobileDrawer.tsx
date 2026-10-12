@@ -215,7 +215,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
 
             <div className="border-t border-neutral-200/70 p-4 dark:border-white/7">
               <Link
-                href="#contact"
+                href="/#contact"
                 onClick={onClose}
                 className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-[#b6a9ff] via-[#9b8cff] to-[#6C5CE7] px-5 py-4 text-[14px] font-semibold text-white shadow-[0_10px_30px_-8px_rgba(108,92,231,0.55)] transition-all duration-300 hover:shadow-[0_14px_36px_-8px_rgba(108,92,231,0.7)] hover:-translate-y-0.5"
               >
