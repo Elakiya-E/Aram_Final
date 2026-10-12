@@ -282,8 +282,8 @@ export function WhatWeDoPageContent() {
           </p>
         </Reveal>
 
-        {/* Mobile touch-friendly pill bar */}
-        <div className="wwd-mobile-tab-bar lg:hidden" role="tablist">
+        {/* Interactive Capability Selector Bar */}
+        <div className="wwd-capability-tabs" role="tablist" aria-label="Capabilities Navigation">
           {CAPABILITIES.map((cap, i) => {
             const Icon = cap.icon;
             const isSelected = activeIndex === i;
@@ -291,163 +291,45 @@ export function WhatWeDoPageContent() {
               <button
                 key={cap.id}
                 role="tab"
+                id={`tab-${cap.id}`}
                 aria-selected={isSelected}
                 onClick={() => setActiveIndex(i)}
-                className={`mobile-tab-pill ${isSelected ? "is-selected" : ""}`}
+                className={`capability-tab-btn ${isSelected ? "is-selected" : ""}`}
                 style={{ "--tab-accent": cap.accent } as React.CSSProperties}
               >
-                <Icon size={14} style={{ color: isSelected ? cap.accent : "currentColor" }} />
-                <span>{cap.shortLabel}</span>
+                <span className="tab-num">{cap.num}</span>
+                <Icon size={15} style={{ color: isSelected ? cap.accent : "currentColor" }} />
+                <span className="tab-label">{cap.shortLabel}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Asymmetrical Capability Explorer Layout */}
-        <div className="capability-explorer-layout">
-          {/* Left Column: Curated Capability Selector List */}
-          <div
-            className="explorer-nav-list"
-            role="tablist"
-            aria-label="Capabilities"
-          >
-            {CAPABILITIES.map((cap, i) => {
-              const Icon = cap.icon;
-              const isSelected = activeIndex === i;
-
-              return (
-                <button
-                  key={cap.id}
-                  role="tab"
-                  id={`tab-${cap.id}`}
-                  aria-controls={`panel-${cap.id}`}
-                  aria-selected={isSelected}
-                  onClick={() => setActiveIndex(i)}
-                  onMouseEnter={() => setActiveIndex(i)}
-                  className={`explorer-nav-item ${isSelected ? "is-active" : ""}`}
-                  style={{ "--item-accent": cap.accent } as React.CSSProperties}
-                >
-                  <div className="item-num-wrap">
-                    <span className="item-num">{cap.num}</span>
-                  </div>
-
-                  <div className="item-content-wrap">
-                    <div className="item-title-row">
-                      <span className="item-icon" style={{ color: cap.accent }}>
-                        <Icon size={16} />
-                      </span>
-                      <h4>{cap.title}</h4>
-                    </div>
-
-                    {/* Collapsible micro-summary on active */}
-                    <div className="item-summary-preview">
-                      <small>{cap.badge}</small>
-                    </div>
-                  </div>
-
-                  <span className="item-active-chevron">
-                    <MoveRight size={14} />
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Central Visual: Dynamic Capability Metaphor Visual */}
-          <div className="explorer-center-stage">
-            <CapabilityMetaphorVisual
-              activeId={activeCap.id}
-              accent={activeCap.accent}
-            />
-          </div>
-
-          {/* Right Column: Detailed Capability Description & Deliverables */}
-          <div
-            className="explorer-detail-panel"
-            id={`panel-${activeCap.id}`}
-            role="tabpanel"
-            aria-labelledby={`tab-${activeCap.id}`}
-          >
-            <div className="detail-panel-header">
-              <div className="detail-badge-row">
-                <span className="detail-index-tag">{activeCap.num} OF 06</span>
-                <span className="detail-badge-pill" style={{ color: activeCap.accent }}>
-                  {activeCap.badge}
-                </span>
-              </div>
-
-              {/* Sequential controls */}
-              <div className="detail-arrows">
-                <button
-                  type="button"
-                  onClick={selectPrev}
-                  className="detail-arrow-btn"
-                  aria-label="Previous capability"
-                >
-                  <ChevronLeft size={16} />
-                </button>
-                <button
-                  type="button"
-                  onClick={selectNext}
-                  className="detail-arrow-btn"
-                  aria-label="Next capability"
-                >
-                  <ChevronRight size={16} />
-                </button>
-              </div>
-            </div>
-
-            <div className="detail-title-row">
-              <span
-                className="detail-icon-frame"
-                style={{
-                  color: activeCap.accent,
-                  backgroundColor: `${activeCap.accent}14`,
-                  borderColor: `${activeCap.accent}33`,
-                }}
-              >
-                <ActiveIcon size={24} />
-              </span>
-              <h3>{activeCap.title}</h3>
-            </div>
-
-            {/* Approved exact description */}
-            <p className="detail-approved-description">{activeCap.description}</p>
-
-            <div className="detail-divider" />
-
-            {/* Deliverables Checklist */}
-            <div className="detail-deliverables-section">
-              <span className="deliverables-title">WHAT WE DELIVER</span>
-              <ul className="deliverables-list">
-                {activeCap.deliverables.map((item) => (
-                  <li key={item}>
-                    <CheckCircle2 size={14} style={{ color: activeCap.accent }} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="detail-action-footer">
-              <Link className="button button-primary" href="/#contact">
-                Discuss This Capability <ArrowUpRight size={15} />
-              </Link>
-              <a className="button button-quiet" href="#process">
-                Our Process Pathway ↓
-              </a>
-            </div>
-          </div>
+        {/* Feature 01: The Interconnected Aram Intelligence Ecosystem Display Card */}
+        <div className="wwd-ecosystem-card-container">
+          <CapabilityMetaphorVisual
+            activeId={activeCap.id}
+            accent={activeCap.accent}
+            capabilities={CAPABILITIES}
+            activeCap={activeCap}
+            activeIndex={activeIndex}
+            onSelectCap={setActiveIndex}
+          />
         </div>
 
-        {/* Quick-Scan Capability Matrix (All six accessible at a glance) */}
-        <div className="wwd-scan-matrix">
-          <div className="matrix-header">
-            <span className="matrix-title">COMPREHENSIVE CAPABILITIES INDEX</span>
-            <small>Direct access across our multi-disciplinary technology ecosystem</small>
+        {/* Feature 02: Full 6-Card Comprehensive Capabilities Deck */}
+        <div className="wwd-all-cards-section" id="all-capabilities">
+          <div className="all-cards-header">
+            <div>
+              <span className="all-cards-eyebrow">COMPREHENSIVE CAPABILITIES INDEX</span>
+              <h3 className="all-cards-title">All Six Core Practices</h3>
+            </div>
+            <p className="all-cards-sub">
+              Every practice operates independently or interconnects seamlessly to deliver end-to-end digital solutions.
+            </p>
           </div>
 
-          <div className="matrix-grid">
+          <div className="all-cards-grid">
             {CAPABILITIES.map((cap, idx) => {
               const Icon = cap.icon;
               const isSelected = activeIndex === idx;
@@ -455,24 +337,61 @@ export function WhatWeDoPageContent() {
               return (
                 <div
                   key={cap.id}
-                  className={`matrix-card ${isSelected ? "is-selected" : ""}`}
-                  onClick={() => setActiveIndex(idx)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      setActiveIndex(idx);
-                    }
-                  }}
+                  className={`full-cap-card ${isSelected ? "is-active" : ""}`}
+                  style={{ "--card-accent": cap.accent } as React.CSSProperties}
                 >
-                  <div className="matrix-card-top">
-                    <span className="matrix-num">{cap.num}</span>
-                    <span className="matrix-icon" style={{ color: cap.accent }}>
-                      <Icon size={16} />
+                  <div className="full-card-top">
+                    <span className="full-card-num">{cap.num}</span>
+                    <span className="full-card-badge" style={{ color: cap.accent }}>
+                      {cap.badge}
                     </span>
                   </div>
-                  <h4>{cap.title}</h4>
-                  <p>{cap.description}</p>
+
+                  <div className="full-card-title-row">
+                    <span
+                      className="full-card-icon"
+                      style={{
+                        color: cap.accent,
+                        backgroundColor: `${cap.accent}14`,
+                        borderColor: `${cap.accent}2a`,
+                      }}
+                    >
+                      <Icon size={20} />
+                    </span>
+                    <h4>{cap.title}</h4>
+                  </div>
+
+                  {/* Approved exact description verbatim */}
+                  <p className="full-card-description">{cap.description}</p>
+
+                  {/* Deliverables Checklist */}
+                  <div className="full-card-deliverables">
+                    <span className="full-card-deliv-title">KEY DELIVERABLES</span>
+                    <ul>
+                      {cap.deliverables.map((item) => (
+                        <li key={item}>
+                          <CheckCircle2 size={13} style={{ color: cap.accent }} />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="full-card-footer">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveIndex(idx);
+                        explorerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }}
+                      className="full-card-inspect-btn"
+                    >
+                      Inspect in Ecosystem ↑
+                    </button>
+                    <Link className="full-card-talk-link" href="/#contact">
+                      Let&apos;s Talk <ArrowUpRight size={13} />
+                    </Link>
+                  </div>
                 </div>
               );
             })}
