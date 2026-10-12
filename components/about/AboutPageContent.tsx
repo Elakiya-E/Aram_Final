@@ -16,7 +16,6 @@ import {
   Workflow,
   Zap,
   Check,
-  Code2,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -103,7 +102,6 @@ const WHY_ARAM = [
       "From initial planning and development to deployment and ongoing support, we aim to provide a coordinated delivery experience.",
     icon: ShieldCheck,
     accent: "#8b5cf6",
-    isAnchor: true,
   },
   {
     num: "02",
@@ -113,7 +111,6 @@ const WHY_ARAM = [
       "Our capabilities span AI, data, engineering, automation, and digital growth, helping solutions work together rather than in isolation.",
     icon: Workflow,
     accent: "#6366f1",
-    isAnchor: true,
   },
   {
     num: "03",
@@ -123,7 +120,6 @@ const WHY_ARAM = [
       "We begin with the problem to solve and the outcome to achieve, then choose technology that fits.",
     icon: Zap,
     accent: "#10b981",
-    isAnchor: false,
   },
   {
     num: "04",
@@ -133,7 +129,6 @@ const WHY_ARAM = [
       "We prioritize scalable foundations and maintainable systems that can evolve with changing requirements.",
     icon: Boxes,
     accent: "#f59e0b",
-    isAnchor: false,
   },
 ];
 
@@ -145,7 +140,7 @@ const PROCESS_STEPS = [
     title: "Discover",
     description: "Understand your business, requirements, existing systems, and goals.",
     detail: "Deep dive into real operational bottlenecks and user needs before writing a line of code.",
-    checkpoint: "Requirements Blueprint & Opportunity Map",
+    checkpoint: "Requirements Blueprint",
   },
   {
     step: "02",
@@ -153,7 +148,7 @@ const PROCESS_STEPS = [
     title: "Design the architecture",
     description: "Plan a scalable, secure solution suited to your needs.",
     detail: "Choose fit-for-purpose stacks, mapping data contracts, integrations, and user flows.",
-    checkpoint: "System Architecture & Interface Schematics",
+    checkpoint: "System Architecture Schematics",
   },
   {
     step: "03",
@@ -161,7 +156,7 @@ const PROCESS_STEPS = [
     title: "Build collaboratively",
     description: "Develop, test, and refine the solution with feedback.",
     detail: "Agile milestones with regular check-ins, transparent progress, and rapid iterations.",
-    checkpoint: "Continuous Integration & Team Demos",
+    checkpoint: "Continuous Integration & Demos",
   },
   {
     step: "04",
@@ -169,7 +164,7 @@ const PROCESS_STEPS = [
     title: "Deploy with confidence",
     description: "Prepare the solution for launch, testing, and handover.",
     detail: "End-to-end testing, security audits, production deployment, and team onboarding.",
-    checkpoint: "Zero-Downtime Release & Operational Training",
+    checkpoint: "Zero-Downtime Release",
   },
   {
     step: "05",
@@ -177,66 +172,67 @@ const PROCESS_STEPS = [
     title: "Support and improve",
     description: "Provide ongoing maintenance, optimization, and enhancements as agreed.",
     detail: "Proactive performance monitoring, system updates, and iterative improvements.",
-    checkpoint: "Service Health Metrics & Continuous Refinement",
+    checkpoint: "Continuous Refinement",
   },
 ];
 
-// Featured Projects (preserved verbatim)
-const FEATURED_PROJECTS = [
+// 7 Approved Featured Projects (preserved verbatim)
+// Symmetrically structured: Tier 1 (2 flagships) + Tier 2 (3 regional) + Tier 3 (2 commerce/enterprise)
+const FLAGSHIP_PROJECTS = [
   {
     name: "Namma Puducherry",
     category: "Civic & Regional Portal",
     description: "Comprehensive regional digital gateway connecting citizens, tourism, and services.",
     tag: "WEB PLATFORM",
-    isFeatured: true,
+    badge: "REGIONAL GATEWAY",
   },
   {
     name: "Vaazhai",
     category: "Incubator & Community Platform",
     description: "Ecosystem platform empowering grassroots innovation and institutional initiatives.",
     tag: "ECOSYSTEM",
-    isFeatured: true,
+    badge: "INCUBATOR CORE",
   },
+];
+
+const COMMUNITY_PROJECTS = [
   {
     name: "Bairavi Foundation",
     category: "NGO & Social Impact",
     description: "Non-profit digital presence facilitating charitable outreach and community support.",
     tag: "IMPACT",
-    isFeatured: false,
   },
   {
     name: "Voice of Tenkasi",
     category: "Media & Regional Network",
     description: "Digital media and community communication platform amplifying local stories.",
     tag: "COMMUNITY",
-    isFeatured: false,
   },
   {
     name: "Kottravai",
     category: "Culture & Commerce",
     description: "Modern digital showcase celebrating heritage, cultural arts, and direct commerce.",
     tag: "COMMERCE",
-    isFeatured: false,
   },
+];
+
+const COMMERCE_PROJECTS = [
   {
     name: "PrincessWardrobe",
     category: "Boutique E-Commerce",
     description: "End-to-end fashion and lifestyle retail experience built for high-touch customer journeys.",
     tag: "E-COMMERCE",
-    isFeatured: false,
   },
   {
     name: "Tensemi",
     category: "Enterprise Technology Brand",
     description: "Corporate digital presence for semiconductor and advanced systems engineering.",
     tag: "ENTERPRISE",
-    isFeatured: false,
   },
 ];
 
 export function AboutPageContent() {
   const [activeStep, setActiveStep] = useState(0);
-  const currentStep = PROCESS_STEPS[activeStep];
 
   return (
     <div className="about-page">
@@ -296,7 +292,7 @@ export function AboutPageContent() {
         </div>
       </section>
 
-      {/* CONTINUOUS VISUAL CONDUIT BETWEEN SECTIONS */}
+      {/* CONTINUOUS VISUAL CONDUIT */}
       <div className="about-section-conduit" aria-hidden="true">
         <span className="conduit-line" />
         <span className="conduit-beacon" />
@@ -347,7 +343,7 @@ export function AboutPageContent() {
         </div>
       </section>
 
-      {/* SECTION 03 · OUR VISION: EDITORIAL TRIPTYCH WITH CONNECTED AXIS */}
+      {/* SECTION 03 · OUR VISION: INTEGRATED EDITORIAL TRIPTYCH */}
       <section className="about-section section-wrap" id="vision">
         <Reveal className="about-heading-center">
           <div className="eyebrow">
@@ -362,22 +358,13 @@ export function AboutPageContent() {
           </p>
         </Reveal>
 
-        {/* Continuous Technical Rail Connecting Pillars */}
-        <div className="about-vision-rail" aria-hidden="true">
-          <div className="rail-line" />
-          <div className="rail-nodes">
-            <span className="rail-node active">01</span>
-            <span className="rail-node">02</span>
-            <span className="rail-node">03</span>
-          </div>
-        </div>
-
         <div className="about-vision-grid">
           {VISION_PILLARS.map((pillar, i) => {
             const Icon = pillar.icon;
             return (
               <Reveal delay={i * 0.1} key={pillar.title} className="about-vision-card">
                 <div className="vision-card-accent-bar" style={{ backgroundColor: pillar.accent }} />
+
                 <div className="vision-card-top">
                   <div className="vision-num-pill">
                     <span className="pillar-num">{pillar.num}</span>
@@ -405,7 +392,7 @@ export function AboutPageContent() {
         </div>
       </section>
 
-      {/* SECTION 04 · WHY ARAM: ASYMMETRIC DIFFERENTIATED PRINCIPLES */}
+      {/* SECTION 04 · WHY ARAM: BALANCED 2x2 ARCHITECTURAL GRID */}
       <section className="about-section section-wrap" id="approach">
         <Reveal className="about-heading-center">
           <div className="eyebrow">
@@ -420,24 +407,20 @@ export function AboutPageContent() {
           </p>
         </Reveal>
 
-        <div className="about-why-asymmetric-grid">
+        <div className="about-why-grid-2x2">
           {WHY_ARAM.map((item, i) => {
             const Icon = item.icon;
             return (
-              <Reveal
-                delay={i * 0.08}
-                key={item.num}
-                className={`about-why-card ${item.isAnchor ? "why-anchor-card" : "why-complement-card"}`}
-              >
-                <div className="why-card-head">
-                  <div className="why-num-stack">
-                    <span className="why-card-num" style={{ color: item.accent }}>
+              <Reveal delay={i * 0.08} key={item.num} className="about-why-card-item">
+                <div className="why-card-top-bar">
+                  <div className="why-num-cluster">
+                    <span className="why-num-text" style={{ color: item.accent }}>
                       {item.num}
                     </span>
-                    <span className="why-card-subtag">{item.subTag}</span>
+                    <span className="why-subtag-pill">{item.subTag}</span>
                   </div>
                   <span
-                    className="why-card-icon"
+                    className="why-icon-box"
                     style={{
                       color: item.accent,
                       backgroundColor: `${item.accent}14`,
@@ -451,8 +434,8 @@ export function AboutPageContent() {
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
 
-                <div className="why-card-foot">
-                  <span className="why-foot-line" style={{ backgroundColor: `${item.accent}40` }} />
+                <div className="why-card-bottom-line">
+                  <span className="why-accent-line" style={{ backgroundColor: `${item.accent}55` }} />
                 </div>
               </Reveal>
             );
@@ -460,7 +443,7 @@ export function AboutPageContent() {
         </div>
       </section>
 
-      {/* SECTION 05 · HOW WE WORK: CONTINUOUS VISUAL JOURNEY */}
+      {/* SECTION 05 · HOW WE WORK: CONTINUOUS 5-STEP JOURNEY */}
       <section className="about-section section-wrap" id="process">
         <Reveal className="about-heading-center">
           <div className="eyebrow">
@@ -476,64 +459,42 @@ export function AboutPageContent() {
           </p>
         </Reveal>
 
-        {/* Continuous Process Milestone Stepper */}
-        <div className="about-journey-container">
-          {/* Milestone Track Ribbon */}
-          <div className="journey-track-ribbon" role="tablist" aria-label="Process Steps">
+        {/* Continuous Milestone Flow */}
+        <div className="about-process-journey">
+          <div className="process-journey-track">
             {PROCESS_STEPS.map((step, index) => {
               const isSelected = activeStep === index;
               return (
-                <button
+                <div
                   key={step.step}
-                  type="button"
-                  role="tab"
-                  aria-selected={isSelected}
                   onClick={() => setActiveStep(index)}
-                  className={`journey-milestone-btn ${isSelected ? "is-selected" : ""}`}
+                  className={`process-milestone-step ${isSelected ? "is-active" : ""}`}
                 >
-                  <span className="milestone-pip">{step.step}</span>
-                  <div className="milestone-label-wrap">
-                    <span className="milestone-name">{step.title}</span>
-                    <small className="milestone-sub">{step.stageTag}</small>
+                  <div className="milestone-pip-row">
+                    <span className="milestone-step-pip">{step.step}</span>
+                    <span className="milestone-line-seg" />
                   </div>
-                </button>
+
+                  <div className="milestone-card-body">
+                    <span className="milestone-stage-tag">{step.stageTag}</span>
+                    <h3 className="milestone-card-title">{step.title}</h3>
+                    <p className="milestone-card-desc">{step.description}</p>
+                    <div className="milestone-card-detail">
+                      <small>{step.detail}</small>
+                    </div>
+                    <div className="milestone-checkpoint-badge">
+                      <Check size={12} className="text-[#10b981] shrink-0" />
+                      <span>{step.checkpoint}</span>
+                    </div>
+                  </div>
+                </div>
               );
             })}
-          </div>
-
-          {/* Active Milestone Spotlight Card */}
-          <div className="journey-spotlight-card">
-            <div className="spotlight-stage-badge">
-              <span className="stage-live-dot" />
-              <span>{currentStep.stageTag}</span>
-            </div>
-
-            <div className="spotlight-main-grid">
-              <div className="spotlight-left">
-                <span className="spotlight-num-hero">{currentStep.step}</span>
-                <h3 className="spotlight-title">{currentStep.title}</h3>
-                <p className="spotlight-summary">{currentStep.description}</p>
-              </div>
-
-              <div className="spotlight-right">
-                <div className="spotlight-detail-box">
-                  <span className="detail-box-kicker">TECHNICAL EXECUTION</span>
-                  <p>{currentStep.detail}</p>
-                </div>
-
-                <div className="spotlight-checkpoint">
-                  <Check size={14} className="text-[#10b981]" />
-                  <span>
-                    Validation checkpoint: <strong>{currentStep.checkpoint}</strong>
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 06 · OUR EXPERIENCE: REFINED EDITORIAL NUMERALS */}
+      {/* SECTION 06 · OUR EXPERIENCE: EDITORIAL NUMERALS STRIP */}
       <section className="about-section section-wrap" id="experience">
         <Reveal className="about-heading-center">
           <div className="eyebrow">
@@ -550,14 +511,14 @@ export function AboutPageContent() {
 
         <div className="about-stats-editorial-strip">
           {COMPANY_STATS.map((stat, i) => (
-            <Reveal delay={i * 0.08} key={stat.label} className="about-stat-column">
+            <div key={stat.label} className="about-stat-column">
               <div className="stat-numeral-wrap">
                 <span className="stat-value">{stat.value}</span>
                 <span className="stat-index-tag">0{i + 1}</span>
               </div>
               <div className="stat-label">{stat.label}</div>
               <p className="stat-detail">{stat.detail}</p>
-            </Reveal>
+            </div>
           ))}
         </div>
 
@@ -570,7 +531,7 @@ export function AboutPageContent() {
         </div>
       </section>
 
-      {/* SECTION 07 · SELECTED WORK: POLISHED PORTFOLIO SHOWCASE */}
+      {/* SECTION 07 · SELECTED WORK: BALANCED 3-TIER ARCHITECTURAL SHOWCASE */}
       <section className="about-section section-wrap" id="portfolio">
         <Reveal className="about-work-header">
           <div>
@@ -592,25 +553,59 @@ export function AboutPageContent() {
           </div>
         </Reveal>
 
-        {/* Curated Architectural Showcase Grid */}
-        <div className="about-projects-architectural-grid">
-          {FEATURED_PROJECTS.map((proj, i) => (
-            <Reveal
-              delay={i * 0.06}
-              key={proj.name}
-              className={`about-project-card ${proj.isFeatured ? "is-featured-project" : ""}`}
-            >
+        {/* Tier 1: 2 Flagship Platforms */}
+        <div className="projects-tier-flagships">
+          {FLAGSHIP_PROJECTS.map((proj, i) => (
+            <Reveal delay={i * 0.08} key={proj.name} className="project-card-flagship">
               <div className="project-card-top">
-                <span className="project-tag">{proj.tag}</span>
-                <span className="project-index">0{i + 1}</span>
+                <span className="project-tag-pill">{proj.tag}</span>
+                <span className="project-tier-badge">{proj.badge}</span>
               </div>
-
-              <div className="project-card-body">
-                <h3 className="project-title">{proj.name}</h3>
-                <p className="project-category">{proj.category}</p>
-                <p className="project-desc">{proj.description}</p>
+              <h3 className="project-card-title">{proj.name}</h3>
+              <p className="project-category-text">{proj.category}</p>
+              <p className="project-description-text">{proj.description}</p>
+              <div className="project-card-foot">
+                <Link href="/#work" className="project-explore-link">
+                  <span>Explore in Portfolio</span>
+                  <ArrowUpRight size={13} />
+                </Link>
               </div>
+            </Reveal>
+          ))}
+        </div>
 
+        {/* Tier 2: 3 Community & Impact Platforms */}
+        <div className="projects-tier-community">
+          {COMMUNITY_PROJECTS.map((proj, i) => (
+            <Reveal delay={0.16 + i * 0.06} key={proj.name} className="project-card-standard">
+              <div className="project-card-top">
+                <span className="project-tag-pill">{proj.tag}</span>
+                <span className="project-index-num">0{i + 3}</span>
+              </div>
+              <h3 className="project-card-title">{proj.name}</h3>
+              <p className="project-category-text">{proj.category}</p>
+              <p className="project-description-text">{proj.description}</p>
+              <div className="project-card-foot">
+                <Link href="/#work" className="project-explore-link">
+                  <span>Explore in Portfolio</span>
+                  <ArrowUpRight size={13} />
+                </Link>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Tier 3: 2 Commerce & Enterprise Systems */}
+        <div className="projects-tier-commerce">
+          {COMMERCE_PROJECTS.map((proj, i) => (
+            <Reveal delay={0.34 + i * 0.06} key={proj.name} className="project-card-standard">
+              <div className="project-card-top">
+                <span className="project-tag-pill">{proj.tag}</span>
+                <span className="project-index-num">0{i + 6}</span>
+              </div>
+              <h3 className="project-card-title">{proj.name}</h3>
+              <p className="project-category-text">{proj.category}</p>
+              <p className="project-description-text">{proj.description}</p>
               <div className="project-card-foot">
                 <Link href="/#work" className="project-explore-link">
                   <span>Explore in Portfolio</span>
@@ -636,8 +631,6 @@ export function AboutPageContent() {
       <section className="about-section about-cta-section section-wrap" id="contact">
         <div className="about-cta-panel">
           <div className="about-cta-glow" aria-hidden="true" />
-          <div className="about-cta-corner-hud top-left" aria-hidden="true">ARAM // ARCHITECTURE OF INTELLIGENCE</div>
-          <div className="about-cta-corner-hud top-right" aria-hidden="true">SYS.STATUS // READY</div>
 
           <Reveal className="about-cta-content">
             <div className="eyebrow about-cta-eyebrow">
