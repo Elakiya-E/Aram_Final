@@ -9,6 +9,8 @@ import {
   Database,
   Workflow,
   Blocks,
+  Layers,
+  Boxes,
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
@@ -22,6 +24,8 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   Database,
   Blocks,
   Cloud,
+  Layers,
+  Boxes,
 };
 
 type MobileDrawerProps = {

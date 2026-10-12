@@ -18,11 +18,16 @@ import {
   MoveRight,
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import type { LucideIcon } from "lucide-react";
 import { HeroIntelligenceCanvas } from "./HeroIntelligenceCanvas";
 import { CapabilityMetaphorVisual } from "./CapabilityMetaphorVisual";
 import { ProcessPathway } from "./ProcessPathway";
+import {
+  SERVICES_DATA,
+  WORKFLOW_AUDIT_OFFER,
+  type ServiceCapability,
+} from "@/content/services";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -49,116 +54,8 @@ function Reveal({
   );
 }
 
-export type Capability = {
-  id: string;
-  num: string;
-  title: string;
-  shortLabel: string;
-  description: string;
-  badge: string;
-  accent: string;
-  icon: LucideIcon;
-  deliverables: string[];
-};
-
-export const CAPABILITIES: Capability[] = [
-  {
-    id: "ai-solutions",
-    num: "01",
-    title: "AI Solutions",
-    shortLabel: "AI Solutions",
-    description:
-      "Build intelligent assistants, AI-powered applications, and systems that turn information into useful outcomes.",
-    badge: "INTELLIGENT SYSTEMS",
-    accent: "#8b5cf6",
-    icon: Bot,
-    deliverables: [
-      "Custom conversational copilots & assistants",
-      "Document intelligence & knowledge retrieval (RAG)",
-      "Automated decision support & classification",
-    ],
-  },
-  {
-    id: "ai-automation",
-    num: "02",
-    title: "AI & Automation",
-    shortLabel: "AI & Automation",
-    description:
-      "Reduce repetitive work by connecting tools, automating workflows, and simplifying everyday operations.",
-    badge: "PROCESS ORCHESTRATION",
-    accent: "#6366f1",
-    icon: Workflow,
-    deliverables: [
-      "Multi-application triggers & integration flows",
-      "Data synchronization across distributed teams",
-      "Elimination of manual entry & repetitive tasks",
-    ],
-  },
-  {
-    id: "software-products",
-    num: "03",
-    title: "Software & Digital Products",
-    shortLabel: "Software & Digital Products",
-    description:
-      "Create websites, web applications, mobile apps, portals, and digital platforms built around real business needs.",
-    badge: "FULL-STACK PLATFORMS",
-    accent: "#3b82f6",
-    icon: Layers,
-    deliverables: [
-      "Modern web applications & responsive portals",
-      "Cross-platform iOS & Android mobile apps",
-      "Scalable backend architectures & robust APIs",
-    ],
-  },
-  {
-    id: "data-analytics",
-    num: "04",
-    title: "Data & Analytics",
-    shortLabel: "Data & Analytics",
-    description:
-      "Turn scattered data into clear dashboards, useful reports, and actionable business insights.",
-    badge: "DECISION INTELLIGENCE",
-    accent: "#10b981",
-    icon: Database,
-    deliverables: [
-      "Centralized operational metrics & dashboards",
-      "Automated reporting for leadership & teams",
-      "Pipeline consolidation from disparate sources",
-    ],
-  },
-  {
-    id: "zoho-systems",
-    num: "05",
-    title: "Zoho & Business Systems",
-    shortLabel: "Zoho & Business Systems",
-    description:
-      "Connect business processes through CRM, business applications, workflow configuration, and system integration.",
-    badge: "BUSINESS ECOSYSTEMS",
-    accent: "#f59e0b",
-    icon: Boxes,
-    deliverables: [
-      "End-to-end Zoho CRM setup & customization",
-      "Zoho Creator custom applications & workflows",
-      "Seamless integration with third-party tools & ERP",
-    ],
-  },
-  {
-    id: "cloud-services",
-    num: "06",
-    title: "Cloud & Managed Services",
-    shortLabel: "Cloud & Managed Services",
-    description:
-      "Support reliable digital operations through deployment, infrastructure setup, maintenance, and ongoing improvements.",
-    badge: "INFRASTRUCTURE & RELIABILITY",
-    accent: "#ec4899",
-    icon: Cloud,
-    deliverables: [
-      "Cloud architecture, hosting & secure staging",
-      "Proactive system monitoring & continuous updates",
-      "Performance optimization & incident maintenance",
-    ],
-  },
-];
+export type Capability = ServiceCapability;
+export const CAPABILITIES = SERVICES_DATA;
 
 export function WhatWeDoPageContent() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -177,6 +74,23 @@ export function WhatWeDoPageContent() {
   const handleHeroHubClick = useCallback((index: number) => {
     setActiveIndex(index);
     explorerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
+  // Synchronize active capability when navigating from MegaMenu links (e.g. /what-we-do#ai-automation)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    function syncHash() {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) {
+        const found = CAPABILITIES.findIndex((c) => c.id === hash);
+        if (found !== -1) {
+          setActiveIndex(found);
+        }
+      }
+    }
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
   }, []);
 
   return (
@@ -411,6 +325,31 @@ export function WhatWeDoPageContent() {
               <h3>{activeCap.title}</h3>
             </div>
 
+            {/* Synchronized Hero Card Core Hook */}
+            <div
+              className="detail-hero-card-hook"
+              style={{
+                borderColor: `${activeCap.accent}33`,
+                background: `linear-gradient(135deg, ${activeCap.accent}0d 0%, transparent 100%)`,
+              }}
+            >
+              <div className="detail-hero-hook-header">
+                <span
+                  className="detail-hero-hook-dot"
+                  style={{ backgroundColor: activeCap.accent }}
+                />
+                <span
+                  className="detail-hero-hook-badge"
+                  style={{ color: activeCap.accent }}
+                >
+                  HERO SERVICE HIGHLIGHT
+                </span>
+              </div>
+              <p className="detail-hero-hook-desc">
+                &ldquo;{activeCap.heroCardDescription}&rdquo;
+              </p>
+            </div>
+
             {/* Approved exact description */}
             <p className="detail-approved-description">{activeCap.description}</p>
 
@@ -472,10 +411,31 @@ export function WhatWeDoPageContent() {
                     </span>
                   </div>
                   <h4>{cap.title}</h4>
+                  <span className="matrix-hero-phrase">&ldquo;{cap.heroCardDescription}&rdquo;</span>
                   <p>{cap.description}</p>
                 </div>
               );
             })}
+          </div>
+        </div>
+
+        {/* Synchronized Workflow Audit Callout Offer from Homepage Hero Card */}
+        <div className="wwd-audit-callout-card">
+          <div className="audit-callout-glow" aria-hidden="true" />
+          <div className="audit-callout-inner">
+            <div className="audit-callout-left">
+              <span className="audit-callout-kicker">
+                <Sparkles size={13} className="text-[#8b5cf6]" />
+                {WORKFLOW_AUDIT_OFFER.kicker}
+              </span>
+              <h3 className="audit-callout-title">{WORKFLOW_AUDIT_OFFER.title}</h3>
+              <p className="audit-callout-desc">{WORKFLOW_AUDIT_OFFER.description}</p>
+            </div>
+            <div className="audit-callout-right">
+              <Link href={WORKFLOW_AUDIT_OFFER.href} className="button button-primary audit-callout-btn">
+                {WORKFLOW_AUDIT_OFFER.ctaText} <ArrowUpRight size={15} />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

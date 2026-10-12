@@ -1,15 +1,10 @@
+import { SERVICES_DATA, type ServiceIconName } from "@/content/services";
+
 export type MegaMenuItem = {
   title: string;
   description: string;
   href: string;
-  icon:
-    | "Bot"
-    | "Cloud"
-    | "Database"
-    | "Workflow"
-    | "Blocks"
-    | "ArrowUpRight"
-    | (string & {});
+  icon: ServiceIconName | "ArrowUpRight" | (string & {});
 };
 
 export type NavItem = {
@@ -19,43 +14,12 @@ export type NavItem = {
   variant?: "zoho";
 };
 
-export const MEGA_MENU_ITEMS: MegaMenuItem[] = [
-  {
-    title: "Automation & Workflows",
-    description:
-      "Well-designed flows that handle the repetitive work, so your team doesn't have to.",
-    href: "/#services",
-    icon: "Workflow",
-  },
-  {
-    title: "AI & Intelligent Agents",
-    description:
-      "Useful intelligence woven into everyday work, with people firmly in the loop.",
-    href: "/#services",
-    icon: "Bot",
-  },
-  {
-    title: "Data Engineering & Analytics",
-    description:
-      "Bring your numbers together and surface what actually deserves your attention.",
-    href: "/#services",
-    icon: "Database",
-  },
-  {
-    title: "Zoho & CRM Solutions",
-    description:
-      "A connected Zoho ecosystem, chosen and shaped around how your business really works.",
-    href: "/#zoho",
-    icon: "Blocks",
-  },
-  {
-    title: "Cloud & Integrations",
-    description:
-      "Connect the tools you already use into one calm, coordinated system.",
-    href: "/#services",
-    icon: "Cloud",
-  },
-];
+export const MEGA_MENU_ITEMS: MegaMenuItem[] = SERVICES_DATA.map((service) => ({
+  title: service.heroCardTitle,
+  description: service.heroCardDescription,
+  href: service.href,
+  icon: service.iconName,
+}));
 
 export const NAV_ITEMS: NavItem[] = [
   {

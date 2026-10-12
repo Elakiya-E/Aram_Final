@@ -6,6 +6,8 @@ import {
   Database,
   Workflow,
   Blocks,
+  Layers,
+  Boxes,
   ArrowUpRight,
   Sparkles,
 } from "lucide-react";
@@ -13,6 +15,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import type { MegaMenuItem } from "./nav-config";
+import { WORKFLOW_AUDIT_OFFER } from "@/content/services";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   Workflow,
@@ -20,6 +23,8 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   Database,
   Blocks,
   Cloud,
+  Layers,
+  Boxes,
 };
 
 type MegaMenuProps = {
@@ -139,18 +144,18 @@ export function MegaMenu({ isOpen, items, onClose, anchorRef }: MegaMenuProps) {
                       <Sparkles size={14} />
                     </span>
                     <h4 className="text-[13px] font-semibold leading-snug text-neutral-900 dark:text-neutral-100">
-                      Not sure where to start?
+                      {WORKFLOW_AUDIT_OFFER.title}
                     </h4>
                     <p className="mt-1 text-[11.5px] leading-relaxed text-neutral-500 dark:text-neutral-400">
-                      Book a free 30-min workflow audit. We&rsquo;ll map one small, real win with you.
+                      {WORKFLOW_AUDIT_OFFER.description}
                     </p>
                   </div>
                   <Link
-                    href="#contact"
+                    href={WORKFLOW_AUDIT_OFFER.href}
                     onClick={onClose}
                     className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#6C5CE7] transition-colors duration-200 hover:text-[#5943c9] dark:text-[#b5a8ff] dark:hover:text-[#cfc2ff]"
                   >
-                    Book the audit
+                    {WORKFLOW_AUDIT_OFFER.ctaText}
                     <ArrowUpRight
                       size={13}
                       className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
