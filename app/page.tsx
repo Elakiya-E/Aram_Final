@@ -3,22 +3,13 @@
 import {
   ArrowRight,
   ArrowUpRight,
-  Bot,
-  Check,
-  ChevronDown,
-  CircleHelp,
-  MessageSquareText,
-  MoveUpRight,
-  Zap,
+  Sparkles,
+  ShieldCheck,
 } from "lucide-react";
-import Image from "next/image";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { FormEvent, useState } from "react";
-import { siteContent } from "@/content/site";
-import siteLogo from "./logo3-Picsart-AiImageEnhancer-removebg-preview.png";
-import { PartnersSection } from "@/components/PartnersSection";
-import { CapabilitiesSection } from "@/components/CapabilitiesSection";
-import { AramUniverseHero } from "@/components/AramUniverseHero";
+import { BusinessFlowHero } from "@/components/BusinessFlowHero";
 import { Footer } from "@/components/Footer";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -27,22 +18,19 @@ function Reveal({
   children,
   delay = 0,
   className,
-  onMouseMove,
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
-  onMouseMove?: React.MouseEventHandler<HTMLDivElement>;
 }) {
   const reducedMotion = useReducedMotion();
   return (
     <motion.div
       className={className}
-      onMouseMove={onMouseMove}
-      initial={reducedMotion ? false : { opacity: 0, y: 22 }}
+      initial={reducedMotion ? false : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.7, delay, ease }}
+      transition={{ duration: 0.65, delay, ease }}
     >
       {children}
     </motion.div>
@@ -69,7 +57,7 @@ function ContactForm() {
   }
 
   return (
-    <form className="contact-form" onSubmit={submitForm}>
+    <form className="contact-form home-contact-form" onSubmit={submitForm}>
       <label>
         <span>Your name</span>
         <input autoComplete="name" name="name" placeholder="Jane Smith" required />
@@ -80,145 +68,308 @@ function ContactForm() {
       </label>
       <label>
         <span>What are you looking to solve?</span>
-        <textarea name="message" placeholder="A little context helps us make our first conversation useful." required rows={3} />
+        <textarea
+          name="message"
+          placeholder="A little context helps us make our first conversation useful."
+          required
+          rows={3}
+        />
       </label>
-      <button className="button button-primary form-submit" type="submit">Start a conversation <ArrowUpRight size={16} /></button>
-      <p aria-live="polite" className="form-note">{status || "No pitch deck. No pressure. Just a good conversation."}</p>
+      <button className="button button-primary form-submit" type="submit">
+        Start a conversation ↗
+      </button>
+      <p aria-live="polite" className="form-note">
+        {status || "No pitch deck. No pressure. Just a good conversation."}
+      </p>
     </form>
   );
 }
+
+// 4 Interactive Typographic Capabilities
+const CAPABILITIES_LIST = [
+  {
+    num: "01",
+    title: "AI & Intelligent Systems",
+    summary: "Make information more useful.",
+    href: "/what-we-do#ai-solutions",
+  },
+  {
+    num: "02",
+    title: "Automation & Integration",
+    summary: "Make everyday work flow better.",
+    href: "/what-we-do#ai-automation",
+  },
+  {
+    num: "03",
+    title: "Software & Digital Products",
+    summary: "Turn ideas into useful experiences.",
+    href: "/what-we-do#software-products",
+  },
+  {
+    num: "04",
+    title: "Data & Business Intelligence",
+    summary: "Turn data into clearer decisions.",
+    href: "/what-we-do#data-analytics",
+  },
+];
+
+// 4 Connected Approach Steps
+const APPROACH_STEPS = [
+  {
+    num: "01",
+    title: "Understand",
+    description: "We map your current processes, identify operational bottlenecks, and define the practical opportunity.",
+  },
+  {
+    num: "02",
+    title: "Design",
+    description: "We blueprint the connected solution—selecting the right architecture, tools, and integrations.",
+  },
+  {
+    num: "03",
+    title: "Build",
+    description: "We engineer and connect AI, software, and automation into a resilient, production-ready system.",
+  },
+  {
+    num: "04",
+    title: "Improve",
+    description: "We monitor performance, refine user adoption, and iterate as your business needs expand.",
+  },
+];
+
+// Approved Real Portfolio Deliverables (preserved from active records)
+const SELECTED_PROJECTS = [
+  {
+    name: "Namma Puducherry",
+    category: "Civic & Regional Portal",
+    tag: "WEB PLATFORM",
+    badge: "REGIONAL GATEWAY",
+    description: "Comprehensive regional digital gateway connecting citizens, tourism, and services.",
+    href: "/about#portfolio",
+  },
+  {
+    name: "Vaazhai",
+    category: "Incubator & Community Platform",
+    tag: "ECOSYSTEM",
+    badge: "INCUBATOR CORE",
+    description: "Ecosystem platform empowering grassroots innovation and institutional initiatives.",
+    href: "/about#portfolio",
+  },
+  {
+    name: "Voice of Tenkasi",
+    category: "Media & Regional Network",
+    tag: "COMMUNITY",
+    badge: "REGIONAL MEDIA",
+    description: "Digital media and community communication platform amplifying local stories.",
+    href: "/about#portfolio",
+  },
+  {
+    name: "Kottravai",
+    category: "Culture & Commerce",
+    tag: "COMMERCE",
+    badge: "DIGITAL SHOWCASE",
+    description: "Modern digital showcase celebrating heritage, cultural arts, and direct commerce.",
+    href: "/about#portfolio",
+  },
+];
 
 export default function Home() {
   return (
     <>
       <main id="top">
-        <AramUniverseHero />
+        {/* 1. HERO SECTION */}
+        <BusinessFlowHero />
 
-        <CapabilitiesSection id="services" />
+        {/* 2. BRAND STATEMENT */}
+        <section className="home-brand-section section-wrap" id="statement">
+          <div className="home-brand-container">
+            <Reveal className="home-brand-content">
+              <div className="eyebrow home-brand-eyebrow">
+                <span className="eyebrow-line" /> THE CONNECTED WAY
+              </div>
+              <h2 className="home-brand-heading">
+                More than software. <span className="serif-accent italic-highlight">A connected way forward.</span>
+              </h2>
+              <p className="home-brand-desc">
+                Every business has challenges. We bring the right technology together to simplify operations, connect systems, and create room for growth.
+              </p>
+            </Reveal>
+          </div>
+        </section>
 
-        <section className="automation-section section-wrap">
-          <Reveal className="automation-intro">
-            <div className="eyebrow"><span className="eyebrow-line" /> FROM FIRST CLICK TO FOLLOW-THROUGH</div>
-            <h2>Great work happens<br />when the <span className="serif-accent">busywork doesn’t.</span></h2>
-            <p>Imagine the right information reaching the right person, in the right place — automatically. That’s the kind of calm a thoughtful workflow can bring.</p>
-            <a className="text-link" href="#contact">Let’s find your first win <ArrowUpRight size={14} /></a>
-          </Reveal>
-          <Reveal className="automation-board" delay={0.1}>
-            <div className="board-top"><span><span className="status-dot" /> SAMPLE AUTOMATION</span><span>Lead-to-CRM handoff <ChevronDown size={13} /></span></div>
-            <div className="automation-flow">
-              <div className="automation-step">
-                <div className="automation-icon trigger-icon"><Zap size={18} /></div>
-                <span className="step-kicker">01 / TRIGGER</span><b>New enquiry</b><small>A lead fills out your form</small>
-              </div>
-              <div className="step-link"><span /></div>
-              <div className="automation-step">
-                <div className="automation-icon ai-icon"><Bot size={18} /></div>
-                <span className="step-kicker">02 / INTELLIGENCE</span><b>Qualify &amp; enrich</b><small>AI adds useful context</small>
-              </div>
-              <div className="step-link"><span /></div>
-              <div className="automation-step">
-                <div className="automation-icon crm-icon">Z</div>
-                <span className="step-kicker">03 / ZOHO CRM</span><b>Update &amp; route</b><small>The right owner is assigned</small>
-              </div>
-              <div className="step-link"><span /></div>
-              <div className="automation-step">
-                <div className="automation-icon notify-icon"><MessageSquareText size={17} /></div>
-                <span className="step-kicker">04 / NOTIFY</span><b>Team is ready</b><small>Follow up while it’s fresh</small>
-              </div>
+        {/* 3. CAPABILITIES (Typographic Interactive List) */}
+        <section className="home-capabilities-section section-wrap" id="services">
+          {/* Smooth navigation anchor for Zoho without cluttering hero */}
+          <span id="zoho" className="sr-only" tabIndex={-1} />
+
+          <Reveal className="home-section-header">
+            <div className="eyebrow">
+              <span className="eyebrow-line" /> WHAT WE DO
             </div>
-            <div className="board-foot"><span><CircleHelp size={13} /> Your workflow will be designed around your team.</span><span>Built for real work <span className="foot-spark">✳</span></span></div>
+            <h2 className="home-section-title">
+              One team. <span className="serif-accent">Multiple possibilities.</span>
+            </h2>
+          </Reveal>
+
+          <div className="home-capabilities-list" role="list">
+            {CAPABILITIES_LIST.map((item, idx) => (
+              <Reveal key={item.title} delay={idx * 0.06}>
+                <Link
+                  href={item.href}
+                  className="home-capability-row group"
+                  role="listitem"
+                  aria-label={`${item.title} — ${item.summary}`}
+                >
+                  <div className="home-capability-main">
+                    <span className="home-capability-num">{item.num}</span>
+                    <h3 className="home-capability-title">{item.title}</h3>
+                  </div>
+
+                  <div className="home-capability-sub">
+                    <span className="home-capability-emdash" aria-hidden="true">—</span>
+                    <span className="home-capability-desc">{item.summary}</span>
+                  </div>
+
+                  <div className="home-capability-action" aria-hidden="true">
+                    <span className="home-capability-arrow">
+                      <ArrowUpRight size={18} />
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="home-capabilities-footer-bridge">
+            <p>
+              Looking for Zoho solutions, cloud infrastructure, or managed services?{" "}
+              <Link href="/what-we-do" className="text-link inline-link">
+                Explore all capabilities on What We Do <ArrowUpRight size={13} />
+              </Link>
+            </p>
           </Reveal>
         </section>
 
-        <PartnersSection id="partners" />
-
-        <section className="work-section section-wrap" id="work">
-          <Reveal>
-            <div className="section-heading work-heading">
-              <div>
-                <div className="eyebrow"><span className="eyebrow-line" /> THE WORK, IN THE REAL WORLD</div>
-                <h2>Better days at <span className="serif-accent">work.</span></h2>
-              </div>
-              <p>Every business is different. The right solution starts by understanding what your people actually need.</p>
+        {/* 4. APPROACH (Continuous Visual Connection) */}
+        <section className="home-approach-section section-wrap" id="process">
+          <Reveal className="home-section-header">
+            <div className="eyebrow">
+              <span className="eyebrow-line" /> OUR METHOD
             </div>
+            <h2 className="home-section-title">
+              From a challenge <span className="serif-accent">to a working solution.</span>
+            </h2>
           </Reveal>
-          <div className="case-grid">
-            {siteContent.caseStudies.map((study, index) => (
-              <Reveal className={`case-card case-card-${index + 1}`} delay={index * 0.09} key={study.label}>
-                <div className={`case-visual case-visual-${index + 1}`}>
-                  {index === 0 ? (
-                    <div className="case-dashboard">
-                      <div className="dash-sidebar"><span className="dash-logo">Z</span><i /><i /><i /><i /></div>
-                      <div className="dash-main"><div className="dash-title"><span>Overview</span><i>•••</i></div><div className="dash-stats"><i /><i /><i /></div><div className="dash-chart"><span /><i /><i /><i /><i /><i /><i /><i /></div><div className="dash-bottom"><i /><i /></div></div>
-                    </div>
-                  ) : (
-                    <div className="case-phone">
-                      <div className="phone-speaker" />
-                      <div className="phone-screen"><span className="phone-greeting">Good morning, team</span><i /><b>Today, at a glance</b><div className="phone-stat-row"><i /><i /></div><div className="phone-task"><span>✓</span> New lead assigned</div><div className="phone-task"><span>↗</span> Follow-up scheduled</div></div>
-                    </div>
-                  )}
-                  <span className="case-visual-tag">{study.visualLabel}</span>
+
+          <div className="home-approach-track-wrap">
+            {/* Continuous horizontal guide line on desktop */}
+            <div className="home-approach-continuous-line" aria-hidden="true" />
+
+            <div className="home-approach-steps-grid">
+              {APPROACH_STEPS.map((step, idx) => (
+                <Reveal key={step.num} delay={idx * 0.08} className="home-approach-step-card">
+                  <div className="home-approach-node">
+                    <span className="home-approach-node-dot" />
+                    <span className="home-approach-node-num">{step.num}</span>
+                  </div>
+                  <h3 className="home-approach-step-title">{step.title}</h3>
+                  <p className="home-approach-step-desc">{step.description}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 5. SELECTED WORK (Real Approved Portfolio Deliverables) */}
+        <section className="home-work-section section-wrap" id="work">
+          <Reveal className="home-section-header home-work-header">
+            <div>
+              <div className="eyebrow">
+                <span className="eyebrow-line" /> SELECTED DELIVERIES
+              </div>
+              <h2 className="home-section-title">
+                Ideas, <span className="serif-accent">made real.</span>
+              </h2>
+            </div>
+            <p className="home-section-desc">
+              A selection of digital platforms, applications, and technology solutions built for different needs.
+            </p>
+          </Reveal>
+
+          <div className="home-work-grid">
+            {SELECTED_PROJECTS.map((project, idx) => (
+              <Reveal key={project.name} delay={idx * 0.08} className="home-work-card">
+                <div className="home-work-card-top">
+                  <span className="home-work-tag">{project.tag}</span>
+                  <span className="home-work-badge">{project.badge}</span>
                 </div>
-                <div className="case-info">
-                  <div><span className="case-category">{study.category}</span><h3>{study.title}</h3><p>{study.description}</p></div>
-                  <a aria-label={`Discuss ${study.title}`} className="round-arrow" href="#contact"><ArrowUpRight size={16} /></a>
+                <div className="home-work-card-body">
+                  <span className="home-work-category">{project.category}</span>
+                  <h3 className="home-work-title">{project.name}</h3>
+                  <p className="home-work-description">{project.description}</p>
+                </div>
+                <div className="home-work-card-foot">
+                  <Link href={project.href} className="home-work-link">
+                    <span>Explore in Portfolio</span>
+                    <ArrowUpRight size={14} />
+                  </Link>
                 </div>
               </Reveal>
             ))}
           </div>
-          <p className="work-note"><span>↗</span> These are concept previews, not client case studies. Real project stories can be added here.</p>
-        </section>
 
-        <section className="process-section section-wrap" id="process">
-          <Reveal>
-            <div className="process-heading">
-              <div className="eyebrow"><span className="eyebrow-line" /> A GOOD WAY TO GET THERE</div>
-              <h2>Thoughtful from<br />the <span className="serif-accent">first hello.</span></h2>
-              <p>No black boxes. No big reveal at the end. Just good collaboration, clear steps, and a team that has your back.</p>
-            </div>
-          </Reveal>
-          <div className="timeline">
-            {siteContent.process.map((step, index) => (
-              <Reveal className="timeline-step" delay={index * 0.08} key={step.title}>
-                <div className="timeline-marker"><span>0{index + 1}</span><i /></div>
-                <div className="timeline-content"><span className="step-kicker">{step.kicker}</span><h3>{step.title}</h3><p>{step.description}</p></div>
-              </Reveal>
-            ))}
+          <div className="home-work-footer-note">
+            <span className="foot-star">✳</span>
+            <small>
+              Looking for more background?{" "}
+              <Link href="/about#portfolio" className="text-link inline-link">
+                View all projects and company history in About <ArrowRight size={13} />
+              </Link>
+            </small>
           </div>
         </section>
 
-        <section className="zoho-section section-wrap" id="zoho">
-          <Reveal className="zoho-panel">
-            <div className="zoho-glow" />
-            <div className="zoho-panel-content">
-              <div className="eyebrow"><span className="eyebrow-line" /> YOUR ZOHO TEAM, IN YOUR CORNER</div>
-              <h2>Make more of<br /><span className="zoho-word">Zoho</span><span className="serif-accent">.</span></h2>
-              <p>Choose the right apps, connect them around the way you work, and get a real person to call when you need a hand.</p>
-              <div className="zoho-benefits"><span><Check size={14} /> Licensing guidance</span><span><Check size={14} /> Setup &amp; migration</span><span><Check size={14} /> Ongoing support</span></div>
-              <a className="button button-primary" href="#contact">Get a Zoho quote <ArrowUpRight size={15} /></a>
-            </div>
-            <div aria-hidden="true" className="zoho-orb-wrap">
-              <div className="zoho-orb"><span>Z</span><i /><i /><i /><i /></div>
-              <div className="zoho-orb-label">One ecosystem.<br /><b>Built around you.</b></div>
-            </div>
-            <span className="zoho-panel-mark">Z</span>
-          </Reveal>
-          <div className="zoho-footnote"><span>Curious about Zoho?</span><a href="#contact">Let’s talk through your options <ArrowRight size={13} /></a></div>
-        </section>
+        {/* 6. CLOSING CTA */}
+        <section className="home-closing-section section-wrap" id="contact">
+          <div className="home-closing-ambient" aria-hidden="true" />
+          <div className="home-closing-grid">
+            <Reveal className="home-closing-left">
+              <div className="eyebrow">
+                <span className="eyebrow-line" /> START A CONVERSATION
+              </div>
+              <h2 className="home-closing-title">
+                Have an idea? <br />
+                <span className="serif-accent italic-highlight">Let&apos;s make it work.</span>
+              </h2>
+              <p className="home-closing-desc">
+                Start with the problem. We&apos;ll help you find the right way forward.
+              </p>
 
-        <section className="contact-section section-wrap" id="contact">
-          <div className="contact-aurora" />
-          <Reveal className="contact-copy">
-            <div className="eyebrow"><span className="eyebrow-line" /> THE NEXT STEP IS A CONVERSATION</div>
-            <h2>Let’s make<br />work <span className="serif-accent">work better.</span></h2>
-            <p>Tell us what feels harder than it should. We’ll listen, ask a few good questions, and figure out what might help.</p>
-            <div className="contact-assurance"><span className="assurance-icon"><MoveUpRight size={15} /></span><span>Real people. Thoughtful answers.<br /><b>And no pressure to say yes.</b></span></div>
-          </Reveal>
-          <Reveal className="contact-form-wrap" delay={0.12}><ContactForm /></Reveal>
+              <div className="home-closing-assurances">
+                <div className="home-assurance-item">
+                  <ShieldCheck size={16} className="text-[#8b5cf6]" />
+                  <span>No pitch deck. No pressure. Just thoughtful technical conversation.</span>
+                </div>
+                <div className="home-assurance-item">
+                  <Sparkles size={16} className="text-[#10b981]" />
+                  <span>Direct engineering insights tailored to your operational bottlenecks.</span>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal className="home-closing-right" delay={0.12}>
+              <div className="home-closing-card">
+                <div className="home-closing-card-header">
+                  <span className="card-kicker">NEW PROJECT ENQUIRY</span>
+                  <span className="card-chip">DIRECT DISPATCH</span>
+                </div>
+                <ContactForm />
+              </div>
+            </Reveal>
+          </div>
         </section>
       </main>
       <Footer />
     </>
   );
 }
-
