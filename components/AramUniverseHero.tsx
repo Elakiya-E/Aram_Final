@@ -552,7 +552,7 @@ export function AramUniverseHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.65, duration: 0.65, ease }}
           >
-            AI, automation, software and data working together to move your business forward.
+            We connect AI, software, data, and automation to turn complex business challenges into practical digital solutions.
           </motion.p>
 
           <motion.div
@@ -565,13 +565,13 @@ export function AramUniverseHero() {
               className="button button-primary universe-cta-primary"
               href="#contact"
             >
-              Start a Project <ArrowUpRight size={16} />
+              Let&apos;s build together <ArrowUpRight size={16} />
             </a>
             <a
               className="button button-quiet universe-cta-quiet"
               href="#work"
             >
-              Explore Our Work <ArrowDown size={15} />
+              Explore our work <ArrowDown size={15} />
             </a>
           </motion.div>
         </div>

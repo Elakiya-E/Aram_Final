@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { FormEvent, useState } from "react";
-import { BusinessFlowHero } from "@/components/BusinessFlowHero";
+import { AramUniverseHero } from "@/components/AramUniverseHero";
 import { Footer } from "@/components/Footer";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -177,8 +177,8 @@ export default function Home() {
   return (
     <>
       <main id="top">
-        {/* 1. HERO SECTION */}
-        <BusinessFlowHero />
+        {/* 1. HERO SECTION (Restored Animated Aram Intelligence Universe) */}
+        <AramUniverseHero />
 
         {/* 2. BRAND STATEMENT */}
         <section className="home-brand-section section-wrap" id="statement">
