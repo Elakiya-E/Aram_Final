@@ -25,7 +25,7 @@ export function Footer() {
         <div className="footer-nav-links">
           <Link href="/what-we-do">What we do</Link>
           <Link href="/#work">Our work</Link>
-          <Link href="/#zoho">Zoho</Link>
+          <Link href="/zoho">Zoho</Link>
           <Link href="/about">About</Link>
           <Link href="/#contact">Contact</Link>
         </div>

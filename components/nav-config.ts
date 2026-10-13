@@ -24,7 +24,7 @@ export const MEGA_MENU_ITEMS: MegaMenuItem[] = SERVICES_DATA.map((service) => ({
 export const NAV_ITEMS: NavItem[] = [
   {
     label: "Zoho",
-    href: "/#zoho",
+    href: "/zoho",
     variant: "zoho",
   },
   {
