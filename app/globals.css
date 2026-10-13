@@ -6148,423 +6148,71 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 /* =========================================================================
-   ZOHO PARTNERSHIP PAGE (SIMPLIFIED & MINIMAL EDITORIAL)
+   ZOHO PARTNERSHIP PAGE (PREMIUM EDITORIAL & EXECUTIVE STYLING)
    ========================================================================= */
 
-.zoho-page-clean {
+.zoho-page-root {
   position: relative;
-  overflow: clip;
-  padding-bottom: 100px;
+  min-height: 100vh;
+  background-color: #fbfaff;
+  color: #14121a;
+  overflow-x: clip;
 }
 
-/* -------------------------------------------------------------------------
-   SECTION 1: HERO
-   ------------------------------------------------------------------------- */
-.zoho-hero-clean {
-  position: relative;
-  padding-top: calc(var(--header-total, 102px) + 36px);
-  padding-bottom: 24px;
-}
-
-.zoho-hero-inner {
-  max-width: 820px;
-}
-
-.zoho-official-badge {
+/* Fallback button styles for Zoho page */
+.zoho-btn-primary {
   display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 6px 14px 6px 12px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(108, 92, 231, 0.18);
-  box-shadow: 0 4px 18px -4px rgba(108, 92, 231, 0.1);
-  backdrop-filter: blur(12px);
-  margin-bottom: 24px;
-}
-
-.zoho-badge-svg {
-  height: 18px;
-  width: auto;
-  object-fit: contain;
-}
-
-.zoho-badge-divider {
-  width: 1px;
-  height: 14px;
-  background: rgba(35, 25, 60, 0.18);
-}
-
-.zoho-badge-text {
-  font-size: 11px;
-  font-weight: 750;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #5946dc;
-}
-
-.zoho-hero-title-clean {
-  font-size: clamp(38px, 4.6vw, 56px);
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  color: var(--text);
-  margin: 0 0 20px;
-}
-
-.zoho-hero-desc-clean {
-  font-size: clamp(16px, 1.25vw, 17.5px);
-  line-height: 1.65;
-  color: var(--muted);
-  max-width: 680px;
-  margin: 0 0 32px;
-}
-
-.zoho-hero-action-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 36px;
-}
-
-.zoho-hero-pill-strip {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 18px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(108, 92, 231, 0.14);
-  box-shadow: 0 4px 16px -4px rgba(45, 30, 85, 0.05);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-  flex-wrap: wrap;
-}
-
-.pill-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.pill-dot {
-  color: rgba(35, 25, 60, 0.2);
-}
-
-/* -------------------------------------------------------------------------
-   COMMON SECTION STYLES
-   ------------------------------------------------------------------------- */
-.zoho-section-clean {
-  position: relative;
-  padding-top: 88px;
-}
-
-.zoho-heading-clean {
-  max-width: 680px;
-  margin-bottom: 36px;
-}
-
-.zoho-heading-clean .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 10.5px;
-  font-weight: 750;
-  letter-spacing: 0.1em;
-  color: #6c5ce7;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-}
-
-.zoho-heading-clean .eyebrow .eyebrow-line {
-  display: inline-block;
-  width: 20px;
-  height: 1.5px;
-  background: #6c5ce7;
-}
-
-.zoho-heading-clean h2 {
-  font-size: clamp(28px, 3.2vw, 38px);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.18;
-  margin: 0 0 12px;
-  color: var(--text);
-}
-
-.zoho-heading-clean p {
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.65;
-  margin: 0;
-}
-
-/* -------------------------------------------------------------------------
-   SECTION 2: ZOHO PRODUCTS
-   ------------------------------------------------------------------------- */
-.zoho-products-clean-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.zoho-product-clean-card {
-  background: #ffffff;
-  border: 1px solid rgba(35, 25, 60, 0.08);
-  border-radius: 20px;
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.25s var(--ease-out);
-  box-shadow: 0 4px 18px -4px rgba(45, 30, 85, 0.04);
-}
-
-.zoho-product-clean-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--prod-color, #6c5ce7);
-  box-shadow: 0 12px 32px -10px rgba(45, 30, 85, 0.1);
-}
-
-.prod-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.prod-icon-box {
-  width: 40px;
-  height: 40px;
-  border-radius: 11px;
-  display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid;
-}
-
-.prod-badge-tag {
-  font-size: 9.5px;
-  font-weight: 750;
-  letter-spacing: 0.06em;
-  padding: 3px 8px;
-  border-radius: 6px;
-  border: 1px solid;
-}
-
-.prod-clean-title {
-  font-size: 19px;
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  margin: 0 0 10px;
-}
-
-.prod-clean-desc {
+  gap: 8px;
+  background: linear-gradient(135deg, #6C5CE7 0%, #5946dc 100%);
+  color: #ffffff !important;
   font-size: 13.5px;
-  line-height: 1.58;
-  color: var(--muted);
-  margin: 0 0 20px;
-  flex: 1;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px -6px rgba(108, 92, 231, 0.45);
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.prod-clean-bullets {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(35, 25, 60, 0.06);
-}
-
-.prod-bullet-row {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  font-weight: 550;
-  color: var(--text);
-}
-
-/* -------------------------------------------------------------------------
-   SECTION 3: OUR SERVICES
-   ------------------------------------------------------------------------- */
-.zoho-services-clean-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.zoho-service-clean-card {
-  background: #ffffff;
-  border: 1px solid rgba(35, 25, 60, 0.08);
-  border-radius: 18px;
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.25s var(--ease-out);
-  box-shadow: 0 4px 18px -4px rgba(45, 30, 85, 0.04);
-}
-
-.zoho-service-clean-card:hover {
+.zoho-btn-primary:hover {
   transform: translateY(-2px);
-  border-color: rgba(108, 92, 231, 0.28);
-  box-shadow: 0 10px 28px -10px rgba(108, 92, 231, 0.12);
+  box-shadow: 0 12px 28px -6px rgba(108, 92, 231, 0.55);
+  color: #ffffff !important;
 }
 
-.service-clean-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.service-clean-icon-wrap {
-  display: inline-flex;
-  padding: 8px;
-  border-radius: 10px;
-  background: rgba(35, 25, 60, 0.04);
-}
-
-.service-clean-num {
-  font-size: 11px;
-  font-weight: 750;
-  letter-spacing: 0.06em;
-  color: #7c3aed;
-}
-
-.service-clean-title {
-  font-size: 16px;
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  margin: 0 0 6px;
-}
-
-.service-clean-summary {
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.45;
-  color: var(--text);
-  margin: 0 0 8px;
-}
-
-.service-clean-detail {
-  font-size: 12px;
-  line-height: 1.55;
-  color: var(--muted);
-  margin: 0;
-  flex: 1;
-}
-
-/* -------------------------------------------------------------------------
-   SECTION 4: CONTACT CTA
-   ------------------------------------------------------------------------- */
-.zoho-cta-clean-panel {
-  position: relative;
-  background: linear-gradient(135deg, #ffffff 0%, #faf8ff 55%, #f4effe 100%);
-  border: 1px solid rgba(108, 92, 231, 0.2);
-  border-radius: 24px;
-  padding: 48px 44px;
-  box-shadow: 0 20px 50px -16px rgba(45, 30, 85, 0.08), 0 1px 0 #fff inset;
-  overflow: hidden;
-}
-
-.zoho-cta-clean-glow {
-  position: absolute;
-  top: -90px;
-  right: -60px;
-  width: 300px;
-  height: 300px;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(108, 92, 231, 0.14), transparent 70%);
-  pointer-events: none;
-}
-
-.zoho-cta-clean-content {
-  position: relative;
-  z-index: 1;
-  max-width: 680px;
-}
-
-.zoho-cta-clean-content .eyebrow {
+.zoho-btn-secondary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  font-size: 10.5px;
-  font-weight: 750;
-  letter-spacing: 0.1em;
-  color: #7c3aed;
-  margin-bottom: 12px;
-}
-
-.zoho-cta-clean-heading {
-  font-size: clamp(26px, 3vw, 36px);
+  background: rgba(255, 255, 255, 0.85);
+  color: #14121a !important;
+  font-size: 13.5px;
   font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.15;
-  color: var(--text);
-  margin: 0 0 12px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(35, 25, 60, 0.15);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.zoho-cta-clean-desc {
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--muted);
-  margin: 0 0 24px;
+.zoho-btn-secondary:hover {
+  background: #ffffff;
+  border-color: rgba(108, 92, 231, 0.4);
+  color: #5946dc !important;
 }
 
-.zoho-cta-clean-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
+/* Card hover enhancements */
+.zoho-card-hover {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-.zoho-cta-clean-foot {
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  color: var(--muted);
+.zoho-card-hover:hover {
+  transform: translateY(-3px);
 }
 
-.foot-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* -------------------------------------------------------------------------
-   RESPONSIVE DESIGN BREAKPOINTS
-   ------------------------------------------------------------------------- */
-@media (max-width: 1024px) {
-  .zoho-services-clean-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-}
-
-@media (max-width: 768px) {
-  .zoho-products-clean-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .zoho-services-clean-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  .zoho-cta-clean-panel {
-    padding: 32px 24px;
-  }
-  .zoho-hero-pill-strip {
-    border-radius: 16px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .pill-dot {
-    display: none;
-  }
-}
 

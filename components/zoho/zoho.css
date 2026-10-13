@@ -1,0 +1,18 @@
+/* =========================================================================
+   ZOHO PARTNERSHIP PAGE STYLES
+   ========================================================================= */
+
+.zoho-official-pulse {
+  animation: zohoPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes zohoPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.15);
+  }
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ZohoPageContent } from "@/components/zoho/ZohoPageContent";
 import { Footer } from "@/components/Footer";
+import "@/components/zoho/zoho.css";
 
 export const metadata: Metadata = {
   title: "Official Zoho Partner — Aram Analytics",
