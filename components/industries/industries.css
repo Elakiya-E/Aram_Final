@@ -1,0 +1,31 @@
+/* =========================================================================
+   INDUSTRIES IN FOCUS — STYLES & REFINED ANIMATIONS
+   ========================================================================= */
+
+.industries-card-hover {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease, border-color 0.28s ease, background-color 0.28s ease;
+}
+
+.industries-card-hover:hover {
+  transform: translateY(-3px);
+}
+
+.industry-arrow-reveal {
+  opacity: 0;
+  transform: translateX(-4px) translateY(4px);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.industries-card-hover:hover .industry-arrow-reveal {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+.industry-icon-glow {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.industries-card-hover:hover .industry-icon-glow {
+  transform: scale(1.06);
+}

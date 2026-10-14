@@ -260,6 +260,10 @@ export function Header() {
                     ? pathname === "/about"
                     : item.href === "/what-we-do"
                     ? pathname === "/what-we-do"
+                    : item.href === "/industries"
+                    ? pathname === "/industries"
+                    : item.href === "/zoho"
+                    ? pathname === "/zoho"
                     : pathname === "/" &&
                       (activeHash === item.href ||
                         activeHash === item.href.replace("/", ""));

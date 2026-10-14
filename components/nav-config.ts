@@ -34,7 +34,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Industries",
-    href: "/#work",
+    href: "/industries",
   },
   {
     label: "Our work",
