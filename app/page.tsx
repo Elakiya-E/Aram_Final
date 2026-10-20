@@ -5,6 +5,12 @@ import {
   ArrowUpRight,
   Sparkles,
   ShieldCheck,
+  MessagesSquare,
+  Lightbulb,
+  Target,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
 } from "lucide-react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
@@ -38,49 +44,250 @@ function Reveal({
 }
 
 function ContactForm() {
-  const [status, setStatus] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    message?: string;
+  }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<{
+    type: "success" | "error" | "info";
+    text: string;
+  } | null>(null);
+
   const configuredEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
+
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof typeof errors]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[name as keyof typeof errors];
+        return next;
+      });
+    }
+  }
+
+  function validate() {
+    const errs: { name?: string; email?: string; message?: string } = {};
+    if (!formData.name.trim()) {
+      errs.name = "Please enter your name.";
+    }
+    if (!formData.email.trim()) {
+      errs.email = "Please enter your work email.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      errs.email = "Please enter a valid work email address.";
+    }
+    if (!formData.message.trim()) {
+      errs.message = "Please share what you would like to build or improve.";
+    } else if (formData.message.trim().length < 8) {
+      errs.message = "Please provide a little more context (at least 8 characters).";
+    }
+    return errs;
+  }
 
   function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!configuredEmail) {
-      setStatus("The contact form is not connected yet. Set NEXT_PUBLIC_CONTACT_EMAIL to enable inquiries.");
+    setStatusMessage(null);
+
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
-    const formData = new FormData(event.currentTarget);
-    const subject = encodeURIComponent(`Website enquiry from ${formData.get("name")}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.get("name")}\nEmail: ${formData.get("email")}\n\n${formData.get("message")}`,
-    );
-    window.location.href = `mailto:${configuredEmail}?subject=${subject}&body=${body}`;
-    setStatus("Your email app should open with your message ready to send.");
+
+    setIsSubmitting(true);
+
+    try {
+      if (!configuredEmail) {
+        setStatusMessage({
+          type: "info",
+          text: "The contact form is not connected yet. Set NEXT_PUBLIC_CONTACT_EMAIL to enable inquiries.",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const subject = encodeURIComponent(
+        `Project Enquiry: ${formData.name}${formData.company ? ` (${formData.company})` : ""}`
+      );
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\n` +
+        `Work Email: ${formData.email}\n` +
+        `Company: ${formData.company ? formData.company : "Not specified"}\n\n` +
+        `What would you like to build or improve:\n` +
+        `${formData.message}`
+      );
+
+      window.location.href = `mailto:${configuredEmail}?subject=${subject}&body=${body}`;
+
+      setStatusMessage({
+        type: "success",
+        text: "Your email app is opening with your project enquiry ready to send.",
+      });
+    } catch {
+      setStatusMessage({
+        type: "error",
+        text: "There was a problem preparing your message. Please try again or email us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <form className="contact-form home-contact-form" onSubmit={submitForm}>
-      <label>
-        <span>Your name</span>
-        <input autoComplete="name" name="name" placeholder="Jane Smith" required />
-      </label>
-      <label>
-        <span>Work email</span>
-        <input autoComplete="email" name="email" placeholder="jane@company.com" required type="email" />
-      </label>
-      <label>
-        <span>What are you looking to solve?</span>
-        <textarea
-          name="message"
-          placeholder="A little context helps us make our first conversation useful."
-          required
-          rows={3}
-        />
-      </label>
-      <button className="button button-primary form-submit" type="submit">
-        Start a conversation ↗
-      </button>
-      <p aria-live="polite" className="form-note">
-        {status || "No pitch deck. No pressure. Just a good conversation."}
-      </p>
+    <form className="studio-form" onSubmit={submitForm} noValidate>
+      <div className="studio-form-fields">
+        {/* Name */}
+        <div className="studio-field-group">
+          <label htmlFor="studio-name" className="studio-field-label">
+            <span>Name</span>
+            <span className="studio-field-required" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="studio-name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            placeholder="Jane Smith"
+            value={formData.name}
+            onChange={handleChange}
+            className={`studio-input ${errors.name ? "studio-input-error" : ""}`}
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? "studio-name-err" : undefined}
+            required
+          />
+          {errors.name && (
+            <p id="studio-name-err" className="studio-error-text" role="alert">
+              {errors.name}
+            </p>
+          )}
+        </div>
+
+        {/* Work email */}
+        <div className="studio-field-group">
+          <label htmlFor="studio-email" className="studio-field-label">
+            <span>Work email</span>
+            <span className="studio-field-required" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="studio-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            placeholder="jane@company.com"
+            value={formData.email}
+            onChange={handleChange}
+            className={`studio-input ${errors.email ? "studio-input-error" : ""}`}
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "studio-email-err" : undefined}
+            required
+          />
+          {errors.email && (
+            <p id="studio-email-err" className="studio-error-text" role="alert">
+              {errors.email}
+            </p>
+          )}
+        </div>
+
+        {/* Company or organization */}
+        <div className="studio-field-group">
+          <div className="studio-field-label-row">
+            <label htmlFor="studio-company" className="studio-field-label">
+              <span>Company or organization</span>
+            </label>
+            <span className="studio-field-optional">optional</span>
+          </div>
+          <input
+            id="studio-company"
+            name="company"
+            type="text"
+            autoComplete="organization"
+            placeholder="Acme Inc. or organization"
+            value={formData.company}
+            onChange={handleChange}
+            className="studio-input"
+          />
+        </div>
+
+        {/* What would you like to build or improve? */}
+        <div className="studio-field-group">
+          <label htmlFor="studio-message" className="studio-field-label">
+            <span>What would you like to build or improve?</span>
+            <span className="studio-field-required" aria-hidden="true">*</span>
+          </label>
+          <textarea
+            id="studio-message"
+            name="message"
+            rows={4}
+            placeholder="Share your goals, operational challenges, or the project scope you envision..."
+            value={formData.message}
+            onChange={handleChange}
+            className={`studio-textarea ${errors.message ? "studio-input-error" : ""}`}
+            aria-invalid={!!errors.message}
+            aria-describedby={errors.message ? "studio-message-err" : undefined}
+            required
+          />
+          {errors.message && (
+            <p id="studio-message-err" className="studio-error-text" role="alert">
+              {errors.message}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* Submit Button & Subtext */}
+      <div className="studio-form-actions">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="studio-submit-button"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 size={16} className="studio-spinner" aria-hidden="true" />
+              <span>Preparing enquiry...</span>
+            </>
+          ) : (
+            <>
+              <span>Tell us about your project</span>
+              <span className="studio-btn-arrow" aria-hidden="true">↗</span>
+            </>
+          )}
+        </button>
+
+        <p className="studio-form-subtext">
+          Your first conversation starts with understanding your goals.
+        </p>
+
+        {statusMessage && (
+          <div
+            className={`studio-status-box studio-status-${statusMessage.type}`}
+            role="status"
+            aria-live="polite"
+          >
+            {statusMessage.type === "success" && (
+              <CheckCircle2 size={16} className="studio-status-icon text-mint" />
+            )}
+            {statusMessage.type === "info" && (
+              <Sparkles size={16} className="studio-status-icon text-lavender" />
+            )}
+            {statusMessage.type === "error" && (
+              <AlertCircle size={16} className="studio-status-icon text-red" />
+            )}
+            <span>{statusMessage.text}</span>
+          </div>
+        )}
+      </div>
     </form>
   );
 }
@@ -145,7 +352,7 @@ const SELECTED_PROJECTS = [
     tag: "WEB PLATFORM",
     badge: "REGIONAL GATEWAY",
     description: "Comprehensive regional digital gateway connecting citizens, tourism, and services.",
-    href: "/about#portfolio",
+    href: "/our-work",
   },
   {
     name: "Vaazhai",
@@ -153,7 +360,7 @@ const SELECTED_PROJECTS = [
     tag: "ECOSYSTEM",
     badge: "INCUBATOR CORE",
     description: "Ecosystem platform empowering grassroots innovation and institutional initiatives.",
-    href: "/about#portfolio",
+    href: "/our-work",
   },
   {
     name: "Voice of Tenkasi",
@@ -161,7 +368,7 @@ const SELECTED_PROJECTS = [
     tag: "COMMUNITY",
     badge: "REGIONAL MEDIA",
     description: "Digital media and community communication platform amplifying local stories.",
-    href: "/about#portfolio",
+    href: "/our-work",
   },
   {
     name: "Kottravai",
@@ -169,26 +376,33 @@ const SELECTED_PROJECTS = [
     tag: "COMMERCE",
     badge: "DIGITAL SHOWCASE",
     description: "Modern digital showcase celebrating heritage, cultural arts, and direct commerce.",
-    href: "/about#portfolio",
+    href: "/our-work",
   },
 ];
 
 export default function Home() {
+  const reducedMotion = useReducedMotion();
   return (
     <>
       <main id="top">
         {/* 1. HERO SECTION (Restored Animated Aram Intelligence Universe) */}
         <AramUniverseHero />
 
-        {/* 2. BRAND STATEMENT */}
+        {/* 2. BRAND STATEMENT (THE CONNECTED WAY) */}
         <section className="home-brand-section section-wrap" id="statement">
           <div className="home-brand-container">
             <Reveal className="home-brand-content">
-              <div className="eyebrow home-brand-eyebrow">
-                <span className="eyebrow-line" /> THE CONNECTED WAY
+              <div className="home-brand-eyebrow">
+                <span className="home-brand-eyebrow-node" aria-hidden="true" />
+                <span className="home-brand-eyebrow-text">THE CONNECTED WAY</span>
+                <span className="home-brand-eyebrow-stem" aria-hidden="true" />
               </div>
               <h2 className="home-brand-heading">
-                More than software. <span className="serif-accent italic-highlight">A connected way forward.</span>
+                <span className="home-brand-heading-lead">More than software.</span>{" "}
+                <span className="home-brand-heading-accent-wrap">
+                  <span className="home-brand-heading-accent">A connected way forward.</span>
+                  <span className="home-brand-heading-glow" aria-hidden="true" />
+                </span>
               </h2>
               <p className="home-brand-desc">
                 Every business has challenges. We bring the right technology together to simplify operations, connect systems, and create room for growth.
@@ -322,50 +536,127 @@ export default function Home() {
             <span className="foot-star">✳</span>
             <small>
               Looking for more background?{" "}
-              <Link href="/about#portfolio" className="text-link inline-link">
-                View all projects and company history in About <ArrowRight size={13} />
+              <Link href="/our-work" className="text-link inline-link">
+                View all projects in our dedicated portfolio <ArrowRight size={13} />
               </Link>
             </small>
           </div>
         </section>
 
-        {/* 6. CLOSING CTA */}
-        <section className="home-closing-section section-wrap" id="contact">
-          <div className="home-closing-ambient" aria-hidden="true" />
-          <div className="home-closing-grid">
-            <Reveal className="home-closing-left">
-              <div className="eyebrow">
-                <span className="eyebrow-line" /> START A CONVERSATION
+        {/* 6. THE PROJECT STUDIO (CONTACT & PROJECT ENQUIRY) */}
+        <section className="project-studio-section" id="contact">
+          <div className="project-studio-ambient" aria-hidden="true" />
+          
+          <div className="studio-container section-wrap">
+            {/* Unique Visual Detail: Animated Journey Strip (IDEA → STRATEGY → BUILD → IMPACT) */}
+            <motion.div
+              className="studio-journey-strip"
+              initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.65, ease }}
+            >
+              <div className="studio-journey-eyebrow">
+                <span className="studio-pulse-dot" aria-hidden="true" />
+                <span className="studio-eyebrow-text">THE PROJECT STUDIO</span>
               </div>
-              <h2 className="home-closing-title">
-                Have an idea? <br />
-                <span className="serif-accent italic-highlight">Let&apos;s make it work.</span>
-              </h2>
-              <p className="home-closing-desc">
-                Start with the problem. We&apos;ll help you find the right way forward.
-              </p>
 
-              <div className="home-closing-assurances">
-                <div className="home-assurance-item">
-                  <ShieldCheck size={16} className="text-[#8b5cf6]" />
-                  <span>No pitch deck. No pressure. Just thoughtful technical conversation.</span>
+              <div className="studio-journey-pathway" aria-label="Project lifecycle methodology">
+                <div className="studio-journey-step">
+                  <span className="studio-journey-step-num">01</span>
+                  <span className="studio-journey-step-name">IDEA</span>
                 </div>
-                <div className="home-assurance-item">
-                  <Sparkles size={16} className="text-[#10b981]" />
-                  <span>Direct engineering insights tailored to your operational bottlenecks.</span>
+                <div className="studio-journey-connector" aria-hidden="true">
+                  <span className="studio-journey-line" />
+                  <span className="studio-journey-arrow">→</span>
+                </div>
+                <div className="studio-journey-step">
+                  <span className="studio-journey-step-num">02</span>
+                  <span className="studio-journey-step-name">STRATEGY</span>
+                </div>
+                <div className="studio-journey-connector" aria-hidden="true">
+                  <span className="studio-journey-line" />
+                  <span className="studio-journey-arrow">→</span>
+                </div>
+                <div className="studio-journey-step">
+                  <span className="studio-journey-step-num">03</span>
+                  <span className="studio-journey-step-name">BUILD</span>
+                </div>
+                <div className="studio-journey-connector" aria-hidden="true">
+                  <span className="studio-journey-line" />
+                  <span className="studio-journey-arrow">→</span>
+                </div>
+                <div className="studio-journey-step studio-journey-step-accent">
+                  <span className="studio-journey-step-num">04</span>
+                  <span className="studio-journey-step-name">IMPACT</span>
                 </div>
               </div>
-            </Reveal>
+            </motion.div>
 
-            <Reveal className="home-closing-right" delay={0.12}>
-              <div className="home-closing-card">
-                <div className="home-closing-card-header">
-                  <span className="card-kicker">NEW PROJECT ENQUIRY</span>
-                  <span className="card-chip">DIRECT DISPATCH</span>
+            {/* Asymmetric Two-Column Composition */}
+            <div className="studio-grid">
+              {/* Left Column: Editorial Introduction */}
+              <Reveal className="studio-editorial-col">
+                <h2 className="studio-headline">
+                  Have a challenge? <br />
+                  <span className="studio-headline-italic">Let&apos;s build what&apos;s next.</span>
+                </h2>
+
+                <p className="studio-description">
+                  From ambitious ideas to everyday operational challenges, let&apos;s explore how technology can move your business forward.
+                </p>
+
+                <div className="studio-collaboration-points">
+                  <div className="studio-collab-item">
+                    <div className="studio-collab-icon-wrap" aria-hidden="true">
+                      <MessagesSquare size={17} strokeWidth={1.8} className="studio-collab-icon" />
+                    </div>
+                    <div className="studio-collab-text">
+                      <strong className="studio-collab-title">Real conversations</strong>
+                      <span className="studio-collab-sep">—</span>
+                      <span className="studio-collab-desc">Start with your goals, not a sales pitch.</span>
+                    </div>
+                  </div>
+
+                  <div className="studio-collab-item">
+                    <div className="studio-collab-icon-wrap" aria-hidden="true">
+                      <Lightbulb size={17} strokeWidth={1.8} className="studio-collab-icon" />
+                    </div>
+                    <div className="studio-collab-text">
+                      <strong className="studio-collab-title">Practical thinking</strong>
+                      <span className="studio-collab-sep">—</span>
+                      <span className="studio-collab-desc">Explore solutions that fit your actual needs.</span>
+                    </div>
+                  </div>
+
+                  <div className="studio-collab-item">
+                    <div className="studio-collab-icon-wrap studio-collab-icon-wrap-mint" aria-hidden="true">
+                      <Target size={17} strokeWidth={1.8} className="studio-collab-icon studio-icon-mint" />
+                    </div>
+                    <div className="studio-collab-text">
+                      <strong className="studio-collab-title">Built for impact</strong>
+                      <span className="studio-collab-sep">—</span>
+                      <span className="studio-collab-desc">Focus on useful outcomes and long-term value.</span>
+                    </div>
+                  </div>
                 </div>
-                <ContactForm />
-              </div>
-            </Reveal>
+              </Reveal>
+
+              {/* Right Column: Project Enquiry Interface */}
+              <Reveal className="studio-interface-col" delay={0.12}>
+                <div className="studio-enquiry-surface">
+                  <div className="studio-enquiry-accent-bar" aria-hidden="true" />
+                  <div className="studio-enquiry-header">
+                    <div className="studio-enquiry-title-group">
+                      <h3 className="studio-enquiry-kicker">LET&apos;S START SOMETHING</h3>
+                      <span className="studio-enquiry-badge">PROJECT ENQUIRY</span>
+                    </div>
+                  </div>
+
+                  <ContactForm />
+                </div>
+              </Reveal>
+            </div>
           </div>
         </section>
       </main>

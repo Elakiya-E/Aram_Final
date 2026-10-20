@@ -1,0 +1,100 @@
+/* =========================================================================
+   AI & AUTOMATION SERVICES PAGE STYLES — ARAM ANALYTICS
+   ========================================================================= */
+
+.ai-hero-section {
+  position: relative;
+  padding-top: clamp(20px, 3.5vw, 36px);
+  padding-bottom: clamp(56px, 7vw, 84px);
+}
+
+.ai-ambient-glow {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1040px, 94vw);
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.12) 0%, rgba(99, 102, 241, 0.05) 45%, transparent 72%);
+  filter: blur(65px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Interactive Pipeline Visual HUD */
+.ai-hud-card {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  border: 1.5px solid rgba(139, 92, 246, 0.22);
+  background: linear-gradient(155deg, #ffffff 0%, #faf8ff 100%);
+  box-shadow: 0 24px 60px -15px rgba(40, 30, 80, 0.1), 0 0 0 1px rgba(139, 92, 246, 0.06);
+  overflow: hidden;
+}
+
+.ai-hud-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.12);
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.ai-hud-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+/* Pipeline Stage Connectors */
+.pipeline-connector-line {
+  stroke-dasharray: 4 6;
+  animation: pipelineFlow 2.8s linear infinite;
+}
+
+@keyframes pipelineFlow {
+  from {
+    stroke-dashoffset: 20;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Asymmetric Capability Item Hover */
+.capability-item {
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.capability-item:hover {
+  transform: translateX(4px);
+}
+
+.capability-item.is-selected {
+  background: #ffffff;
+  border-color: rgba(108, 92, 231, 0.35);
+  box-shadow: 0 12px 32px -8px rgba(108, 92, 231, 0.14), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+}
+
+/* Approach Continuous Line */
+.approach-track-line {
+  position: absolute;
+  top: 36px;
+  left: 6%;
+  right: 6%;
+  height: 2px;
+  background: linear-gradient(90deg, #8b5cf6 0%, #6366f1 50%, #10b981 100%);
+  opacity: 0.28;
+  z-index: 0;
+}
+
+@media (max-width: 1024px) {
+  .approach-track-line {
+    display: none;
+  }
+}

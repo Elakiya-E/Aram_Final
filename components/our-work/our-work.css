@@ -1,0 +1,269 @@
+/* =========================================================================
+   OUR WORK & PROJECTS: SELECTED WORK — DIGITAL EXPERIENCES IN ACTION
+   Aram Analytics Premium Portfolio System
+   ========================================================================= */
+
+.work-hero-section {
+  position: relative;
+  padding-top: clamp(20px, 3.5vw, 40px);
+  padding-bottom: clamp(36px, 5vw, 64px);
+}
+
+.work-ambient-glow {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1080px, 94vw);
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(108, 92, 231, 0.12) 0%, rgba(139, 92, 246, 0.05) 45%, transparent 72%);
+  filter: blur(65px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =========================================================================
+   NEW EDITORIAL PORTFOLIO HERO SHOWCASE
+   ========================================================================= */
+
+.portfolio-hero-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.portfolio-hero-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.portfolio-hero-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  border: 1px solid rgba(229, 231, 235, 0.85);
+  background: rgba(255, 255, 255, 0.9);
+  color: #5e586c;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  backdrop-filter: blur(6px);
+}
+
+.portfolio-hero-pill-btn:hover {
+  background: #ffffff;
+  color: #14121a;
+  border-color: rgba(108, 92, 231, 0.35);
+  transform: translateY(-1px);
+}
+
+.portfolio-hero-pill-btn.is-active {
+  background: #14121a;
+  color: #ffffff;
+  border-color: #14121a;
+  box-shadow: 0 4px 14px -2px rgba(20, 18, 26, 0.22);
+}
+
+.portfolio-hero-showcase {
+  position: relative;
+  width: 100%;
+}
+
+.portfolio-hero-main-card {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(108, 92, 231, 0.16);
+  box-shadow: 0 20px 48px -14px rgba(20, 18, 35, 0.12),
+              0 2px 10px -2px rgba(108, 92, 231, 0.05);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portfolio-hero-main-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 56px -14px rgba(108, 92, 231, 0.18),
+              0 4px 14px -2px rgba(20, 18, 35, 0.06);
+}
+
+/* Category Filter Bar */
+.portfolio-filter-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.portfolio-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  background: rgba(255, 255, 255, 0.85);
+  color: #5e586c;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portfolio-filter-btn:hover {
+  color: #14121a;
+  border-color: rgba(108, 92, 231, 0.35);
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+.portfolio-filter-btn.is-active {
+  background: #14121a;
+  color: #ffffff;
+  border-color: #14121a;
+  box-shadow: 0 4px 16px -2px rgba(20, 18, 26, 0.25);
+}
+
+/* Featured Large Showcase Card */
+.portfolio-featured-card {
+  position: relative;
+  border-radius: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(108, 92, 231, 0.18);
+  box-shadow: 0 16px 40px -15px rgba(24, 20, 48, 0.06),
+              0 2px 8px -2px rgba(108, 92, 231, 0.04);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
+}
+
+.portfolio-featured-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(108, 92, 231, 0.35);
+  box-shadow: 0 24px 50px -15px rgba(108, 92, 231, 0.12),
+              0 4px 14px -2px rgba(24, 20, 48, 0.04);
+}
+
+/* Grid Cards */
+.portfolio-grid-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(229, 231, 235, 0.85);
+  overflow: hidden;
+  box-shadow: 0 4px 20px -8px rgba(24, 20, 48, 0.05);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
+}
+
+.portfolio-grid-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(108, 92, 231, 0.3);
+  box-shadow: 0 20px 40px -15px rgba(24, 20, 48, 0.09),
+              0 4px 12px -2px rgba(108, 92, 231, 0.05);
+}
+
+/* Browser Frame & Screenshot Container */
+.portfolio-browser-frame {
+  position: relative;
+  width: 100%;
+  border-radius: 14px;
+  background: #fbfaff;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  overflow: hidden;
+}
+
+.portfolio-browser-chrome {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #fbfaff;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+  flex-shrink: 0;
+}
+
+.portfolio-screenshot-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #f8f7fc;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.portfolio-screenshot-wrapper img,
+.portfolio-screenshot-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: top center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.portfolio-hero-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #f8f7fc;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.portfolio-hero-viewport img,
+.portfolio-hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: top center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.portfolio-hero-title-bar {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.portfolio-grid-card:hover .portfolio-screenshot-img,
+.portfolio-featured-card:hover .portfolio-screenshot-img,
+.portfolio-hero-main-card:hover .portfolio-hero-img {
+  transform: scale(1.018);
+}
+
+/* Number Badge */
+.portfolio-num-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #6C5CE7;
+  background: rgba(108, 92, 231, 0.08);
+  border: 1px solid rgba(108, 92, 231, 0.16);
+  padding: 3px 8px;
+  border-radius: 9999px;
+}

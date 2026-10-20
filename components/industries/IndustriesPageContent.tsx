@@ -5,26 +5,14 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
-  Building2,
   CheckCircle2,
-  Compass,
-  Factory,
-  GraduationCap,
-  HeartHandshake,
-  HeartPulse,
-  Landmark,
-  Radio,
-  ShoppingBag,
   Sparkles,
-  Store,
-  Truck,
-  Zap,
   Cpu,
   Layers,
   Workflow,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { IndustryFocusLens } from "./IndustryFocusLens";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -56,249 +44,130 @@ function Reveal({
 }
 
 /* =========================================================================
-   12 INDUSTRIES DATA (EXACT TITLES & DESCRIPTIONS PRESERVED)
+   12 INDUSTRIES DATA — PROFESSIONAL IMAGE-LED SHOWCASE
    ========================================================================= */
 
 type IndustryItem = {
-  num: string;
+  id: string;
   title: string;
   description: string;
-  domain: "finance" | "operations" | "systems" | "civic";
-  domainLabel: string;
-  icon: typeof Landmark;
-  color: string;
-  colorBg: string;
-  colorBorder: string;
-  portfolioRef?: {
-    name: string;
-    note: string;
-    href: string;
-  };
+  image: string;
+  alt: string;
+  href: string;
 };
 
 const INDUSTRIES_DATA: IndustryItem[] = [
   {
-    num: "01",
+    id: "banking",
     title: "Banking & Financial Services",
     description:
       "Digital solutions for financial workflows, business reporting, data management, and operational efficiency.",
-    domain: "finance",
-    domainLabel: "Commerce & Finance",
-    icon: Landmark,
-    color: "#4f46e5",
-    colorBg: "rgba(79, 70, 229, 0.07)",
-    colorBorder: "rgba(79, 70, 229, 0.22)",
-    portfolioRef: {
-      name: "Financial Data Hubs",
-      note: "Connected audit trails, reconciliations & Zoho Books pipelines",
-      href: "/zoho",
-    },
+    image: "/images/industries/banking.jpg",
+    alt: "Modern banking and financial workspace with analytics monitors",
+    href: "/zoho",
   },
   {
-    num: "02",
+    id: "healthcare",
     title: "Healthcare",
     description:
       "Technology for healthcare workflows, digital platforms, information management, and service accessibility.",
-    domain: "systems",
-    domainLabel: "Infrastructure & Systems",
-    icon: HeartPulse,
-    color: "#e11d48",
-    colorBg: "rgba(225, 29, 72, 0.07)",
-    colorBorder: "rgba(225, 29, 72, 0.22)",
-    portfolioRef: {
-      name: "Patient Workflow Tools",
-      note: "HIPAA-conscious data pipelines & appointment architectures",
-      href: "/what-we-do",
-    },
+    image: "/images/industries/healthcare.jpg",
+    alt: "Healthcare professionals in a modern clinical medical environment",
+    href: "/what-we-do",
   },
   {
-    num: "03",
+    id: "retail",
     title: "Retail & E-commerce",
     description:
       "Digital storefronts, inventory systems, and business tools designed to support retail operations and online commerce.",
-    domain: "finance",
-    domainLabel: "Commerce & Finance",
-    icon: ShoppingBag,
-    color: "#8b5cf6",
-    colorBg: "rgba(139, 92, 246, 0.07)",
-    colorBorder: "rgba(139, 92, 246, 0.22)",
-    portfolioRef: {
-      name: "Kottravai & PrincessWardrobe",
-      note: "Custom web showcases, high-touch cart flow & catalog systems",
-      href: "/about",
-    },
+    image: "/images/industries/retail.jpg",
+    alt: "Premium retail boutique store and digital e-commerce operations",
+    href: "/our-work",
   },
   {
-    num: "04",
+    id: "manufacturing",
     title: "Manufacturing",
     description:
       "Software and automation solutions for operational workflows, production information, and business visibility.",
-    domain: "operations",
-    domainLabel: "Operations & Supply",
-    icon: Factory,
-    color: "#0284c7",
-    colorBg: "rgba(2, 132, 199, 0.07)",
-    colorBorder: "rgba(2, 132, 199, 0.22)",
-    portfolioRef: {
-      name: "Tensemi Systems",
-      note: "Engineering specifications & real-time telemetry architectures",
-      href: "/about",
-    },
+    image: "/images/industries/manufacturing.jpg",
+    alt: "Modern industrial automated manufacturing and production facility",
+    href: "/our-work",
   },
   {
-    num: "05",
+    id: "telecommunications",
     title: "Telecommunications",
     description:
       "Connected digital systems, data visibility, and software solutions for communication-driven operations.",
-    domain: "systems",
-    domainLabel: "Infrastructure & Systems",
-    icon: Radio,
-    color: "#7c3aed",
-    colorBg: "rgba(124, 58, 237, 0.07)",
-    colorBorder: "rgba(124, 58, 237, 0.22)",
-    portfolioRef: {
-      name: "Voice of Tenkasi",
-      note: "High-volume media distribution & community network gateways",
-      href: "/about",
-    },
+    image: "/images/industries/telecommunications.jpg",
+    alt: "Modern telecommunications network infrastructure and optical cables",
+    href: "/our-work",
   },
   {
-    num: "06",
+    id: "energy",
     title: "Energy",
     description:
       "Digital tools for information management, operational monitoring, and data-informed decision-making.",
-    domain: "operations",
-    domainLabel: "Operations & Supply",
-    icon: Zap,
-    color: "#d97706",
-    colorBg: "rgba(217, 119, 6, 0.07)",
-    colorBorder: "rgba(217, 119, 6, 0.22)",
-    portfolioRef: {
-      name: "Operational Monitoring",
-      note: "Sensor data aggregation & predictive facility runbooks",
-      href: "/what-we-do",
-    },
+    image: "/images/industries/energy.jpg",
+    alt: "Renewable energy wind turbines and modern power generation infrastructure",
+    href: "/what-we-do",
   },
   {
-    num: "07",
+    id: "travel",
     title: "Travel & Tourism",
     description:
       "Booking platforms, digital experiences, and management systems that support travel-related services.",
-    domain: "systems",
-    domainLabel: "Infrastructure & Systems",
-    icon: Compass,
-    color: "#0d9488",
-    colorBg: "rgba(13, 148, 136, 0.07)",
-    colorBorder: "rgba(13, 148, 136, 0.22)",
-    portfolioRef: {
-      name: "Namma Puducherry",
-      note: "Integrated tourist discovery, vendor directory & regional portal",
-      href: "/about",
-    },
+    image: "/images/industries/travel.jpg",
+    alt: "Scenic travel destination and modern hospitality environment",
+    href: "/our-work",
   },
   {
-    num: "08",
+    id: "public-sector",
     title: "Public Sector",
     description:
       "Digital platforms that help public organizations improve access to information and streamline service workflows.",
-    domain: "civic",
-    domainLabel: "Public & Social Impact",
-    icon: Building2,
-    color: "#2563eb",
-    colorBg: "rgba(37, 99, 235, 0.07)",
-    colorBorder: "rgba(37, 99, 235, 0.22)",
-    portfolioRef: {
-      name: "Civic Gateways",
-      note: "Public information accessibility, multilingual portals & compliance",
-      href: "/about",
-    },
+    image: "/images/industries/public-sector.jpg",
+    alt: "Civic architecture and public service administration center",
+    href: "/our-work",
   },
   {
-    num: "09",
+    id: "logistics",
     title: "Logistics & Supply Chain",
     description:
       "Inventory management, tracking systems, and digital workflows for better operational coordination.",
-    domain: "operations",
-    domainLabel: "Operations & Supply",
-    icon: Truck,
-    color: "#ea580c",
-    colorBg: "rgba(234, 88, 12, 0.07)",
-    colorBorder: "rgba(234, 88, 12, 0.22)",
-    portfolioRef: {
-      name: "Dispatch & Inventory Sync",
-      note: "Stock level thresholds, barcode integrations & route tracking",
-      href: "/what-we-do",
-    },
+    image: "/images/industries/logistics.jpg",
+    alt: "Automated logistics warehouse, distribution, and freight delivery operations",
+    href: "/what-we-do",
   },
   {
-    num: "10",
+    id: "education",
     title: "Education",
     description:
       "Educational websites, learning platforms, and digital tools that support institutions and learners.",
-    domain: "civic",
-    domainLabel: "Public & Social Impact",
-    icon: GraduationCap,
-    color: "#059669",
-    colorBg: "rgba(5, 150, 105, 0.07)",
-    colorBorder: "rgba(5, 150, 105, 0.22)",
-    portfolioRef: {
-      name: "Vaazhai Campus",
-      note: "Academic incubation hubs, community runbooks & learner portals",
-      href: "/about",
-    },
+    image: "/images/industries/education.jpg",
+    alt: "Modern classroom students engaged in collaborative digital learning",
+    href: "/our-work",
   },
   {
-    num: "11",
+    id: "ngos",
     title: "NGOs & Nonprofits",
     description:
       "Digital platforms for outreach, information sharing, program coordination, and community engagement.",
-    domain: "civic",
-    domainLabel: "Public & Social Impact",
-    icon: HeartHandshake,
-    color: "#db2777",
-    colorBg: "rgba(219, 39, 119, 0.07)",
-    colorBorder: "rgba(219, 39, 119, 0.22)",
-    portfolioRef: {
-      name: "Bairavi Foundation",
-      note: "Charitable outreach platforms, donor transparency & program metrics",
-      href: "/about",
-    },
+    image: "/images/industries/ngos.jpg",
+    alt: "Community volunteers collaborating on nonprofit social impact initiative",
+    href: "/our-work",
   },
   {
-    num: "12",
+    id: "local-business",
     title: "Local Businesses",
     description:
       "Practical digital solutions that help businesses strengthen their online presence and simplify daily operations.",
-    domain: "finance",
-    domainLabel: "Commerce & Finance",
-    icon: Store,
-    color: "#6C5CE7",
-    colorBg: "rgba(108, 92, 231, 0.07)",
-    colorBorder: "rgba(108, 92, 231, 0.22)",
-    portfolioRef: {
-      name: "Regional Business Core",
-      note: "CRM setups, local SEO, online booking & automated client messaging",
-      href: "/zoho",
-    },
+    image: "/images/industries/local-business.jpg",
+    alt: "Small business entrepreneur in a professional storefront setting",
+    href: "/#contact",
   },
 ];
 
-const DOMAIN_FILTERS = [
-  { id: "all", label: "All Sectors (12)" },
-  { id: "finance", label: "Finance & Commerce (3)" },
-  { id: "operations", label: "Operations & Supply (3)" },
-  { id: "systems", label: "Infrastructure & Systems (3)" },
-  { id: "civic", label: "Public & Social Impact (3)" },
-] as const;
-
 export function IndustriesPageContent() {
-  const [selectedFilter, setSelectedFilter] = useState<string>("all");
-  const [hoveredIndustry, setHoveredIndustry] = useState<string | null>(null);
-
-  const filteredIndustries =
-    selectedFilter === "all"
-      ? INDUSTRIES_DATA
-      : INDUSTRIES_DATA.filter((item) => item.domain === selectedFilter);
 
   return (
     <div className="relative min-h-screen w-full bg-[#fbfaff] text-[#14121a] antialiased">
@@ -315,7 +184,7 @@ export function IndustriesPageContent() {
           SECTION 1: HERO (STRONG TYPOGRAPHIC WITH ABSTRACT SPECTRUM LENS)
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 pt-28 pb-10 md:pt-32 md:pb-12 lg:pt-34 lg:pb-14"
+        className="relative mx-auto w-full max-w-[1240px] px-6 pt-8 pb-10 md:pt-10 md:pb-12 lg:pt-12 lg:pb-14"
         id="top"
       >
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-8">
@@ -518,128 +387,57 @@ export function IndustriesPageContent() {
           </div>
         </Reveal>
 
-        {/* Domain Filter Pills */}
-        <Reveal delay={0.05}>
-          <div className="mt-5 flex flex-wrap gap-1.5 border-b border-neutral-200/70 pb-3.5">
-            {DOMAIN_FILTERS.map((f) => {
-              const active = selectedFilter === f.id;
-              return (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() => setSelectedFilter(f.id)}
-                  className={`rounded-full px-3.5 py-1.5 text-[12px] font-semibold transition-all duration-200 ${
-                    active
-                      ? "bg-[#14121a] text-white shadow-2xs"
-                      : "border border-neutral-200/80 bg-white text-[#5e586c] hover:border-neutral-300 hover:text-[#14121a]"
-                  }`}
-                >
-                  {f.label}
-                </button>
-              );
-            })}
-          </div>
-        </Reveal>
-
-        {/* Visually Varied Editorial Grid (compacted spacing) */}
-        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filteredIndustries.map((item, index) => {
-            const Icon = item.icon;
-            const isHovered = hoveredIndustry === item.num;
-
+        {/* Visual-First Image Showcase Gallery (12 Sectors, 4-col desktop, 3-col tablet, 2-col mobile) */}
+        <div className="mt-8 grid grid-cols-2 gap-3.5 sm:gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-5">
+          {INDUSTRIES_DATA.map((item, index) => {
             return (
               <Reveal
-                key={item.num}
-                delay={index * 0.04}
-                className="industries-card-hover group relative flex flex-col justify-between rounded-2xl border border-neutral-200/90 bg-white p-5 shadow-[0_4px_16px_-6px_rgba(45,30,85,0.04)] md:p-5.5"
-                style={{
-                  borderColor: isHovered ? item.colorBorder : undefined,
-                }}
+                key={item.id}
+                delay={index * 0.03}
+                className="w-full"
               >
-                <div
-                  onMouseEnter={() => setHoveredIndustry(item.num)}
-                  onMouseLeave={() => setHoveredIndustry(null)}
+                <Link
+                  href={item.href}
+                  className="industry-image-card group relative block aspect-[4/3] w-full rounded-2xl border border-black/5 bg-[#14121a] shadow-[0_4px_16px_-6px_rgba(20,18,26,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6C5CE7] focus-visible:ring-offset-2"
+                  aria-label={`${item.title} - View related solutions`}
                 >
-                  {/* Card Header: Number + Icon Squircle + Directional Arrow */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div
-                        className="industry-icon-glow flex h-9.5 w-9.5 items-center justify-center rounded-xl border transition-all duration-300"
-                        style={{
-                          backgroundColor: item.colorBg,
-                          borderColor: item.colorBorder,
-                          color: item.color,
-                        }}
-                      >
-                        <Icon size={18} />
-                      </div>
-                      <span className="font-mono text-[12px] font-bold tracking-wider text-neutral-400">
-                        {item.num}.
-                      </span>
-                    </div>
+                  {/* High-Quality Realistic Business Photography */}
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="industry-img object-cover object-center"
+                    priority={index < 4}
+                  />
 
-                    <div className="flex items-center gap-1.5">
-                      <span
-                        className="rounded-full px-2 py-0.5 text-[9px] font-bold tracking-wider uppercase"
-                        style={{
-                          backgroundColor: item.colorBg,
-                          color: item.color,
-                          border: `1px solid ${item.colorBorder}`,
-                        }}
-                      >
-                        {item.domainLabel}
-                      </span>
+                  {/* Refined Dark Gradient Overlay for High Legibility */}
+                  <div
+                    className="industry-gradient-overlay absolute inset-0 pointer-events-none"
+                    aria-hidden="true"
+                  />
+
+                  {/* Visual Foreground: Title + Subtle Interactive Arrow */}
+                  <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-2 p-3 sm:p-4 md:p-4.5">
+                    <h3 className="text-[13.5px] font-semibold tracking-[-0.015em] text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] sm:text-[15px] md:text-[16px] lg:text-[16.5px] leading-tight">
+                      {item.title}
+                    </h3>
+
+                    <div
+                      className="industry-arrow-btn shrink-0 flex h-6.5 w-6.5 sm:h-7 sm:w-7 md:h-7.5 md:w-7.5 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md"
+                      aria-hidden="true"
+                    >
                       <ArrowUpRight
-                        size={15}
-                        className="industry-arrow-reveal text-neutral-700"
+                        size={14}
+                        strokeWidth={2.4}
+                        className="sm:w-[15px] sm:h-[15px]"
                       />
                     </div>
                   </div>
 
-                  {/* Industry Title */}
-                  <h3 className="mt-3.5 text-[17.5px] font-semibold tracking-[-0.015em] text-[#14121a] group-hover:text-[#5946dc] transition-colors duration-200 leading-snug">
-                    {item.title}
-                  </h3>
-
-                  {/* Exact Description */}
-                  <p className="mt-1.5 text-[13px] leading-[1.58] text-[#5e586c]">
-                    {item.description}
-                  </p>
-                </div>
-
-                {/* Subtle Bottom Link & Portfolio Reference */}
-                <div className="mt-4 border-t border-neutral-100 pt-3">
-                  {item.portfolioRef ? (
-                    <Link
-                      href={item.portfolioRef.href}
-                      className="group/link flex items-center justify-between text-[11px] text-[#716b7c] hover:text-[#5946dc] transition-colors duration-150"
-                    >
-                      <span className="truncate font-medium">
-                        Reference:{" "}
-                        <strong className="text-[#14121a] font-semibold">
-                          {item.portfolioRef.name}
-                        </strong>
-                      </span>
-                      <ArrowRight
-                        size={11}
-                        className="shrink-0 transition-transform duration-150 group-hover/link:translate-x-1 text-[#6C5CE7]"
-                      />
-                    </Link>
-                  ) : (
-                    <Link
-                      href="/#contact"
-                      className="group/link flex items-center justify-between text-[11px] text-[#716b7c] hover:text-[#5946dc] transition-colors duration-150"
-                    >
-                      <span className="font-medium">
-                        Consult on {item.title}
-                      </span>
-                      <ArrowRight
-                        size={11}
-                        className="shrink-0 transition-transform duration-150 group-hover/link:translate-x-1 text-[#6C5CE7]"
-                      />
-                    </Link>
-                  )}
-                </div>
+                  {/* Semantic Description for SEO & Screen Readers */}
+                  <span className="sr-only">{item.description}</span>
+                </Link>
               </Reveal>
             );
           })}

@@ -1,31 +1,82 @@
 /* =========================================================================
-   INDUSTRIES IN FOCUS — STYLES & REFINED ANIMATIONS
+   IMAGE-LED INDUSTRY GALLERY — MODERN, REFINED, RESPONSIVE
    ========================================================================= */
 
-.industries-card-hover {
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.28s ease, border-color 0.28s ease, background-color 0.28s ease;
+.industry-image-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background-color: #14121a;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
 }
 
-.industries-card-hover:hover {
-  transform: translateY(-3px);
+.industry-image-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -10px rgba(20, 18, 26, 0.2),
+    0 6px 14px -4px rgba(108, 92, 231, 0.15);
 }
 
-.industry-arrow-reveal {
-  opacity: 0;
-  transform: translateX(-4px) translateY(4px);
-  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+/* Image zoom with smooth ease */
+.industry-image-card .industry-img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+  will-change: transform;
 }
 
-.industries-card-hover:hover .industry-arrow-reveal {
-  opacity: 1;
-  transform: translateX(0) translateY(0);
-}
-
-.industry-icon-glow {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.industries-card-hover:hover .industry-icon-glow {
+.industry-image-card:hover .industry-img {
   transform: scale(1.06);
 }
+
+/* Refined dark gradient overlay: ensures crisp title contrast & legibility */
+.industry-gradient-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(14, 12, 20, 0.02) 0%,
+    rgba(14, 12, 20, 0.2) 40%,
+    rgba(14, 12, 20, 0.75) 75%,
+    rgba(14, 12, 20, 0.94) 100%
+  );
+  transition: opacity 0.35s ease, background 0.35s ease;
+}
+
+.industry-image-card:hover .industry-gradient-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(14, 12, 20, 0.05) 0%,
+    rgba(14, 12, 20, 0.3) 35%,
+    rgba(14, 12, 20, 0.85) 70%,
+    rgba(14, 12, 20, 0.98) 100%
+  );
+}
+
+/* Interactive subtle arrow pill */
+.industry-arrow-btn {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.industry-image-card:hover .industry-arrow-btn {
+  transform: translate(2px, -2px) scale(1.06);
+  background-color: #ffffff;
+  color: #14121a;
+  border-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Accessibility: respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .industry-image-card,
+  .industry-image-card:hover,
+  .industry-image-card .industry-img,
+  .industry-image-card:hover .industry-img,
+  .industry-arrow-btn,
+  .industry-image-card:hover .industry-arrow-btn {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+

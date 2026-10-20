@@ -95,7 +95,7 @@ export function MegaMenu({ isOpen, items, onClose, anchorRef }: MegaMenuProps) {
             <div className="grid grid-cols-[1fr_220px] gap-4">
               <div className="grid grid-cols-2 gap-2">
                 {items.map((item, i) => {
-                  const Icon = iconMap[item.icon] || Workflow;
+                  const Icon = (item.icon ? iconMap[item.icon] : undefined) || Workflow;
                   return (
                     <motion.div
                       key={item.title}

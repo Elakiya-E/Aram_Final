@@ -4,28 +4,82 @@ import {
   X,
   ChevronDown,
   ArrowUpRight,
-  Bot,
-  Cloud,
+  ArrowRight,
+  Users,
+  FileSpreadsheet,
   Database,
-  Workflow,
-  Blocks,
+  Sliders,
+  Wrench,
+  Bot,
   Layers,
+  BarChart3,
   Boxes,
+  Cloud,
+  Landmark,
+  Activity,
+  ShoppingBag,
+  Factory,
+  Radio,
+  Zap,
+  Plane,
+  Building,
+  Truck,
+  GraduationCap,
+  HeartHandshake,
+  Store,
+  Globe,
+  LayoutGrid,
+  Building2,
+  Cpu,
+  Sparkles,
+  MessageSquareCode,
+  Cable,
+  Compass,
+  Eye,
+  ShieldCheck,
+  Mail,
+  Workflow,
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { NavItem } from "./nav-config";
-import { ZohoLogoMobile } from "./ZohoLogo";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
-  Workflow,
-  Bot,
+  Users,
+  FileSpreadsheet,
   Database,
-  Blocks,
-  Cloud,
+  Sliders,
+  Wrench,
+  Bot,
   Layers,
+  BarChart3,
   Boxes,
+  Cloud,
+  Landmark,
+  Activity,
+  ShoppingBag,
+  Factory,
+  Radio,
+  Zap,
+  Plane,
+  Building,
+  Truck,
+  GraduationCap,
+  HeartHandshake,
+  Store,
+  Globe,
+  LayoutGrid,
+  Building2,
+  Cpu,
+  Sparkles,
+  MessageSquareCode,
+  Cable,
+  Compass,
+  Eye,
+  ShieldCheck,
+  Mail,
+  Workflow,
 };
 
 type MobileDrawerProps = {
@@ -40,8 +94,8 @@ const linkVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      delay: 0.06 + i * 0.06,
-      duration: 0.45,
+      delay: 0.04 + i * 0.05,
+      duration: 0.4,
       ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
     },
   }),
@@ -81,7 +135,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="fixed inset-0 z-[55] bg-black/35 backdrop-blur-[2px] lg:hidden"
+            className="fixed inset-0 z-[65] bg-black/40 backdrop-blur-[3px] lg:hidden"
           />
 
           <motion.div
@@ -104,25 +158,29 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                 ? { opacity: 0 }
                 : { opacity: 0, y: "-20%", clipPath: "inset(0 0 100% 0 round 24px)" }
             }
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-3 top-[72px] z-[60] bottom-4 flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/98 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] ring-1 ring-white/5 lg:hidden dark:border-white/10 dark:bg-[#0c0c0e]/96"
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-3 top-[68px] z-[70] bottom-4 flex flex-col overflow-hidden rounded-3xl border border-white/15 bg-white/98 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] ring-1 ring-white/5 lg:hidden dark:border-white/10 dark:bg-[#0c0c0e]/96"
           >
-            <div className="flex justify-end p-4">
+            <div className="flex items-center justify-between border-b border-neutral-100 p-4 dark:border-white/6">
+              <span className="text-[11px] font-bold tracking-widest uppercase text-[#5946dc] dark:text-[#b5a8ff]">
+                NAVIGATION MENU
+              </span>
               <button
                 onClick={onClose}
                 aria-label="Close navigation"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200/80 bg-white text-neutral-600 transition-colors duration-200 hover:bg-neutral-100 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300 dark:hover:bg-white/10"
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-neutral-200/80 bg-white text-neutral-600 transition-colors duration-200 hover:bg-neutral-100 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300 dark:hover:bg-white/10"
               >
-                <X size={18} />
+                <X size={17} />
               </button>
             </div>
 
-            <nav className="flex-1 overflow-y-auto px-5 pb-4" aria-label="Mobile navigation">
+            <nav className="flex-1 overflow-y-auto px-4 py-2" aria-label="Mobile navigation">
               <ul className="flex flex-col">
                 {navItems.map((item, i) => {
-                  const hasMega = !!item.megaMenu;
                   const isExpanded = expandedKey === item.label;
                   const isZoho = item.variant === "zoho";
+                  const dropdown = item.dropdown;
+                  const isIndustries = dropdown?.layout === "industries-grid";
 
                   return (
                     <motion.li
@@ -131,85 +189,153 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                       variants={linkVariants}
                       initial={reducedMotion ? false : "closed"}
                       animate="open"
-                      className="border-b border-neutral-200/70 first:border-t dark:border-white/7"
+                      className="border-b border-neutral-200/60 py-1 last:border-b-0 dark:border-white/6"
                     >
-                      {isZoho ? (
-                        <ZohoLogoMobile onClick={onClose} />
-                      ) : hasMega ? (
-                        <>
-                          <div className="flex items-center">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          {isZoho ? (
                             <Link
                               href={item.href}
                               onClick={onClose}
-                              className="flex-1 py-4 text-[17px] font-medium text-neutral-900 dark:text-neutral-100"
+                              className="inline-flex items-center rounded-full border border-[#6C5CE7]/20 bg-[#6C5CE7]/10 px-3 py-1 text-[13px] font-bold uppercase tracking-wider text-[#5a4ad6] dark:text-[#b5a8ff]"
+                            >
+                              Zoho
+                            </Link>
+                          ) : (
+                            <Link
+                              href={item.href}
+                              onClick={onClose}
+                              className="py-3 text-[16px] font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
                             >
                               {item.label}
                             </Link>
-                            <button
-                              onClick={() =>
-                                setExpandedKey(isExpanded ? null : item.label)
-                              }
-                              aria-expanded={isExpanded}
-                              aria-controls={`mobile-accordion-${item.label}`}
-                              className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-500 transition-colors duration-200 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-white/5"
+                          )}
+                        </div>
+
+                        {dropdown && (
+                          <button
+                            type="button"
+                            onClick={() => setExpandedKey(isExpanded ? null : item.label)}
+                            aria-expanded={isExpanded}
+                            aria-controls={`mobile-accordion-${item.label}`}
+                            className="flex h-10 w-10 items-center justify-center rounded-xl text-neutral-500 transition-colors duration-200 hover:bg-[#9b8cff]/10 hover:text-[#6C5CE7] dark:text-neutral-400 dark:hover:bg-white/5"
+                          >
+                            <motion.span
+                              animate={{ rotate: isExpanded ? 180 : 0 }}
+                              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                             >
-                              <motion.span
-                                animate={{ rotate: isExpanded ? 180 : 0 }}
-                                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                              >
-                                <ChevronDown size={18} />
-                              </motion.span>
-                            </button>
-                          </div>
-                          <AnimatePresence initial={false}>
-                            {isExpanded && (
-                              <motion.div
-                                id={`mobile-accordion-${item.label}`}
-                                role="region"
-                                initial={reducedMotion ? { height: "auto" } : { height: 0, opacity: 0 }}
-                                animate={reducedMotion ? { height: "auto" } : { height: "auto", opacity: 1 }}
-                                exit={reducedMotion ? { height: 0 } : { height: 0, opacity: 0 }}
-                                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                                className="overflow-hidden"
-                              >
-                                <ul className="flex flex-col gap-1 pb-4 pl-2">
-                                  {item.megaMenu?.map((sub) => {
-                                    const Icon = iconMap[sub.icon] || Workflow;
-                                    return (
-                                      <li key={sub.title}>
+                              <ChevronDown size={18} />
+                            </motion.span>
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Accordion Region with Preview Sublinks */}
+                      {dropdown && (
+                        <AnimatePresence initial={false}>
+                          {isExpanded && (
+                            <motion.div
+                              id={`mobile-accordion-${item.label}`}
+                              role="region"
+                              initial={reducedMotion ? { height: "auto" } : { height: 0, opacity: 0 }}
+                              animate={reducedMotion ? { height: "auto" } : { height: "auto", opacity: 1 }}
+                              exit={reducedMotion ? { height: 0 } : { height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                              className="overflow-hidden"
+                            >
+                              <div className="mb-3 rounded-2xl border border-[#6C5CE7]/14 bg-[#fbfaff] p-3.5 dark:border-white/10 dark:bg-white/3">
+                                <div className="mb-2.5 flex items-start justify-between gap-2 border-b border-neutral-200/50 pb-2 dark:border-white/6">
+                                  <div>
+                                    <span className="text-[10px] font-bold tracking-widest uppercase text-[#5946dc] dark:text-[#b5a8ff]">
+                                      {dropdown.kicker}
+                                    </span>
+                                    <h4 className="text-[13.5px] font-semibold text-neutral-900 dark:text-neutral-100">
+                                      {dropdown.title}
+                                    </h4>
+                                    <p className="mt-0.5 text-[11.5px] text-neutral-500 dark:text-neutral-400">
+                                      {dropdown.description}
+                                    </p>
+                                  </div>
+                                  <Link
+                                    href={dropdown.pageHref}
+                                    onClick={onClose}
+                                    className="shrink-0 rounded-lg border border-[#6C5CE7]/20 bg-[#6C5CE7]/10 px-2.5 py-1 text-[11px] font-semibold text-[#5946dc] dark:text-[#b5a8ff]"
+                                  >
+                                    View
+                                  </Link>
+                                </div>
+
+                                {isIndustries ? (
+                                  <div className="grid grid-cols-2 gap-1.5 pt-1">
+                                    {dropdown.links.map((sub) => {
+                                      const Icon = (sub.icon && iconMap[sub.icon]) || Building;
+                                      return (
                                         <Link
+                                          key={sub.title}
                                           href={sub.href}
                                           onClick={onClose}
-                                          className="flex items-start gap-3 rounded-xl p-3 transition-colors duration-200 hover:bg-[#9b8cff]/8 dark:hover:bg-white/5"
+                                          className="flex items-center gap-2 rounded-lg p-1.5 text-[11.5px] font-medium text-neutral-800 transition-colors hover:bg-white hover:text-[#5946dc] dark:text-neutral-200"
                                         >
-                                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#9b8cff]/12 text-[#6C5CE7] dark:text-[#b5a8ff]">
-                                            <Icon size={17} />
+                                          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#9b8cff]/15 text-[#6C5CE7]">
+                                            <Icon size={11} />
                                           </span>
-                                          <span className="min-w-0">
-                                            <span className="block text-[14px] font-medium text-neutral-900 dark:text-neutral-100">
-                                              {sub.title}
-                                            </span>
-                                            <span className="mt-0.5 block text-[11.5px] leading-relaxed text-neutral-500 dark:text-neutral-400">
-                                              {sub.description}
-                                            </span>
-                                          </span>
+                                          <span className="truncate">{sub.title}</span>
                                         </Link>
-                                      </li>
-                                    );
-                                  })}
-                                </ul>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          onClick={onClose}
-                          className="block py-4 text-[17px] font-medium text-neutral-900 dark:text-neutral-100"
-                        >
-                          {item.label}
-                        </Link>
+                                      );
+                                    })}
+                                  </div>
+                                ) : (
+                                  <ul className="flex flex-col gap-1 pt-1">
+                                    {dropdown.links.map((sub) => {
+                                      const Icon = (sub.icon && iconMap[sub.icon]) || Sparkles;
+                                      return (
+                                        <li key={sub.title}>
+                                          <Link
+                                            href={sub.href}
+                                            onClick={onClose}
+                                            className="flex items-start gap-2.5 rounded-xl p-2 transition-colors hover:bg-white dark:hover:bg-white/5"
+                                          >
+                                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#9b8cff]/12 text-[#6C5CE7] dark:text-[#b5a8ff]">
+                                              <Icon size={14} />
+                                            </span>
+                                            <div className="min-w-0 flex-1">
+                                              <span className="block text-[13px] font-medium text-neutral-900 dark:text-neutral-100">
+                                                {sub.title}
+                                              </span>
+                                              {sub.description && (
+                                                <span className="block text-[11px] text-neutral-500 dark:text-neutral-400">
+                                                  {sub.description}
+                                                </span>
+                                              )}
+                                            </div>
+                                          </Link>
+                                        </li>
+                                      );
+                                    })}
+                                  </ul>
+                                )}
+
+                                {dropdown.featured && (
+                                  <div className="mt-3 rounded-xl border border-[#9b8cff]/20 bg-[#6C5CE7]/6 p-2.5 dark:bg-[#6C5CE7]/10">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-[11.5px] font-semibold text-neutral-900 dark:text-neutral-100">
+                                        {dropdown.featured.title}
+                                      </span>
+                                      <Link
+                                        href={dropdown.featured.href}
+                                        onClick={onClose}
+                                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#5946dc] dark:text-[#b5a8ff]"
+                                      >
+                                        <span>{dropdown.featured.ctaText}</span>
+                                        <ArrowRight size={11} />
+                                      </Link>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       )}
                     </motion.li>
                   );
@@ -221,7 +347,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
               <Link
                 href="/#contact"
                 onClick={onClose}
-                className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-[#b6a9ff] via-[#9b8cff] to-[#6C5CE7] px-5 py-4 text-[14px] font-semibold text-white shadow-[0_10px_30px_-8px_rgba(108,92,231,0.55)] transition-all duration-300 hover:shadow-[0_14px_36px_-8px_rgba(108,92,231,0.7)] hover:-translate-y-0.5"
+                className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-[#b6a9ff] via-[#9b8cff] to-[#6C5CE7] px-5 py-3.5 text-[14px] font-semibold text-white shadow-[0_10px_30px_-8px_rgba(108,92,231,0.55)] transition-all duration-300 hover:shadow-[0_14px_36px_-8px_rgba(108,92,231,0.7)] hover:-translate-y-0.5"
               >
                 Let&apos;s talk
                 <ArrowUpRight

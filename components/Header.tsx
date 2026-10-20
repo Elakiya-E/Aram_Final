@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NavLink } from "./NavLink";
-import { MegaMenu } from "./MegaMenu";
+import { NavDropdownCard } from "./NavDropdownCard";
 import { MobileDrawer, HamburgerButton } from "./MobileDrawer";
 import { ZohoLogo, ZohoPartnerDivider } from "./ZohoLogo";
 import {
@@ -125,7 +125,7 @@ function MagneticCTAButton() {
       onMouseMove={handleMove}
       onMouseLeave={reset}
       style={reducedMotion ? undefined : { x: pos.x, y: pos.y }}
-      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-br from-[#b6a9ff] via-[#9b8cff] to-[#6C5CE7] px-5 py-2.5 text-[13px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9b8cff] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#0a0a0b]"
+      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-br from-[#b6a9ff] via-[#9b8cff] to-[#6C5CE7] px-5.5 py-2.5 text-[15px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9b8cff] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#0a0a0b]"
     >
       <span
         aria-hidden="true"
@@ -137,7 +137,7 @@ function MagneticCTAButton() {
       />
       <span className="relative z-10">Let&apos;s talk</span>
       <ArrowUpRight
-        size={14}
+        size={15}
         className="relative z-10 transition-transform duration-300 ease-out group-hover:rotate-[-12deg] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
       />
     </motion.a>
@@ -153,8 +153,8 @@ function LogoMark() {
     >
       <Image
         alt="Aram Analytics"
-        className="h-[28px] w-auto object-contain"
-        height={28}
+        className="h-[32px] sm:h-[35px] w-auto object-contain"
+        height={35}
         priority
         src={siteLogo}
       />
@@ -168,14 +168,14 @@ export function Header() {
   const { scrollY, scrollDir } = useScrollState();
   const [activeHash, setActiveHash] = useState<string>("#top");
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
-  const [megaOpen, setMegaOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [announcementVisible, setAnnouncementVisible] = useState(SHOW_ANNOUNCEMENT_BAR);
-  const whatWeDoRef = useRef<HTMLDivElement>(null);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const isShrunk = scrollY > HEADER_SHRINK_SCROLL;
   const isHidden =
-    scrollY > SCROLL_SHOW_THRESHOLD + 80 && scrollDir === "down" && !megaOpen && !mobileOpen;
+    scrollY > SCROLL_SHOW_THRESHOLD + 80 && scrollDir === "down" && !activeDropdown && !mobileOpen;
 
   useEffect(() => {
     function onHashChange() {
@@ -185,7 +185,39 @@ export function Header() {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
-  const megaItem = NAV_ITEMS.find((n) => !!n.megaMenu);
+  // Close dropdown on route change
+  useEffect(() => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setActiveDropdown(null);
+  }, [pathname]);
+
+  const handleOpenDropdown = (label: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setActiveDropdown(label);
+  };
+
+  const handleCloseDropdown = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    closeTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 140);
+  };
+
+  const handleImmediateClose = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setActiveDropdown(null);
+  };
 
   return (
     <>
@@ -194,8 +226,8 @@ export function Header() {
         style={{
           height:
             announcementVisible && SHOW_ANNOUNCEMENT_BAR
-              ? "calc(var(--header-total, 102px) + 44px)"
-              : "var(--header-total, 102px)",
+              ? "calc(var(--header-total, 88px) + 44px)"
+              : "var(--header-total, 88px)",
           transition: reducedMotion
             ? "none"
             : "height 400ms cubic-bezier(0.22, 1, 0.36, 1)",
@@ -226,11 +258,11 @@ export function Header() {
                 : {
                     y: isHidden ? -120 : 0,
                     opacity: isHidden ? 0 : 1,
-                    width: isShrunk ? "min(1120px, 96%)" : "min(1200px, 100%)",
-                    paddingLeft: isShrunk ? 14 : 18,
-                    paddingRight: isShrunk ? 14 : 18,
-                    paddingTop: isShrunk ? 8 : 10,
-                    paddingBottom: isShrunk ? 8 : 10,
+                    width: isShrunk ? "min(1140px, 96%)" : "min(1240px, 100%)",
+                    paddingLeft: isShrunk ? 16 : 22,
+                    paddingRight: isShrunk ? 16 : 22,
+                    paddingTop: isShrunk ? 9 : 12,
+                    paddingBottom: isShrunk ? 9 : 12,
                     backdropFilter: isShrunk ? "blur(22px)" : "blur(16px)",
                     boxShadow: isShrunk
                       ? "0 16px 50px -16px rgba(40,30,80,0.22), 0 6px 20px -10px rgba(108,92,231,0.18), 0 1px 0 rgba(255,255,255,0.85) inset, 0 0 0 1px rgba(108,92,231,0.08) inset"
@@ -253,7 +285,8 @@ export function Header() {
               </Link>
             </div>
 
-            <div className="relative hidden items-center lg:flex" ref={whatWeDoRef}>
+            {/* Desktop Navigation Items with Floating Dropdown Preview Cards */}
+            <div className="relative hidden items-center lg:flex">
               {NAV_ITEMS.map((item) => {
                 const isActive =
                   item.href === "/about"
@@ -264,27 +297,34 @@ export function Header() {
                     ? pathname === "/industries"
                     : item.href === "/zoho"
                     ? pathname === "/zoho"
+                    : item.href === "/ai-automation"
+                    ? pathname === "/ai-automation"
+                    : item.href === "/our-work"
+                    ? pathname === "/our-work"
                     : pathname === "/" &&
                       (activeHash === item.href ||
                         activeHash === item.href.replace("/", ""));
-                const isMegaTrigger = !!item.megaMenu;
                 const isZoho = item.variant === "zoho";
+                const isDropdownOpen = activeDropdown === item.label;
+
                 return (
                   <div
                     key={item.label}
-                    onMouseEnter={() => {
-                      if (isMegaTrigger) setMegaOpen(true);
-                    }}
-                    onMouseLeave={() => {
-                      if (isMegaTrigger && megaOpen) setMegaOpen(false);
-                    }}
-                    className="flex items-center"
+                    onMouseEnter={() => handleOpenDropdown(item.label)}
+                    onMouseLeave={handleCloseDropdown}
+                    className="relative flex items-center"
                   >
                     {isZoho ? (
-                      <>
-                        <ZohoLogo />
+                      <div className="flex items-center">
+                        <ZohoLogo
+                          ariaHasPopup={true}
+                          ariaExpanded={isDropdownOpen}
+                          onClick={handleImmediateClose}
+                          onFocus={() => handleOpenDropdown(item.label)}
+                          onBlur={handleCloseDropdown}
+                        />
                         <ZohoPartnerDivider />
-                      </>
+                      </div>
                     ) : (
                       <NavLink
                         href={item.href}
@@ -292,22 +332,24 @@ export function Header() {
                         isActive={isActive}
                         hoveredLabel={hoveredNav}
                         onHover={setHoveredNav}
-                        onFocus={setHoveredNav}
-                        ariaHasPopup={isMegaTrigger}
-                        ariaExpanded={isMegaTrigger ? megaOpen : undefined}
-                        onClick={() => setMegaOpen(false)}
+                        onFocus={(label) => {
+                          setHoveredNav(label);
+                          if (label) handleOpenDropdown(label);
+                        }}
+                        ariaHasPopup={true}
+                        ariaExpanded={isDropdownOpen}
+                        onClick={handleImmediateClose}
                       />
                     )}
-                    {isMegaTrigger && megaItem?.megaMenu && (
-                      <div className="absolute left-1/2 top-full -translate-x-1/2">
-                        <MegaMenu
-                          isOpen={megaOpen}
-                          items={megaItem.megaMenu}
-                          onClose={() => setMegaOpen(false)}
-                          anchorRef={whatWeDoRef}
-                        />
-                      </div>
-                    )}
+
+                    {/* Premium Dropdown Preview Card */}
+                    <NavDropdownCard
+                      isOpen={isDropdownOpen}
+                      dropdown={item.dropdown}
+                      alignment={item.alignment}
+                      onClose={handleImmediateClose}
+                      triggerId={`nav-item-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                    />
                   </div>
                 );
               })}

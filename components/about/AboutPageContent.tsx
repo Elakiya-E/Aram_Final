@@ -547,7 +547,7 @@ export function AboutPageContent() {
               From websites and e-commerce platforms to portals and specialized digital products,
               our portfolio includes work across different sectors.
             </p>
-            <Link className="button button-quiet" href="/#work">
+            <Link className="button button-quiet" href="/our-work">
               View Our Work <ArrowUpRight size={15} />
             </Link>
           </div>
@@ -565,7 +565,7 @@ export function AboutPageContent() {
               <p className="project-category-text">{proj.category}</p>
               <p className="project-description-text">{proj.description}</p>
               <div className="project-card-foot">
-                <Link href="/#work" className="project-explore-link">
+                <Link href="/our-work" className="project-explore-link">
                   <span>Explore in Portfolio</span>
                   <ArrowUpRight size={13} />
                 </Link>
@@ -586,7 +586,7 @@ export function AboutPageContent() {
               <p className="project-category-text">{proj.category}</p>
               <p className="project-description-text">{proj.description}</p>
               <div className="project-card-foot">
-                <Link href="/#work" className="project-explore-link">
+                <Link href="/our-work" className="project-explore-link">
                   <span>Explore in Portfolio</span>
                   <ArrowUpRight size={13} />
                 </Link>
@@ -607,7 +607,7 @@ export function AboutPageContent() {
               <p className="project-category-text">{proj.category}</p>
               <p className="project-description-text">{proj.description}</p>
               <div className="project-card-foot">
-                <Link href="/#work" className="project-explore-link">
+                <Link href="/our-work" className="project-explore-link">
                   <span>Explore in Portfolio</span>
                   <ArrowUpRight size={13} />
                 </Link>
@@ -621,7 +621,7 @@ export function AboutPageContent() {
             Explore selected projects to see how our capabilities translate into real digital
             products.
           </p>
-          <Link className="text-link" href="/#work">
+          <Link className="text-link" href="/our-work">
             Browse all concept previews &amp; portfolio work <ArrowUpRight size={14} />
           </Link>
         </Reveal>

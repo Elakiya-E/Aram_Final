@@ -21,6 +21,8 @@ import Link from "next/link";
 import { useState, useCallback, useRef, useEffect } from "react";
 import { CapabilityMetaphorVisual } from "./CapabilityMetaphorVisual";
 import { ProcessPathway } from "./ProcessPathway";
+import { HeroIntelligenceCanvas } from "./HeroIntelligenceCanvas";
+import "./what-we-do.css";
 import {
   SERVICES_DATA,
   WORKFLOW_AUDIT_OFFER,
@@ -89,78 +91,140 @@ export function WhatWeDoPageContent() {
 
   return (
     <div className="what-we-do-page">
-      {/* SECTION 01: SIGNATURE HERO EXPERIENCE — ARAM INTELLIGENCE IN MOTION */}
+      {/* SECTION 01: SIGNATURE HERO EXPERIENCE — ASYMMETRIC INTELLIGENCE SHOWCASE */}
       <section className="wwd-hero-section section-wrap" id="top">
-        <div className="wwd-hero-inner">
-          <Reveal>
-            <div className="eyebrow wwd-eyebrow">
-              <span className="eyebrow-line" /> ARAM INTELLIGENCE IN MOTION · CAPABILITIES
-            </div>
-          </Reveal>
+        <div className="wwd-hero-grid">
+          {/* Left column — Content */}
+          <div className="wwd-hero-content">
+            <Reveal>
+              <div className="wwd-hero-eyebrow">
+                <span className="wwd-eyebrow-dot" />
+                <span>ARAM INTELLIGENCE IN MOTION</span>
+              </div>
+            </Reveal>
 
-          <Reveal delay={0.08}>
-            <h1 className="wwd-hero-title">
-              We turn complex challenges into{" "}
-              <span className="serif-accent italic-highlight">connected solutions.</span>
-            </h1>
-          </Reveal>
+            <Reveal delay={0.06}>
+              <h1 className="wwd-hero-headline">
+                From complex challenges to{" "}
+                <span className="wwd-headline-highlight">intelligent solutions.</span>
+              </h1>
+            </Reveal>
 
-          <Reveal delay={0.16}>
-            <p className="wwd-hero-desc">
-              We combine AI, automation, software engineering, data, and digital platforms to help
-              businesses work smarter, move faster, and grow with confidence.
-            </p>
-          </Reveal>
+            <Reveal delay={0.12}>
+              <p className="wwd-hero-description">
+                We bring AI, automation, software engineering, data, and digital platforms
+                together to help businesses simplify complexity and move forward with
+                confidence.
+              </p>
+            </Reveal>
 
-          <Reveal delay={0.24}>
-            <div className="wwd-hero-actions">
-              <a className="button button-primary" href="#capabilities">
-                Explore Our Capabilities <ArrowDown size={15} />
-              </a>
-              <Link className="button button-quiet" href="/#contact">
-                Let&apos;s Talk <ArrowUpRight size={15} />
-              </Link>
-            </div>
-          </Reveal>
+            <Reveal delay={0.18}>
+              <div className="wwd-hero-cta-group">
+                <a
+                  href="#capabilities"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById("capabilities");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="wwd-btn-primary"
+                >
+                  <span>Explore Our Capabilities</span>
+                  <ArrowDown size={15} />
+                </a>
 
-          {/* Six subtle interactive capability markers in Hero */}
-          <Reveal delay={0.32}>
-            <div className="wwd-hero-markers">
+                <Link href="/#contact" className="wwd-btn-secondary">
+                  <span>Let&apos;s Talk</span>
+                  <ArrowUpRight size={15} />
+                </Link>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.24}>
+              <div className="wwd-hero-credibility">
+                <span>Strategy</span>
+                <span className="credibility-dot">·</span>
+                <span>Engineering</span>
+                <span className="credibility-dot">·</span>
+                <span>Intelligence</span>
+                <span className="credibility-dot">·</span>
+                <span>Integration</span>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Right column — Interactive Visual: The Intelligence Network */}
+          <div className="wwd-hero-visual-column">
+            <Reveal delay={0.1}>
+              <HeroIntelligenceCanvas
+                activeHub={activeIndex}
+                onHubClick={(idx) => setActiveIndex(idx)}
+              />
+            </Reveal>
+          </div>
+        </div>
+
+        {/* SECTION 1.5: HORIZONTAL CAPABILITY PREVIEW STRIP */}
+        <Reveal delay={0.28}>
+          <div className="wwd-capability-strip-container">
+            <div
+              className="wwd-capability-strip"
+              role="tablist"
+              aria-label="Core Capabilities Preview"
+            >
               {CAPABILITIES.map((cap, i) => {
                 const Icon = cap.icon;
-                const isSelected = activeIndex === i;
+                const isActive = activeIndex === i;
+
                 return (
                   <button
                     key={cap.id}
                     type="button"
-                    onClick={() => setActiveIndex(i)}
-                    className={`hero-marker-pill ${isSelected ? "is-selected" : ""}`}
-                    style={{ "--marker-accent": cap.accent } as React.CSSProperties}
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => {
+                      setActiveIndex(i);
+                      const el = document.getElementById("capabilities");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className={`wwd-strip-card ${isActive ? "is-active" : ""}`}
+                    style={
+                      {
+                        "--card-accent": cap.accent,
+                      } as React.CSSProperties
+                    }
                   >
-                    <span className="marker-dot" style={{ backgroundColor: cap.accent }} />
-                    <Icon size={13} />
-                    <span>{cap.shortLabel}</span>
+                    <div className="wwd-strip-card-header">
+                      <span className="wwd-strip-index">{cap.num}</span>
+                      <span
+                        className="wwd-strip-dot"
+                        style={{ backgroundColor: cap.accent }}
+                      />
+                    </div>
+
+                    <div className="wwd-strip-card-body">
+                      <span
+                        className="wwd-strip-icon-box"
+                        style={{
+                          color: cap.accent,
+                          backgroundColor: `${cap.accent}14`,
+                        }}
+                      >
+                        <Icon size={14} />
+                      </span>
+                      <span className="wwd-strip-title">{cap.shortLabel}</span>
+                    </div>
+
+                    <div className="wwd-strip-card-footer">
+                      <span>Explore</span>
+                      <ArrowUpRight size={12} className="wwd-strip-cue-arrow" />
+                    </div>
                   </button>
                 );
               })}
             </div>
-          </Reveal>
-
-          {/* Refined scroll indicator */}
-          <Reveal delay={0.4}>
-            <div className="wwd-scroll-indicator">
-              <a href="#capabilities" className="scroll-indicator-link">
-                <span className="scroll-indicator-line">
-                  <span className="scroll-indicator-dot" />
-                </span>
-                <span className="scroll-indicator-text">
-                  Scroll to explore intelligence network
-                </span>
-                <ArrowDown size={13} className="text-[#8b5cf6]" />
-              </a>
-            </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </section>
 
       {/* CONTINUOUS VISUAL CONDUIT BETWEEN SECTIONS */}

@@ -177,7 +177,7 @@ export function ZohoPageContent() {
           SECTION 1: HERO (SPLIT EDITORIAL WITH OPERATIONS BLUEPRINT HUB)
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 pt-32 pb-20 md:pt-36 md:pb-24 lg:pt-40 lg:pb-28"
+        className="relative mx-auto w-full max-w-[1240px] px-6 pt-8 pb-16 md:pt-10 md:pb-20 lg:pt-12 lg:pb-24"
         id="top"
       >
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
