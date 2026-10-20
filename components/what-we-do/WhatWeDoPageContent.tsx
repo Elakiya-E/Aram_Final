@@ -92,139 +92,145 @@ export function WhatWeDoPageContent() {
   return (
     <div className="what-we-do-page">
       {/* SECTION 01: SIGNATURE HERO EXPERIENCE — ASYMMETRIC INTELLIGENCE SHOWCASE */}
-      <section className="wwd-hero-section section-wrap" id="top">
-        <div className="wwd-hero-grid">
-          {/* Left column — Content */}
-          <div className="wwd-hero-content">
-            <Reveal>
-              <div className="wwd-hero-eyebrow">
-                <span className="wwd-eyebrow-dot" />
-                <span>ARAM INTELLIGENCE IN MOTION</span>
-              </div>
-            </Reveal>
+      <section className="what-we-do-hero" id="top">
+        {/* Centered Constrained Container (1440px max-width, 48-72px horizontal padding) */}
+        <div className="what-we-do-hero__container">
+          
+          {/* Main Hero 2-Column Grid: 46% text / 54% intelligence network */}
+          <div className="what-we-do-hero__grid">
+            
+            {/* Left Column — Editorial Content */}
+            <div className="what-we-do-hero__content">
+              <Reveal>
+                <div className="what-we-do-eyebrow">
+                  <span className="what-we-do-eyebrow__dot" />
+                  <span>ARAM INTELLIGENCE IN MOTION</span>
+                </div>
+              </Reveal>
 
-            <Reveal delay={0.06}>
-              <h1 className="wwd-hero-headline">
-                From complex challenges to{" "}
-                <span className="wwd-headline-highlight">intelligent solutions.</span>
-              </h1>
-            </Reveal>
+              <Reveal delay={0.06}>
+                <h1 className="what-we-do-headline">
+                  From complex challenges to{" "}
+                  <span className="what-we-do-headline__highlight">intelligent solutions.</span>
+                </h1>
+              </Reveal>
 
-            <Reveal delay={0.12}>
-              <p className="wwd-hero-description">
-                We bring AI, automation, software engineering, data, and digital platforms
-                together to help businesses simplify complexity and move forward with
-                confidence.
-              </p>
-            </Reveal>
+              <Reveal delay={0.12}>
+                <p className="what-we-do-description">
+                  We bring AI, automation, software engineering, data, and digital platforms
+                  together to help businesses simplify complexity and move forward with
+                  confidence.
+                </p>
+              </Reveal>
 
-            <Reveal delay={0.18}>
-              <div className="wwd-hero-cta-group">
-                <a
-                  href="#capabilities"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const el = document.getElementById("capabilities");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="wwd-btn-primary"
-                >
-                  <span>Explore Our Capabilities</span>
-                  <ArrowDown size={15} />
-                </a>
-
-                <Link href="/#contact" className="wwd-btn-secondary">
-                  <span>Let&apos;s Talk</span>
-                  <ArrowUpRight size={15} />
-                </Link>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.24}>
-              <div className="wwd-hero-credibility">
-                <span>Strategy</span>
-                <span className="credibility-dot">·</span>
-                <span>Engineering</span>
-                <span className="credibility-dot">·</span>
-                <span>Intelligence</span>
-                <span className="credibility-dot">·</span>
-                <span>Integration</span>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Right column — Interactive Visual: The Intelligence Network */}
-          <div className="wwd-hero-visual-column">
-            <Reveal delay={0.1}>
-              <HeroIntelligenceCanvas
-                activeHub={activeIndex}
-                onHubClick={(idx) => setActiveIndex(idx)}
-              />
-            </Reveal>
-          </div>
-        </div>
-
-        {/* SECTION 1.5: HORIZONTAL CAPABILITY PREVIEW STRIP */}
-        <Reveal delay={0.28}>
-          <div className="wwd-capability-strip-container">
-            <div
-              className="wwd-capability-strip"
-              role="tablist"
-              aria-label="Core Capabilities Preview"
-            >
-              {CAPABILITIES.map((cap, i) => {
-                const Icon = cap.icon;
-                const isActive = activeIndex === i;
-
-                return (
-                  <button
-                    key={cap.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    onClick={() => {
-                      setActiveIndex(i);
+              <Reveal delay={0.18}>
+                <div className="what-we-do-cta-group">
+                  <a
+                    href="#capabilities"
+                    onClick={(e) => {
+                      e.preventDefault();
                       const el = document.getElementById("capabilities");
                       if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className={`wwd-strip-card ${isActive ? "is-active" : ""}`}
-                    style={
-                      {
-                        "--card-accent": cap.accent,
-                      } as React.CSSProperties
-                    }
+                    className="what-we-do-btn-primary"
                   >
-                    <div className="wwd-strip-card-header">
-                      <span className="wwd-strip-index">{cap.num}</span>
-                      <span
-                        className="wwd-strip-dot"
-                        style={{ backgroundColor: cap.accent }}
-                      />
-                    </div>
+                    <span>Explore Our Capabilities</span>
+                    <ArrowDown size={15} />
+                  </a>
 
-                    <div className="wwd-strip-card-body">
-                      <span
-                        className="wwd-strip-icon-box"
-                        style={{
-                          color: cap.accent,
-                          backgroundColor: `${cap.accent}14`,
-                        }}
-                      >
-                        <Icon size={14} />
-                      </span>
-                      <span className="wwd-strip-title">{cap.shortLabel}</span>
-                    </div>
+                  <Link href="/#contact" className="what-we-do-btn-secondary">
+                    <span>Let&apos;s Talk</span>
+                    <ArrowUpRight size={15} />
+                  </Link>
+                </div>
+              </Reveal>
 
-                    <div className="wwd-strip-card-footer">
-                      <span>Explore</span>
-                      <ArrowUpRight size={12} className="wwd-strip-cue-arrow" />
-                    </div>
-                  </button>
-                );
-              })}
+              <Reveal delay={0.24}>
+                <div className="what-we-do-credibility">
+                  <span>Strategy</span>
+                  <span className="credibility-dot">·</span>
+                  <span>Engineering</span>
+                  <span className="credibility-dot">·</span>
+                  <span>Intelligence</span>
+                  <span className="credibility-dot">·</span>
+                  <span>Integration</span>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Right Column — Prominent Interactive Intelligence Network */}
+            <div className="what-we-do-hero__visual">
+              <Reveal delay={0.1} className="w-full flex justify-center">
+                <HeroIntelligenceCanvas
+                  activeHub={activeIndex}
+                  onHubClick={(idx) => setActiveIndex(idx)}
+                />
+              </Reveal>
             </div>
           </div>
-        </Reveal>
+
+          {/* Connected Secondary Capability Strip (Contained inside same 1440px container) */}
+          <Reveal delay={0.28} className="w-full">
+            <div className="what-we-do-capabilities-section">
+              <div
+                className="what-we-do-capabilities-strip"
+                role="tablist"
+                aria-label="Core Capabilities Preview"
+              >
+                {CAPABILITIES.map((cap, i) => {
+                  const Icon = cap.icon;
+                  const isActive = activeIndex === i;
+
+                  return (
+                    <button
+                      key={cap.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      onClick={() => {
+                        setActiveIndex(i);
+                        const el = document.getElementById("capabilities");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className={`what-we-do-strip-card ${isActive ? "is-active" : ""}`}
+                      style={
+                        {
+                          "--card-accent": cap.accent,
+                        } as React.CSSProperties
+                      }
+                    >
+                      <div className="what-we-do-strip-card__header">
+                        <span className="what-we-do-strip-card__index">{cap.num}</span>
+                        <span
+                          className="what-we-do-strip-card__dot"
+                          style={{ backgroundColor: cap.accent }}
+                        />
+                      </div>
+
+                      <div className="what-we-do-strip-card__body">
+                        <span
+                          className="what-we-do-strip-card__icon"
+                          style={{
+                            color: cap.accent,
+                            backgroundColor: `${cap.accent}14`,
+                          }}
+                        >
+                          <Icon size={14} />
+                        </span>
+                        <span className="what-we-do-strip-card__title">{cap.shortLabel}</span>
+                      </div>
+
+                      <div className="what-we-do-strip-card__footer">
+                        <span>Explore</span>
+                        <ArrowUpRight size={12} className="what-we-do-strip-card__arrow" />
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* CONTINUOUS VISUAL CONDUIT BETWEEN SECTIONS */}
