@@ -9,4 +9,5 @@ npm-debug.log*
 *.bak
 *.original.png
 public/partners/backup_original/
+scratch_viewports/
 

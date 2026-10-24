@@ -52,7 +52,7 @@ export function ZohoPartnerDivider() {
   return (
     <span
       aria-hidden="true"
-      className="mx-1.5 xl:mx-2.5 hidden h-5 w-px shrink-0 bg-neutral-200 lg:block"
+      className="mx-1.5 xl:mx-2.5 hidden h-5 w-px shrink-0 bg-neutral-200 min-[1180px]:block"
     />
   );
 }

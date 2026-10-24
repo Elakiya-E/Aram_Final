@@ -43,7 +43,7 @@ export function NavLink({
         onClick={onClick}
         aria-haspopup={ariaHasPopup ? "menu" : undefined}
         aria-expanded={ariaHasPopup ? ariaExpanded : undefined}
-        className="relative z-10 flex items-center gap-1.5 px-2.5 xl:px-3.5 2xl:px-4 py-2 text-[14px] xl:text-[15px] 2xl:text-[16px] font-medium tracking-tight text-neutral-600 transition-colors duration-200 hover:text-neutral-950 focus-visible:outline-none"
+        className="relative z-10 flex items-center gap-1.5 px-2 min-[1240px]:px-2.5 xl:px-3.5 2xl:px-4 py-2 text-[13.5px] min-[1240px]:text-[14px] xl:text-[15px] 2xl:text-[16px] font-medium tracking-tight text-neutral-600 transition-colors duration-200 hover:text-neutral-950 focus-visible:outline-none whitespace-nowrap"
       >
         {showPill && !reducedMotion && (
           <motion.span

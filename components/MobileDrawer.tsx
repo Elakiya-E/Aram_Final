@@ -42,7 +42,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { NavItem } from "./nav-config";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -105,11 +105,18 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
   const reducedMotion = useReducedMotion();
   const [expandedKey, setExpandedKey] = useState<string | null>(null);
 
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     if (!isOpen) return;
 
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+
+    // Focus close button on open for keyboard accessibility
+    const timer = setTimeout(() => {
+      closeBtnRef.current?.focus();
+    }, 50);
 
     function handleKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
@@ -117,6 +124,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
 
     document.addEventListener("keydown", handleKey);
     return () => {
+      clearTimeout(timer);
       document.body.style.overflow = originalOverflow;
       document.removeEventListener("keydown", handleKey);
       setExpandedKey(null);
@@ -135,7 +143,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="fixed inset-0 z-[65] bg-black/40 backdrop-blur-[3px] lg:hidden"
+            className="fixed inset-0 z-[65] bg-black/40 backdrop-blur-[3px] min-[1180px]:hidden"
           />
 
           <motion.div
@@ -159,16 +167,17 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                 : { opacity: 0, y: "-20%", clipPath: "inset(0 0 100% 0 round 24px)" }
             }
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-3 top-[68px] z-[70] bottom-4 flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-white/98 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.2)] ring-1 ring-black/5 lg:hidden"
+            className="fixed inset-x-3 top-[68px] z-[70] bottom-4 flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-white/98 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.2)] ring-1 ring-black/5 min-[1180px]:hidden"
           >
             <div className="flex items-center justify-between border-b border-neutral-100 p-4">
               <span className="text-[11px] font-bold tracking-widest uppercase text-[#5946dc]">
                 NAVIGATION MENU
               </span>
               <button
+                ref={closeBtnRef}
                 onClick={onClose}
                 aria-label="Close navigation"
-                className="flex h-9 w-9 items-center justify-center rounded-xl border border-neutral-200/80 bg-white text-neutral-600 transition-colors duration-200 hover:bg-neutral-100"
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-neutral-200/80 bg-white text-neutral-600 transition-colors duration-200 hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6C5CE7]"
               >
                 <X size={17} />
               </button>
@@ -382,7 +391,7 @@ export function HamburgerButton({
       onClick={onClick}
       aria-expanded={isOpen}
       aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-      className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200/70 bg-white/70 text-neutral-700 transition-colors duration-200 hover:bg-white lg:hidden"
+      className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-neutral-200/70 bg-white/70 text-neutral-700 transition-colors duration-200 hover:bg-white min-[1180px]:hidden"
     >
       <span className="relative block h-3.5 w-4">
         <motion.span

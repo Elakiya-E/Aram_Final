@@ -153,7 +153,7 @@ function LogoMark() {
     >
       <Image
         alt="Aram Analytics"
-        className="h-[32px] sm:h-[35px] w-auto object-contain"
+        className="h-[28px] sm:h-[35px] w-auto object-contain"
         height={35}
         priority
         src={siteLogo}
@@ -263,9 +263,10 @@ export function Header() {
                 : {
                     y: isHidden ? -120 : 0,
                     opacity: isHidden ? 0 : 1,
-                    width: isShrunk ? "min(1280px, calc(100% - 24px))" : "min(1320px, 100%)",
-                    paddingLeft: isShrunk ? 14 : 20,
-                    paddingRight: isShrunk ? 14 : 20,
+                    width: "100%",
+                    maxWidth: isShrunk ? "1280px" : "1320px",
+                    paddingLeft: isShrunk ? 12 : 18,
+                    paddingRight: isShrunk ? 12 : 18,
                     paddingTop: isShrunk ? 8 : 11,
                     paddingBottom: isShrunk ? 8 : 11,
                     backdropFilter: isShrunk ? "blur(22px)" : "blur(16px)",
@@ -282,7 +283,7 @@ export function Header() {
                     ease: [0.22, 1, 0.36, 1],
                   }
             }
-            className="mx-auto flex items-center justify-between rounded-2xl border border-white/60 bg-white/85 backdrop-blur-[16px] shadow-[0_10px_36px_-12px_rgba(40,30,80,0.12)]"
+            className="mx-auto flex w-full max-w-[1320px] items-center justify-between rounded-2xl border border-white/60 bg-white/85 backdrop-blur-[16px] shadow-[0_10px_36px_-12px_rgba(40,30,80,0.12)]"
           >
             <div className="flex items-center gap-1">
               <Link href="/" aria-label="Aram Analytics home" className="shrink-0">
@@ -291,7 +292,7 @@ export function Header() {
             </div>
 
             {/* Desktop Navigation Items with Floating Dropdown Preview Cards */}
-            <div className="relative hidden items-center lg:flex gap-0.5 xl:gap-1">
+            <div className="relative hidden items-center min-[1180px]:flex gap-0.5 xl:gap-1">
               {NAV_ITEMS.map((item) => {
                 const isActive =
                   item.href === "/about"
@@ -361,7 +362,7 @@ export function Header() {
             </div>
 
             <div className="flex items-center gap-2">
-              <div className="hidden lg:block">
+              <div className="hidden min-[1180px]:block">
                 <MagneticCTAButton />
               </div>
               <HamburgerButton
