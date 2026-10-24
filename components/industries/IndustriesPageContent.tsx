@@ -184,7 +184,7 @@ export function IndustriesPageContent() {
           SECTION 1: HERO (STRONG TYPOGRAPHIC WITH ABSTRACT SPECTRUM LENS)
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 pt-8 pb-10 md:pt-10 md:pb-12 lg:pt-12 lg:pb-14"
+        className="relative mx-auto w-full max-w-[1320px] px-6 pt-8 pb-10 md:pt-10 md:pb-12 lg:pt-12 lg:pb-14"
         id="top"
       >
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-8">
@@ -275,7 +275,7 @@ export function IndustriesPageContent() {
           SECTION 2: INTRODUCTION (BUILT AROUND YOUR INDUSTRY)
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 py-6 md:py-8"
+        className="relative mx-auto w-full max-w-[1320px] px-6 py-6 md:py-8"
         id="introduction"
       >
         <div className="rounded-3xl border border-neutral-200/90 bg-gradient-to-br from-white via-white to-[#faf8fe] p-6 shadow-[0_10px_30px_-15px_rgba(45,30,85,0.05)] md:p-8 lg:p-9">
@@ -358,7 +358,7 @@ export function IndustriesPageContent() {
           SECTION 3: 12 INDUSTRIES WE SERVE (EDITORIAL “INDUSTRIES IN FOCUS”)
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 py-8 md:py-12"
+        className="relative mx-auto w-full max-w-[1320px] px-6 py-8 md:py-12"
         id="industries-showcase"
       >
         <Reveal>
@@ -448,7 +448,7 @@ export function IndustriesPageContent() {
           SECTION 4: CLOSING CTA
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 pt-4 pb-16 md:pb-20"
+        className="relative mx-auto w-full max-w-[1320px] px-6 pt-4 pb-16 md:pb-20"
         id="contact"
       >
         <Reveal>

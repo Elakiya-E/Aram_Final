@@ -321,7 +321,7 @@ export function OurWorkPageContent() {
     <div className="relative min-h-screen w-full bg-[#fbfaff] text-[#14121a] antialiased">
       {/* SECTION 1: HERO — ASYMMETRIC PROJECT SHOWCASE */}
       <section
-        className="work-hero-section relative mx-auto w-full max-w-[1260px] px-6"
+        className="work-hero-section relative mx-auto w-full max-w-[1320px] px-6"
         id="top"
       >
         <div className="work-ambient-glow" aria-hidden="true" />
@@ -582,7 +582,7 @@ export function OurWorkPageContent() {
       </section>
 
       {/* SECTION 2: PHILOSOPHY & DELIVERY PRINCIPLES */}
-      <section className="relative mx-auto w-full max-w-[1240px] px-6 py-8 md:py-12" id="philosophy">
+      <section className="relative mx-auto w-full max-w-[1320px] px-6 py-8 md:py-12" id="philosophy">
         <Reveal>
           <div className="mx-auto max-w-[760px] text-center">
             <div className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase text-[#5946dc]">
@@ -652,7 +652,7 @@ export function OurWorkPageContent() {
 
       {/* SECTION 3: SELECTED WORK GALLERY */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 py-12 md:py-18"
+        className="relative mx-auto w-full max-w-[1320px] px-6 py-12 md:py-18"
         id="projects"
       >
         <Reveal>
@@ -928,7 +928,7 @@ export function OurWorkPageContent() {
       </section>
 
       {/* SECTION 4: CLOSING PROJECT INTAKE CTA */}
-      <section className="relative mx-auto w-full max-w-[1240px] px-6 py-12 md:py-20" id="contact">
+      <section className="relative mx-auto w-full max-w-[1320px] px-6 py-12 md:py-20" id="contact">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-[#6C5CE7]/25 bg-gradient-to-br from-[#13111c] via-[#1a1727] to-[#12101b] p-8 text-white shadow-[0_20px_50px_-15px_rgba(40,25,80,0.35)] md:p-12 lg:p-14">
             {/* Ambient Background Aura */}

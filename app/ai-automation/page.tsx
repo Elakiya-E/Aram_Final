@@ -4,25 +4,25 @@ import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "AI & Automation Services | Aram Analytics",
+    absolute: "AI & Automation in Practice | Aram Analytics",
   },
   description:
-    "Explore AI automation services from Aram Analytics, including AI chatbots, LLM integration, custom AI development, and business workflow automation.",
+    "Explore the AI solutions and automation workflows Aram Analytics has built to address practical business needs.",
   alternates: {
     canonical: "/ai-automation",
   },
   openGraph: {
-    title: "AI & Automation Services | Aram Analytics",
+    title: "AI & Automation in Practice | Aram Analytics",
     description:
-      "Explore AI automation services from Aram Analytics, including AI chatbots, LLM integration, custom AI development, and business workflow automation.",
+      "Explore the AI solutions and automation workflows Aram Analytics has built to address practical business needs.",
     url: "/ai-automation",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "AI & Automation Services | Aram Analytics",
+    title: "AI & Automation in Practice | Aram Analytics",
     description:
-      "Explore AI automation services from Aram Analytics, including AI chatbots, LLM integration, custom AI development, and business workflow automation.",
+      "Explore the AI solutions and automation workflows Aram Analytics has built to address practical business needs.",
   },
 };
 

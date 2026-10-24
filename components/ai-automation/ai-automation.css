@@ -1,100 +1,155 @@
 /* =========================================================================
-   AI & AUTOMATION SERVICES PAGE STYLES — ARAM ANALYTICS
+   AI & AUTOMATION IN PRACTICE — ARAM ANALYTICS
+   Clean, verified, honest design system styles
    ========================================================================= */
+
+.ai-page-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fbfaff;
+  color: #14121a;
+  overflow-x: clip;
+}
 
 .ai-hero-section {
   position: relative;
-  padding-top: clamp(20px, 3.5vw, 36px);
-  padding-bottom: clamp(56px, 7vw, 84px);
+  padding-top: clamp(24px, 4vw, 44px);
+  padding-bottom: clamp(48px, 6vw, 72px);
 }
 
 .ai-ambient-glow {
   position: absolute;
-  top: -40px;
+  top: -60px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1040px, 94vw);
-  height: 520px;
+  width: min(1140px, 94vw);
+  height: 480px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.12) 0%, rgba(99, 102, 241, 0.05) 45%, transparent 72%);
-  filter: blur(65px);
+  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.1) 0%, rgba(108, 92, 231, 0.04) 40%, transparent 70%);
+  filter: blur(70px);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Interactive Pipeline Visual HUD */
-.ai-hud-card {
+/* Status Badges */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.status-pill-deployed {
+  background-color: rgba(16, 185, 129, 0.09);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.status-pill-completed {
+  background-color: rgba(59, 130, 246, 0.09);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.status-pill-prototype {
+  background-color: rgba(139, 92, 246, 0.09);
+  color: #7c3aed;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+/* Project Cards */
+.ai-work-card {
   position: relative;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
   border-radius: 24px;
-  border: 1.5px solid rgba(139, 92, 246, 0.22);
-  background: linear-gradient(155deg, #ffffff 0%, #faf8ff 100%);
-  box-shadow: 0 24px 60px -15px rgba(40, 30, 80, 0.1), 0 0 0 1px rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(35, 25, 60, 0.08);
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px -8px rgba(40, 30, 80, 0.06);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
   overflow: hidden;
 }
 
-.ai-hud-bar {
+.ai-work-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px -12px rgba(108, 92, 231, 0.12);
+  border-color: rgba(108, 92, 231, 0.25);
+}
+
+/* Browser Mockup Header */
+.browser-chrome {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(139, 92, 246, 0.12);
-  padding: 10px 16px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  background-color: #faf9fd;
+  border-bottom: 1px solid rgba(35, 25, 60, 0.06);
 }
 
-.ai-hud-status-dot {
+.browser-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.browser-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: #10b981;
-  box-shadow: 0 0 8px #10b981;
+  background-color: #dcd8e6;
 }
 
-/* Pipeline Stage Connectors */
-.pipeline-connector-line {
-  stroke-dasharray: 4 6;
-  animation: pipelineFlow 2.8s linear infinite;
+.browser-url-pill {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 500;
+  color: #7c7689;
+  padding: 2px 10px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  border: 1px solid rgba(35, 25, 60, 0.06);
 }
 
-@keyframes pipelineFlow {
-  from {
-    stroke-dashoffset: 20;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
+/* How We Build Track */
+.build-step-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 20px;
+  border: 1px solid rgba(35, 25, 60, 0.08);
+  background-color: #ffffff;
+  padding: 24px;
+  box-shadow: 0 2px 12px -4px rgba(40, 30, 80, 0.04);
+  transition: all 0.25s ease;
 }
 
-/* Asymmetric Capability Item Hover */
-.capability-item {
-  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+.build-step-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(108, 92, 231, 0.22);
+  box-shadow: 0 10px 28px -8px rgba(108, 92, 231, 0.08);
 }
 
-.capability-item:hover {
-  transform: translateX(4px);
-}
-
-.capability-item.is-selected {
-  background: #ffffff;
-  border-color: rgba(108, 92, 231, 0.35);
-  box-shadow: 0 12px 32px -8px rgba(108, 92, 231, 0.14), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
-}
-
-/* Approach Continuous Line */
-.approach-track-line {
+.build-track-guide {
   position: absolute;
   top: 36px;
   left: 6%;
   right: 6%;
   height: 2px;
-  background: linear-gradient(90deg, #8b5cf6 0%, #6366f1 50%, #10b981 100%);
-  opacity: 0.28;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.3) 0%, rgba(99, 102, 241, 0.3) 50%, rgba(16, 185, 129, 0.3) 100%);
+  pointer-events: none;
   z-index: 0;
 }
 
 @media (max-width: 1024px) {
-  .approach-track-line {
+  .build-track-guide {
     display: none;
   }
 }

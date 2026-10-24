@@ -177,7 +177,7 @@ export function ZohoPageContent() {
           SECTION 1: HERO (SPLIT EDITORIAL WITH OPERATIONS BLUEPRINT HUB)
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 pt-8 pb-16 md:pt-10 md:pb-20 lg:pt-12 lg:pb-24"
+        className="relative mx-auto w-full max-w-[1320px] px-6 pt-8 pb-16 md:pt-10 md:pb-20 lg:pt-12 lg:pb-24"
         id="top"
       >
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
@@ -401,7 +401,7 @@ export function ZohoPageContent() {
           SECTION 2: ZOHO PRODUCTS (3 CORNERSTONE APPS)
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 py-16 md:py-24"
+        className="relative mx-auto w-full max-w-[1320px] px-6 py-16 md:py-24"
         id="products"
       >
         <Reveal>
@@ -514,7 +514,7 @@ export function ZohoPageContent() {
           SECTION 3: OUR SERVICES (4 STRUCTURED PROCESS TILES)
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 py-16 md:py-24"
+        className="relative mx-auto w-full max-w-[1320px] px-6 py-16 md:py-24"
         id="services"
       >
         <Reveal>
@@ -583,7 +583,7 @@ export function ZohoPageContent() {
           SECTION 4: CONTACT CTA PANEL (EXECUTIVE STATEMENT CARD)
           ----------------------------------------------------------------- */}
       <section
-        className="relative mx-auto w-full max-w-[1240px] px-6 pt-12 pb-24 md:pb-32"
+        className="relative mx-auto w-full max-w-[1320px] px-6 pt-12 pb-24 md:pb-32"
         id="contact"
       >
         <Reveal>

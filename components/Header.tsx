@@ -73,9 +73,9 @@ function AnnouncementBar({
       <div className="flex items-center justify-center gap-3 px-4 py-2">
         <Link
           href={ANNOUNCEMENT_HREF}
-          className="group inline-flex items-center gap-2 rounded-full border border-[#9b8cff]/20 bg-gradient-to-r from-[#9b8cff]/12 via-[#6C5CE7]/8 to-[#9b8cff]/12 px-4 py-1.5 text-[11.5px] font-medium text-neutral-700 backdrop-blur-md transition-all duration-200 hover:border-[#9b8cff]/30 hover:from-[#9b8cff]/18 hover:to-[#9b8cff]/18 dark:text-neutral-200"
+          className="group inline-flex items-center gap-2 rounded-full border border-[#9b8cff]/20 bg-gradient-to-r from-[#9b8cff]/12 via-[#6C5CE7]/8 to-[#9b8cff]/12 px-4 py-1.5 text-[11.5px] font-medium text-neutral-700 backdrop-blur-md transition-all duration-200 hover:border-[#9b8cff]/30 hover:from-[#9b8cff]/18 hover:to-[#9b8cff]/18"
         >
-          <span className="text-[#826cff] dark:text-[#b5a8ff]">
+          <span className="text-[#826cff]">
             <Sparkles size={11} />
           </span>
           <span className="tracking-tight">{ANNOUNCEMENT_TEXT}</span>
@@ -87,7 +87,7 @@ function AnnouncementBar({
         <button
           onClick={onDismiss}
           aria-label="Dismiss announcement"
-          className="flex h-6 w-6 items-center justify-center rounded-full text-neutral-400 transition-colors duration-200 hover:bg-white/60 hover:text-neutral-600 dark:text-neutral-500 dark:hover:bg-white/10 dark:hover:text-neutral-300"
+          className="flex h-6 w-6 items-center justify-center rounded-full text-neutral-400 transition-colors duration-200 hover:bg-white/60 hover:text-neutral-600"
         >
           <X size={12} />
         </button>
@@ -125,7 +125,7 @@ function MagneticCTAButton() {
       onMouseMove={handleMove}
       onMouseLeave={reset}
       style={reducedMotion ? undefined : { x: pos.x, y: pos.y }}
-      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-br from-[#b6a9ff] via-[#9b8cff] to-[#6C5CE7] px-5.5 py-2.5 text-[15px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9b8cff] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#0a0a0b]"
+      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-br from-[#b6a9ff] via-[#9b8cff] to-[#6C5CE7] px-4 xl:px-5.5 py-2 xl:py-2.5 text-[14px] xl:text-[15px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9b8cff] focus-visible:ring-offset-2"
     >
       <span
         aria-hidden="true"
@@ -187,11 +187,16 @@ export function Header() {
 
   // Close dropdown on route change
   useEffect(() => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-    setActiveDropdown(null);
+    const timer = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 0);
+    return () => {
+      clearTimeout(timer);
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+        closeTimeoutRef.current = null;
+      }
+    };
   }, [pathname]);
 
   const handleOpenDropdown = (label: string) => {
@@ -248,7 +253,7 @@ export function Header() {
           onDismiss={() => setAnnouncementVisible(false)}
         />
 
-        <div className="px-4 pt-4">
+        <div className="px-3 sm:px-4 lg:px-6 pt-3 sm:pt-4">
           <motion.nav
             aria-label="Primary"
             initial={false}
@@ -258,15 +263,15 @@ export function Header() {
                 : {
                     y: isHidden ? -120 : 0,
                     opacity: isHidden ? 0 : 1,
-                    width: isShrunk ? "min(1140px, 96%)" : "min(1240px, 100%)",
-                    paddingLeft: isShrunk ? 16 : 22,
-                    paddingRight: isShrunk ? 16 : 22,
-                    paddingTop: isShrunk ? 9 : 12,
-                    paddingBottom: isShrunk ? 9 : 12,
+                    width: isShrunk ? "min(1280px, calc(100% - 24px))" : "min(1320px, 100%)",
+                    paddingLeft: isShrunk ? 14 : 20,
+                    paddingRight: isShrunk ? 14 : 20,
+                    paddingTop: isShrunk ? 8 : 11,
+                    paddingBottom: isShrunk ? 8 : 11,
                     backdropFilter: isShrunk ? "blur(22px)" : "blur(16px)",
                     boxShadow: isShrunk
-                      ? "0 16px 50px -16px rgba(40,30,80,0.22), 0 6px 20px -10px rgba(108,92,231,0.18), 0 1px 0 rgba(255,255,255,0.85) inset, 0 0 0 1px rgba(108,92,231,0.08) inset"
-                      : "0 10px 40px -14px rgba(40,30,80,0.16), 0 1px 0 rgba(255,255,255,0.85) inset, 0 0 0 1px rgba(108,92,231,0.05) inset",
+                      ? "0 16px 44px -14px rgba(40,30,80,0.18), 0 4px 16px -8px rgba(108,92,231,0.12), 0 1px 0 rgba(255,255,255,0.9) inset, 0 0 0 1px rgba(108,92,231,0.08) inset"
+                      : "0 10px 36px -12px rgba(40,30,80,0.12), 0 1px 0 rgba(255,255,255,0.9) inset, 0 0 0 1px rgba(108,92,231,0.06) inset",
                   }
             }
             transition={
@@ -277,7 +282,7 @@ export function Header() {
                     ease: [0.22, 1, 0.36, 1],
                   }
             }
-            className="mx-auto flex items-center justify-between rounded-2xl border border-white/10 dark:border-white/10 bg-white/70 dark:bg-[#0f0f11]/78 backdrop-blur-[16px]"
+            className="mx-auto flex items-center justify-between rounded-2xl border border-white/60 bg-white/85 backdrop-blur-[16px] shadow-[0_10px_36px_-12px_rgba(40,30,80,0.12)]"
           >
             <div className="flex items-center gap-1">
               <Link href="/" aria-label="Aram Analytics home" className="shrink-0">
@@ -286,7 +291,7 @@ export function Header() {
             </div>
 
             {/* Desktop Navigation Items with Floating Dropdown Preview Cards */}
-            <div className="relative hidden items-center lg:flex">
+            <div className="relative hidden items-center lg:flex gap-0.5 xl:gap-1">
               {NAV_ITEMS.map((item) => {
                 const isActive =
                   item.href === "/about"

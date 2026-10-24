@@ -91,7 +91,7 @@ export function MegaMenu({ isOpen, items, onClose, anchorRef }: MegaMenuProps) {
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="absolute left-1/2 top-full z-50 mt-3 w-[680px] max-w-[92vw] -translate-x-1/2"
         >
-          <div className="rounded-2xl border border-white/10 dark:border-white/10 bg-white/85 dark:bg-[#0f0f11]/88 p-4 backdrop-blur-2xl shadow-[0_20px_60px_-12px_rgba(40,30,80,0.25),0_8px_24px_-8px_rgba(108,92,231,0.18)] ring-1 ring-[#6C5CE7]/5">
+          <div className="rounded-2xl border border-white/80 bg-white/95 p-4 backdrop-blur-2xl shadow-[0_20px_60px_-12px_rgba(40,30,80,0.22),0_8px_24px_-8px_rgba(108,92,231,0.14)] ring-1 ring-[#6C5CE7]/5">
             <div className="grid grid-cols-[1fr_220px] gap-4">
               <div className="grid grid-cols-2 gap-2">
                 {items.map((item, i) => {
@@ -108,16 +108,16 @@ export function MegaMenu({ isOpen, items, onClose, anchorRef }: MegaMenuProps) {
                         href={item.href}
                         onClick={onClose}
                         role="menuitem"
-                        className="group flex items-start gap-3 rounded-xl p-3 transition-all duration-200 hover:bg-[#9b8cff]/8 dark:hover:bg-white/5"
+                        className="group flex items-start gap-3 rounded-xl p-3 transition-all duration-200 hover:bg-[#9b8cff]/8"
                       >
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#9b8cff]/12 text-[#6C5CE7] transition-colors duration-200 group-hover:bg-[#9b8cff]/18 dark:text-[#b5a8ff]">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#9b8cff]/12 text-[#6C5CE7] transition-colors duration-200 group-hover:bg-[#9b8cff]/18">
                           <Icon size={17} />
                         </span>
                         <span className="min-w-0">
-                          <span className="block text-[13px] font-medium text-neutral-900 dark:text-neutral-100">
+                          <span className="block text-[13px] font-medium text-neutral-900">
                             {item.title}
                           </span>
-                          <span className="mt-0.5 block text-[11.5px] leading-relaxed text-neutral-500 dark:text-neutral-400">
+                          <span className="mt-0.5 block text-[11.5px] leading-relaxed text-neutral-500">
                             {item.description}
                           </span>
                         </span>
@@ -132,7 +132,7 @@ export function MegaMenu({ isOpen, items, onClose, anchorRef }: MegaMenuProps) {
                 variants={staggeredFadeIn}
                 initial={reducedMotion ? false : "hidden"}
                 animate="show"
-                className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#9b8cff]/15 via-[#6C5CE7]/10 to-transparent p-4 ring-1 ring-[#9b8cff]/15 dark:from-[#9b8cff]/12 dark:via-[#6C5CE7]/8"
+                className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#9b8cff]/15 via-[#6C5CE7]/10 to-transparent p-4 ring-1 ring-[#9b8cff]/15"
               >
                 <div
                   aria-hidden="true"
@@ -140,20 +140,20 @@ export function MegaMenu({ isOpen, items, onClose, anchorRef }: MegaMenuProps) {
                 />
                 <div className="relative flex h-full flex-col justify-between">
                   <div>
-                    <span className="mb-2.5 inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#826cff]/18 text-[#6C5CE7] dark:text-[#b5a8ff]">
+                    <span className="mb-2.5 inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#826cff]/18 text-[#6C5CE7]">
                       <Sparkles size={14} />
                     </span>
-                    <h4 className="text-[13px] font-semibold leading-snug text-neutral-900 dark:text-neutral-100">
+                    <h4 className="text-[13px] font-semibold leading-snug text-neutral-900">
                       {WORKFLOW_AUDIT_OFFER.title}
                     </h4>
-                    <p className="mt-1 text-[11.5px] leading-relaxed text-neutral-500 dark:text-neutral-400">
+                    <p className="mt-1 text-[11.5px] leading-relaxed text-neutral-500">
                       {WORKFLOW_AUDIT_OFFER.description}
                     </p>
                   </div>
                   <Link
                     href={WORKFLOW_AUDIT_OFFER.href}
                     onClick={onClose}
-                    className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#6C5CE7] transition-colors duration-200 hover:text-[#5943c9] dark:text-[#b5a8ff] dark:hover:text-[#cfc2ff]"
+                    className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#6C5CE7] transition-colors duration-200 hover:text-[#5943c9]"
                   >
                     {WORKFLOW_AUDIT_OFFER.ctaText}
                     <ArrowUpRight

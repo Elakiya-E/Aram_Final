@@ -159,16 +159,16 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                 : { opacity: 0, y: "-20%", clipPath: "inset(0 0 100% 0 round 24px)" }
             }
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-3 top-[68px] z-[70] bottom-4 flex flex-col overflow-hidden rounded-3xl border border-white/15 bg-white/98 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] ring-1 ring-white/5 lg:hidden dark:border-white/10 dark:bg-[#0c0c0e]/96"
+            className="fixed inset-x-3 top-[68px] z-[70] bottom-4 flex flex-col overflow-hidden rounded-3xl border border-white/80 bg-white/98 backdrop-blur-2xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.2)] ring-1 ring-black/5 lg:hidden"
           >
-            <div className="flex items-center justify-between border-b border-neutral-100 p-4 dark:border-white/6">
-              <span className="text-[11px] font-bold tracking-widest uppercase text-[#5946dc] dark:text-[#b5a8ff]">
+            <div className="flex items-center justify-between border-b border-neutral-100 p-4">
+              <span className="text-[11px] font-bold tracking-widest uppercase text-[#5946dc]">
                 NAVIGATION MENU
               </span>
               <button
                 onClick={onClose}
                 aria-label="Close navigation"
-                className="flex h-9 w-9 items-center justify-center rounded-xl border border-neutral-200/80 bg-white text-neutral-600 transition-colors duration-200 hover:bg-neutral-100 dark:border-white/10 dark:bg-white/5 dark:text-neutral-300 dark:hover:bg-white/10"
+                className="flex h-9 w-9 items-center justify-center rounded-xl border border-neutral-200/80 bg-white text-neutral-600 transition-colors duration-200 hover:bg-neutral-100"
               >
                 <X size={17} />
               </button>
@@ -189,7 +189,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                       variants={linkVariants}
                       initial={reducedMotion ? false : "closed"}
                       animate="open"
-                      className="border-b border-neutral-200/60 py-1 last:border-b-0 dark:border-white/6"
+                      className="border-b border-neutral-200/60 py-1 last:border-b-0"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2.5">
@@ -197,7 +197,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                             <Link
                               href={item.href}
                               onClick={onClose}
-                              className="inline-flex items-center rounded-full border border-[#6C5CE7]/20 bg-[#6C5CE7]/10 px-3 py-1 text-[13px] font-bold uppercase tracking-wider text-[#5a4ad6] dark:text-[#b5a8ff]"
+                              className="inline-flex items-center rounded-full border border-[#6C5CE7]/20 bg-[#6C5CE7]/10 px-3 py-1 text-[13px] font-bold uppercase tracking-wider text-[#5a4ad6]"
                             >
                               Zoho
                             </Link>
@@ -205,7 +205,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                             <Link
                               href={item.href}
                               onClick={onClose}
-                              className="py-3 text-[16px] font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
+                              className="py-3 text-[16px] font-semibold tracking-tight text-neutral-900"
                             >
                               {item.label}
                             </Link>
@@ -218,7 +218,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                             onClick={() => setExpandedKey(isExpanded ? null : item.label)}
                             aria-expanded={isExpanded}
                             aria-controls={`mobile-accordion-${item.label}`}
-                            className="flex h-10 w-10 items-center justify-center rounded-xl text-neutral-500 transition-colors duration-200 hover:bg-[#9b8cff]/10 hover:text-[#6C5CE7] dark:text-neutral-400 dark:hover:bg-white/5"
+                            className="flex h-10 w-10 items-center justify-center rounded-xl text-neutral-500 transition-colors duration-200 hover:bg-[#9b8cff]/10 hover:text-[#6C5CE7]"
                           >
                             <motion.span
                               animate={{ rotate: isExpanded ? 180 : 0 }}
@@ -243,23 +243,23 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                               className="overflow-hidden"
                             >
-                              <div className="mb-3 rounded-2xl border border-[#6C5CE7]/14 bg-[#fbfaff] p-3.5 dark:border-white/10 dark:bg-white/3">
-                                <div className="mb-2.5 flex items-start justify-between gap-2 border-b border-neutral-200/50 pb-2 dark:border-white/6">
+                              <div className="mb-3 rounded-2xl border border-[#6C5CE7]/14 bg-[#fbfaff] p-3.5">
+                                <div className="mb-2.5 flex items-start justify-between gap-2 border-b border-neutral-200/50 pb-2">
                                   <div>
-                                    <span className="text-[10px] font-bold tracking-widest uppercase text-[#5946dc] dark:text-[#b5a8ff]">
+                                    <span className="text-[10px] font-bold tracking-widest uppercase text-[#5946dc]">
                                       {dropdown.kicker}
                                     </span>
-                                    <h4 className="text-[13.5px] font-semibold text-neutral-900 dark:text-neutral-100">
+                                    <h4 className="text-[13.5px] font-semibold text-neutral-900">
                                       {dropdown.title}
                                     </h4>
-                                    <p className="mt-0.5 text-[11.5px] text-neutral-500 dark:text-neutral-400">
+                                    <p className="mt-0.5 text-[11.5px] text-neutral-500">
                                       {dropdown.description}
                                     </p>
                                   </div>
                                   <Link
                                     href={dropdown.pageHref}
                                     onClick={onClose}
-                                    className="shrink-0 rounded-lg border border-[#6C5CE7]/20 bg-[#6C5CE7]/10 px-2.5 py-1 text-[11px] font-semibold text-[#5946dc] dark:text-[#b5a8ff]"
+                                    className="shrink-0 rounded-lg border border-[#6C5CE7]/20 bg-[#6C5CE7]/10 px-2.5 py-1 text-[11px] font-semibold text-[#5946dc]"
                                   >
                                     View
                                   </Link>
@@ -274,7 +274,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                                           key={sub.title}
                                           href={sub.href}
                                           onClick={onClose}
-                                          className="flex items-center gap-2 rounded-lg p-1.5 text-[11.5px] font-medium text-neutral-800 transition-colors hover:bg-white hover:text-[#5946dc] dark:text-neutral-200"
+                                          className="flex items-center gap-2 rounded-lg p-1.5 text-[11.5px] font-medium text-neutral-800 transition-colors hover:bg-white hover:text-[#5946dc]"
                                         >
                                           <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#9b8cff]/15 text-[#6C5CE7]">
                                             <Icon size={11} />
@@ -293,17 +293,17 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                                           <Link
                                             href={sub.href}
                                             onClick={onClose}
-                                            className="flex items-start gap-2.5 rounded-xl p-2 transition-colors hover:bg-white dark:hover:bg-white/5"
+                                            className="flex items-start gap-2.5 rounded-xl p-2 transition-colors hover:bg-white"
                                           >
-                                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#9b8cff]/12 text-[#6C5CE7] dark:text-[#b5a8ff]">
+                                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#9b8cff]/12 text-[#6C5CE7]">
                                               <Icon size={14} />
                                             </span>
                                             <div className="min-w-0 flex-1">
-                                              <span className="block text-[13px] font-medium text-neutral-900 dark:text-neutral-100">
+                                              <span className="block text-[13px] font-medium text-neutral-900">
                                                 {sub.title}
                                               </span>
                                               {sub.description && (
-                                                <span className="block text-[11px] text-neutral-500 dark:text-neutral-400">
+                                                <span className="block text-[11px] text-neutral-500">
                                                   {sub.description}
                                                 </span>
                                               )}
@@ -316,15 +316,15 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
                                 )}
 
                                 {dropdown.featured && (
-                                  <div className="mt-3 rounded-xl border border-[#9b8cff]/20 bg-[#6C5CE7]/6 p-2.5 dark:bg-[#6C5CE7]/10">
+                                  <div className="mt-3 rounded-xl border border-[#9b8cff]/20 bg-[#6C5CE7]/6 p-2.5">
                                     <div className="flex items-center justify-between">
-                                      <span className="text-[11.5px] font-semibold text-neutral-900 dark:text-neutral-100">
+                                      <span className="text-[11.5px] font-semibold text-neutral-900">
                                         {dropdown.featured.title}
                                       </span>
                                       <Link
                                         href={dropdown.featured.href}
                                         onClick={onClose}
-                                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#5946dc] dark:text-[#b5a8ff]"
+                                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#5946dc]"
                                       >
                                         <span>{dropdown.featured.ctaText}</span>
                                         <ArrowRight size={11} />
@@ -343,7 +343,7 @@ export function MobileDrawer({ isOpen, onClose, navItems }: MobileDrawerProps) {
               </ul>
             </nav>
 
-            <div className="border-t border-neutral-200/70 p-4 dark:border-white/7">
+            <div className="border-t border-neutral-200/70 p-4">
               <Link
                 href="/#contact"
                 onClick={onClose}
@@ -382,7 +382,7 @@ export function HamburgerButton({
       onClick={onClick}
       aria-expanded={isOpen}
       aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-      className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/60 text-neutral-700 transition-colors duration-200 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10 lg:hidden"
+      className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200/70 bg-white/70 text-neutral-700 transition-colors duration-200 hover:bg-white lg:hidden"
     >
       <span className="relative block h-3.5 w-4">
         <motion.span

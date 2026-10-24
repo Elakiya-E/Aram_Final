@@ -62,12 +62,12 @@ export function FinalCtaSection({ id = "contact" }: { id?: string }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.16 }}
             >
-              Tell us what is slowing your team down. We'll help turn it into a practical technology system.
+              Tell us what is slowing your team down. We&apos;ll help turn it into a practical technology system.
             </motion.p>
 
             <div className="final-cta-links">
               <a href="#contact-form" className="button button-primary cta-btn">
-                Let's build it <ArrowUpRight size={15} />
+                Let&apos;s build it <ArrowUpRight size={15} />
               </a>
               <a href="#work" className="button button-quiet cta-btn">
                 View our work <ArrowRight size={14} />
