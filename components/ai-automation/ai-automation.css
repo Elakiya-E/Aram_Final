@@ -1,6 +1,7 @@
 /* =========================================================================
-   AI & AUTOMATION IN PRACTICE — ARAM ANALYTICS
-   Clean, verified, honest design system styles
+   AI & AUTOMATION — ARAM ANALYTICS BRAND DESIGN SYSTEM
+   Theme: "From Repetitive Work to Intelligent Flow"
+   Palette: Warm pale lavender-white, deep charcoal, refined purple/lavender
    ========================================================================= */
 
 .ai-page-wrapper {
@@ -12,78 +13,462 @@
   overflow-x: clip;
 }
 
+/* -------------------------------------------------------------------------
+   Hero Section
+   ------------------------------------------------------------------------- */
 .ai-hero-section {
   position: relative;
-  padding-top: clamp(24px, 4vw, 44px);
-  padding-bottom: clamp(48px, 6vw, 72px);
+  padding-top: clamp(28px, 5vw, 56px);
+  padding-bottom: clamp(40px, 5vw, 68px);
 }
 
 .ai-ambient-glow {
   position: absolute;
-  top: -60px;
+  top: -80px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1140px, 94vw);
-  height: 480px;
+  width: min(1200px, 94vw);
+  height: 520px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.1) 0%, rgba(108, 92, 231, 0.04) 40%, transparent 70%);
-  filter: blur(70px);
+  background: radial-gradient(
+    ellipse,
+    rgba(108, 92, 231, 0.08) 0%,
+    rgba(139, 92, 246, 0.04) 40%,
+    transparent 70%
+  );
+  filter: blur(80px);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Status Badges */
-.status-pill {
-  display: inline-flex;
+/* -------------------------------------------------------------------------
+   Workflow Visualization Card (Hero Right Column)
+   Visual Sequence: INPUT → AUTOMATION → OUTCOME
+   ------------------------------------------------------------------------- */
+.workflow-viz-card {
+  position: relative;
+  border-radius: 24px;
+  border: 1px solid rgba(108, 92, 231, 0.18);
+  background: linear-gradient(175deg, #ffffff 0%, #faf8fe 60%, #f4f1fa 100%);
+  box-shadow: 0 12px 36px -10px rgba(70, 50, 130, 0.12),
+    0 1px 3px 0 rgba(70, 50, 130, 0.05);
+  overflow: hidden;
+  padding: 22px;
+}
+
+.workflow-viz-header {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 3px 10px;
-  border-radius: 9999px;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(35, 25, 60, 0.07);
+}
+
+.workflow-viz-body {
+  position: relative;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Node Cards */
+.workflow-node {
+  position: relative;
+  border-radius: 16px;
+  background-color: #ffffff;
+  border: 1px solid rgba(35, 25, 60, 0.08);
+  padding: 16px 18px;
+  box-shadow: 0 2px 10px -3px rgba(40, 30, 80, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.workflow-node:hover {
+  transform: translateY(-1.5px);
+  border-color: rgba(108, 92, 231, 0.3);
+  box-shadow: 0 8px 24px -6px rgba(108, 92, 231, 0.12);
+}
+
+.workflow-node-engine {
+  border-color: rgba(108, 92, 231, 0.25);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfaff 100%);
+  box-shadow: 0 4px 16px -4px rgba(108, 92, 231, 0.1);
+}
+
+.workflow-node-icon {
+  display: flex;
+  height: 32px;
+  width: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.workflow-node-step {
+  display: block;
   font-family: var(--font-mono, monospace);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.status-pill-deployed {
-  background-color: rgba(16, 185, 129, 0.09);
+.workflow-node-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #14121a;
+  line-height: 1.25;
+}
+
+.workflow-chip {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background-color: #f7f6fb;
+  border: 1px solid rgba(35, 25, 60, 0.08);
+  color: #5e586c;
+  white-space: nowrap;
+}
+
+.workflow-status-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: #059669;
+  background-color: rgba(16, 185, 129, 0.1);
   border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
 }
 
-.status-pill-completed {
-  background-color: rgba(59, 130, 246, 0.09);
-  color: #2563eb;
-  border: 1px solid rgba(59, 130, 246, 0.25);
+.workflow-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #5e586c;
+  background-color: #f6f5fa;
+  padding: 2px 8px;
+  border-radius: 6px;
 }
 
-.status-pill-prototype {
-  background-color: rgba(139, 92, 246, 0.09);
-  color: #7c3aed;
-  border: 1px solid rgba(139, 92, 246, 0.25);
+.workflow-badge-accent {
+  color: #5946dc;
+  background-color: rgba(108, 92, 231, 0.08);
 }
 
-/* Project Cards */
+/* Connecting Flow Line */
+.workflow-connector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+}
+
+.workflow-connector-line {
+  position: absolute;
+  left: 33px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(108, 92, 231, 0.25) 0%,
+    rgba(108, 92, 231, 0.6) 50%,
+    rgba(16, 185, 129, 0.4) 100%
+  );
+  overflow: hidden;
+}
+
+.workflow-pulse-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #6C5CE7;
+  box-shadow: 0 0 8px #6C5CE7;
+  animation: pulseDown 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseDown {
+  0% {
+    top: -12px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.workflow-connector-label {
+  margin-left: 54px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #5946dc;
+  background-color: rgba(108, 92, 231, 0.07);
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+.workflow-viz-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(35, 25, 60, 0.06);
+}
+
+/* -------------------------------------------------------------------------
+   THE ARAM APPROACH — REFINED PROCESS TIMELINE
+   Connected horizontal sequence (desktop) / stacked vertical timeline (mobile)
+   ------------------------------------------------------------------------- */
+
+/* Responsive View Toggles */
+.timeline-desktop-view {
+  display: none !important;
+}
+
+.timeline-mobile-view {
+  display: block !important;
+}
+
+@media (min-width: 768px) {
+  .timeline-desktop-view {
+    display: block !important;
+  }
+  .timeline-mobile-view {
+    display: none !important;
+  }
+}
+
+.process-timeline-container {
+  position: relative;
+  border-radius: 24px;
+  border: 1px solid rgba(35, 25, 60, 0.08);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8fe 100%);
+  box-shadow: 0 4px 20px -8px rgba(40, 30, 80, 0.05);
+  padding: 32px 36px 36px;
+  overflow: hidden;
+}
+
+/* Desktop Connecting Track */
+.process-timeline-track {
+  position: absolute;
+  top: 48px;
+  left: 68px;
+  right: 68px;
+  height: 2px;
+  background-color: rgba(35, 25, 60, 0.08);
+  z-index: 0;
+  overflow: hidden;
+}
+
+.process-timeline-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    #6C5CE7 0%,
+    #8b5cf6 40%,
+    #3b82f6 75%,
+    #10b981 100%
+  );
+}
+
+.timeline-stages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Step Card within Timeline */
+.timeline-step-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px 14px;
+  border-radius: 16px;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  outline: none;
+}
+
+.timeline-step-card:hover {
+  transform: translateY(-2px);
+}
+
+.timeline-step-selected {
+  background-color: rgba(108, 92, 231, 0.03);
+}
+
+.timeline-node-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  z-index: 1;
+}
+
+.timeline-node-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2px solid #e5e2ed;
+  box-shadow: 0 2px 8px -2px rgba(40, 30, 80, 0.1);
+  transition: all 0.25s ease;
+}
+
+.timeline-step-card:hover .timeline-node-marker,
+.timeline-node-marker-active {
+  border-color: #6C5CE7;
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.15),
+    0 4px 12px -2px rgba(108, 92, 231, 0.25);
+  transform: scale(1.08);
+}
+
+.timeline-node-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: all 0.25s ease;
+}
+
+.timeline-step-num {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.timeline-step-title {
+  transition: color 0.2s ease;
+}
+
+.timeline-step-card:hover .timeline-step-title,
+.timeline-step-selected .timeline-step-title {
+  color: #5946dc;
+}
+
+.timeline-step-desc {
+  transition: color 0.2s ease;
+}
+
+.timeline-step-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: linear-gradient(90deg, #6C5CE7 0%, #8b5cf6 100%);
+  border-radius: 9999px;
+  transition: opacity 0.25s ease;
+}
+
+/* -------------------------------------------------------------------------
+   Mobile Vertical Connected Timeline
+   ------------------------------------------------------------------------- */
+.mobile-timeline-vertical-line {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  bottom: 14px;
+  width: 2px;
+  background-color: rgba(35, 25, 60, 0.08);
+  overflow: hidden;
+}
+
+.mobile-timeline-vertical-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, #6C5CE7 0%, #8b5cf6 50%, #10b981 100%);
+}
+
+.mobile-timeline-item {
+  position: relative;
+  padding-left: 28px;
+}
+
+.mobile-timeline-node {
+  position: absolute;
+  left: 4px;
+  top: 12px;
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 2px solid #6C5CE7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.12);
+  z-index: 1;
+}
+
+.mobile-timeline-card {
+  border-radius: 16px;
+  border: 1px solid rgba(35, 25, 60, 0.08);
+  background-color: #ffffff;
+  padding: 16px 18px;
+  box-shadow: 0 2px 10px -4px rgba(40, 30, 80, 0.04);
+}
+
+/* -------------------------------------------------------------------------
+   Verified Work Cards
+   ------------------------------------------------------------------------- */
 .ai-work-card {
   position: relative;
   display: flex;
   flex-direction: column;
   border-radius: 24px;
-  border: 1px solid rgba(35, 25, 60, 0.08);
+  border: 1px solid rgba(35, 25, 60, 0.09);
   background-color: #ffffff;
   box-shadow: 0 4px 20px -8px rgba(40, 30, 80, 0.06);
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
   overflow: hidden;
 }
 
 .ai-work-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 16px 40px -12px rgba(108, 92, 231, 0.12);
+  box-shadow: 0 16px 40px -12px rgba(108, 92, 231, 0.13);
   border-color: rgba(108, 92, 231, 0.25);
 }
 
-/* Browser Mockup Header */
 .browser-chrome {
   display: flex;
   align-items: center;
@@ -117,39 +502,53 @@
   border: 1px solid rgba(35, 25, 60, 0.06);
 }
 
-/* How We Build Track */
-.build-step-card {
+.portfolio-screenshot-viewport {
   position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #faf9fd;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 20px;
-  border: 1px solid rgba(35, 25, 60, 0.08);
-  background-color: #ffffff;
-  padding: 24px;
-  box-shadow: 0 2px 12px -4px rgba(40, 30, 80, 0.04);
-  transition: all 0.25s ease;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.build-step-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(108, 92, 231, 0.22);
-  box-shadow: 0 10px 28px -8px rgba(108, 92, 231, 0.08);
+.portfolio-screenshot-viewport img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: top center;
 }
 
-.build-track-guide {
-  position: absolute;
-  top: 36px;
-  left: 6%;
-  right: 6%;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.3) 0%, rgba(99, 102, 241, 0.3) 50%, rgba(16, 185, 129, 0.3) 100%);
-  pointer-events: none;
-  z-index: 0;
+/* Status Badges */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-@media (max-width: 1024px) {
-  .build-track-guide {
-    display: none;
-  }
+.status-pill-deployed {
+  background-color: rgba(16, 185, 129, 0.09);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.status-pill-completed {
+  background-color: rgba(59, 130, 246, 0.09);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.status-pill-prototype {
+  background-color: rgba(139, 92, 246, 0.09);
+  color: #7c3aed;
+  border: 1px solid rgba(139, 92, 246, 0.25);
 }
