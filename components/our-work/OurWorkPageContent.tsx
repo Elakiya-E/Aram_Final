@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import "./our-work.css";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -317,6 +317,12 @@ export function OurWorkPageContent() {
 
   const activeHeroProject = PORTFOLIO_PROJECTS[activeHeroIndex] || PORTFOLIO_PROJECTS[0];
 
+  // Both hero CTAs guide visitors to the same gallery section.
+  const handleExploreProjects = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="relative min-h-screen w-full bg-[#fbfaff] text-[#14121a] antialiased">
       {/* SECTION 1: HERO — ASYMMETRIC PROJECT SHOWCASE */}
@@ -358,32 +364,27 @@ export function OurWorkPageContent() {
               <div className="mt-7 flex flex-wrap items-center gap-3.5">
                 <a
                   href="#projects"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const el = document.getElementById("projects");
-                    if (el) {
-                      el.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                  className="group inline-flex items-center gap-2 rounded-xl bg-[#14121a] px-6 py-3.5 text-[13.5px] font-semibold text-white shadow-[0_6px_20px_-4px_rgba(20,18,26,0.3)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#231e34] hover:shadow-[0_10px_24px_-4px_rgba(20,18,26,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6C5CE7] focus-visible:ring-offset-2"
+                  onClick={handleExploreProjects}
+                  className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-[#6C5CE7] to-[#5946dc] px-6 py-3.5 text-[13.5px] font-semibold text-white! shadow-[0_8px_24px_-6px_rgba(108,92,231,0.45)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-6px_rgba(108,92,231,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6C5CE7] focus-visible:ring-offset-2"
                 >
-                  <span>Explore Our Projects</span>
+                  <span>Explore Selected Projects</span>
                   <ArrowDown
                     size={15}
-                    className="transition-transform duration-200 group-hover:translate-y-0.5"
+                    className="text-white! transition-transform duration-200 group-hover:translate-y-0.5"
                   />
                 </a>
 
-                <Link
-                  href="/#contact"
-                  className="group inline-flex items-center gap-2 rounded-xl border border-neutral-300/80 bg-white/90 px-5 py-3.5 text-[13.5px] font-semibold text-[#14121a] shadow-2xs backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#6C5CE7]/40 hover:bg-white hover:text-[#5946dc]"
+                <a
+                  href="#projects"
+                  onClick={handleExploreProjects}
+                  className="group inline-flex items-center gap-2 rounded-xl border border-neutral-300/80 bg-white/90 px-5 py-3.5 text-[13.5px] font-semibold text-[#1F1F29]! shadow-2xs backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#6C5CE7]/40 hover:bg-white hover:text-[#5946dc]! focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6C5CE7] focus-visible:ring-offset-2"
                 >
-                  <span>Start a Project</span>
+                  <span>Explore Our Projects</span>
                   <ArrowUpRight
                     size={15}
                     className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
-                </Link>
+                </a>
               </div>
             </Reveal>
 
