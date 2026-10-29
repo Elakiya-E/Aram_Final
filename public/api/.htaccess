@@ -1,0 +1,17 @@
+# ----------------------------------------------------------------------
+# Aram Analytics enquiry endpoint - server-side protection
+# ----------------------------------------------------------------------
+
+# Never serve the credentials file that lives beside the endpoint.
+<Files ".env">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</Files>
+
+# No directory listings for this folder.
+Options -Indexes

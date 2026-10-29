@@ -208,8 +208,10 @@ export function ProjectBriefForm() {
   };
 
   // Final submission
-  const handleSubmitBrief = (e: FormEvent) => {
+  const handleSubmitBrief = async (e: FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     setSubmitError(null);
 
     const step1Valid = validateStep1();
@@ -224,65 +226,52 @@ export function ProjectBriefForm() {
       return;
     }
 
+    const selectedLabels = formData.selectedTypes
+      .map((id) => PROJECT_TYPES.find((t) => t.id === id)?.label)
+      .filter(Boolean) as string[];
+
     setIsSubmitting(true);
 
     try {
-      const configuredEmail =
-        process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@aramanalytics.com";
+      const response = await fetch("/api/send-enquiry.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          company: formData.company.trim(),
+          types: selectedLabels,
+          message: formData.message.trim(),
+        }),
+      });
 
-      if (!configuredEmail) {
+      const data = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        error?: string;
+        fields?: Record<string, string>;
+      } | null;
+
+      if (!response.ok || !data?.ok) {
+        const fieldErrors = data?.fields;
+        if (fieldErrors) {
+          setErrors((prev) => ({ ...prev, ...fieldErrors }));
+        }
+
         setSubmitError(
-          "The project enquiry service is not configured yet. Set NEXT_PUBLIC_CONTACT_EMAIL to enable inquiries."
+          data?.error ||
+            "We couldn't send your brief right now. Please try again in a moment."
         );
-        setIsSubmitting(false);
         return;
       }
 
-      // Generate selected types text
-      const selectedLabels = formData.selectedTypes
-        .map((id) => PROJECT_TYPES.find((t) => t.id === id)?.label)
-        .filter(Boolean) as string[];
-
-      const subject = encodeURIComponent(
-        `Project Brief: ${formData.name}${
-          formData.company ? ` (${formData.company})` : ""
-        }`
-      );
-
-      const bodyText = [
-        `PROJECT BRIEF INQUIRY — ARAM ANALYTICS`,
-        `======================================`,
-        ``,
-        `1. CLIENT DETAILS`,
-        `-----------------`,
-        `Full Name:    ${formData.name}`,
-        `Work Email:   ${formData.email}`,
-        `Organization: ${formData.company ? formData.company : "Not specified"}`,
-        ``,
-        `2. PROJECT FOCUS AREAS`,
-        `----------------------`,
-        selectedLabels.length > 0
-          ? selectedLabels.map((lbl) => `• ${lbl}`).join("\n")
-          : "• General Inquiry",
-        ``,
-        `3. PROJECT DESCRIPTION / CHALLENGE`,
-        `----------------------------------`,
-        formData.message,
-        ``,
-        `======================================`,
-        `Submitted via Aram Analytics Project Brief Workspace`,
-      ].join("\n");
-
-      const body = encodeURIComponent(bodyText);
-
-      // Trigger the verified mailto integration
-      window.location.href = `mailto:${configuredEmail}?subject=${subject}&body=${body}`;
-
-      // Confirmed success state
+      // The success screen is only shown once the server confirms delivery.
       setIsSubmitted(true);
     } catch {
       setSubmitError(
-        "There was a problem preparing your brief. Please verify your email client or contact us directly at contact@aramanalytics.com."
+        "We couldn't reach the enquiry service. Please check your connection and try again — your details have been kept."
       );
     } finally {
       setIsSubmitting(false);
